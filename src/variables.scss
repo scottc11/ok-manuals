@@ -1,0 +1,20 @@
+// color palette
+$canary-yellow: #fff100ff;
+$amber-sae-ece: #ff7f11ff;
+$cultured: #f7f7f7ff;
+$onyx: #404040ff;
+$quick-silver: #a5a6a5ff;
+$background-color: $cultured;
+$radiusCircle: 50%;
+
+// global variables
+$mainContainerBoxShadow: inset 0 0 5px $amber-sae-ece;
+$yellowContainerBoxShadow: 0 0 5px $canary-yellow;
+$orangeContainerBoxShadow: 0 0 10px $amber-sae-ece;
+$grayBackgroundShadow: 0 0 10px 1000px rgba(0, 0, 0, 0.7);
+$standardBorderRadius: 1rem;
+$standardBorder: 1px solid black;
+
+$font-roboto-mono: 'Roboto Mono', monospace;
+$font-bungee-shade: 'Bungee Shade', cursive;
+$font-unica-one: 'Unica One', cursive;

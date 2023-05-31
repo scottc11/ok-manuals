@@ -1,0 +1,18 @@
+@import "./variables.scss";
+
+body {
+  background-color: $background-color;
+  margin: 3rem;
+}
+
+.app {
+  font-family: $font-roboto-mono;
+  
+  &__body {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
