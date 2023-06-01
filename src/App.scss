@@ -3,16 +3,65 @@
 body {
   background-color: $background-color;
   margin: 3rem;
+  font-size: 1rem;
+}
+
+div {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+ol, ul {
+  
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-roboto-mono;
+}
+
+p, li {
+  font-family: $font-inconsolata;
+  font-weight: 400;
+  line-height: 1.8rem;
 }
 
 .app {
-  font-family: $font-roboto-mono;
+  font-family: $font-inconsolata;
   
   &__body {
     display: flex;
     flex-direction: column;
     justify-content: left;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+$column-count: 12;
+$column-width: 8.33%; // Default width for each column
+
+.column {
+  padding: 8px;
+}
+
+.col {
+  flex-basis: 100%;
+}
+
+.col-0 {
+  display: hidden;
+}
+
+@for $i from 1 through $column-count {
+  .col-#{$i} {
+    flex-basis: $column-width * $i;
   }
 }
