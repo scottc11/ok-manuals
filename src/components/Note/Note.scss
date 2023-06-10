@@ -1,0 +1,10 @@
+@import "../../variables.scss";
+
+.note {
+    margin: 2rem 0;
+    border: 1px solid grey;
+    border-radius: $corner-radius;
+    padding: 0.2rem 1rem;
+    background-color: $quick-silver;
+    color: white;
+}

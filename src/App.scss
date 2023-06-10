@@ -2,8 +2,10 @@
 
 body {
   background-color: $background-color;
-  margin: 3rem;
+  margin: 3rem auto;
   font-size: 1rem;
+  max-width: 1024px;
+  padding: 2rem;
 }
 
 div {
@@ -12,12 +14,33 @@ div {
   box-sizing: border-box;
 }
 
+svg {
+  vertical-align: middle;
+  height: 100%;
+}
+
 ol, ul {
   
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font-roboto-mono;
+}
+
+h1 {
+  margin: 2rem 0;
+  color: $grey-1;
+}
+
+h2 {
+  margin: 1.7rem 0;
+  color: $grey-1;
+}
+
+h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: $grey-1;
 }
 
 p, li {
@@ -49,7 +72,8 @@ $column-count: 12;
 $column-width: 8.33%; // Default width for each column
 
 .column {
-  padding: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .col {
