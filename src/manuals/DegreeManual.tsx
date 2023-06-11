@@ -10,7 +10,7 @@ import Col from "../components/Col/Col";
 import Grid from "../components/Grid/Grid";
 import Anchor from "../components/Anchor/Anchor";
 import Note from "../components/Note/Note";
-import DegreeLendenItems from './DegreeLegend';
+import { DEGREE_LEGEND } from "./Degree";
 import LegendContainer from "../components/LegendContainer/LegendContainer";
 
 const DegreeManual = () => {
@@ -19,7 +19,7 @@ const DegreeManual = () => {
             <ManualHeader text={'Manual'}/>
             <div>
                 <Image source={degree_img} paddingTop={24} paddingBottom={24} />
-                <LegendContainer items={DegreeLendenItems} />
+                <LegendContainer items={DEGREE_LEGEND} />
             </div>
             <Grid>
                 <Col>

@@ -1,5 +1,5 @@
 
-export type IO = "input" | "output" | "touch" | "button" | "toggle-switch" | "firmware" | "slide-potentiometer";
+export type IO = "input" | "output" | "touch" | "button" | "toggle-switch" | "firmware" | "slide-potentiometer" | "bender";
 
 export type LegendItem = {
     description: string;
@@ -8,5 +8,4 @@ export type LegendItem = {
     label: string;
     voltageRange?: string;
     imageRef?: number;
-    ref?: LegendItem[];
 }
