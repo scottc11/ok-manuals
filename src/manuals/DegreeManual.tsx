@@ -10,6 +10,8 @@ import Col from "../components/Col/Col";
 import Grid from "../components/Grid/Grid";
 import Anchor from "../components/Anchor/Anchor";
 import Note from "../components/Note/Note";
+import DegreeLendenItems from './DegreeLegend';
+import LegendContainer from "../components/LegendContainer/LegendContainer";
 
 const DegreeManual = () => {
     return (
@@ -17,27 +19,7 @@ const DegreeManual = () => {
             <ManualHeader text={'Manual'}/>
             <div>
                 <Image source={degree_img} paddingTop={24} paddingBottom={24} />
-                <ol>
-                    <li><b>1V/O Output (0..+6V)</b> - Volt per octave output for each channel</li>
-                    <li><b>GATE Output (5V)</b> - Each channel outputs a gate signal. How/when that trigger occurs depends on each channels active MODE</li>
-                    <li><b>CV Input (+/-10V)</b> - Quantizing external CV into 1v/o signals :: VCO Frequency detection for auto-calibration</li>
-                    <li><b>Bender Output (+/-8V)</b> - raw CV output of a Bender component</li>
-                    <li><b>Channel Selection</b> - Selects a channel to be altered via the Freeze, Reset, Clear PB, and Clear SEQ pads. You can select multiple channels at once.</li>
-                    <li><b>Channel Selection (ALL)</b> - Holding down this touch pad selects all channels at once</li>
-                    <li><b>FREEZE</b> - While this pad is touched, “freezes” all voltage outputs and sequences in their current state</li>
-                    <li><b>RESET</b> - on touch, resets all 4 channels sequences to step 1</li>
-                    <li><b>STEPS</b> - hold this down to enter the “Sequence Length” UI. More on that later…</li>
-                    <li><b>RECORD</b> - when touched, record arms / disarms all channels. LED ON == armed :: LED OFF == disarmed</li>
-                    <li><b>Scale Selection Toggle Switches</b> - each switch has three positions for adjusting each scale degree</li>
-                    <li><b>Mode Button</b> - toggles between MONOPHONIC MODE and QUANTIZER MODE</li>
-                    <li><b>Slew Control</b> - controls how much slew/portamento/glide is applied to the 1v/o OUTPUT</li>
-                    <li><b>Octave Selection</b> - Each channel outputs 4 octaves of 1v/o. These 4 capacitive touch pads represent which octave is currently being output.</li>
-                    <li><b>Scale Degree Selection</b> - 8 capacitive touch discs per channel control which degree in the scale is either being output (in monophonic mode) or selected for quantization (quantizer mode)</li>
-                    <li><b>CLOCK Input</b> - When using the Sequencer Modes (see below), you can externally clock the module. Each clock signal advances the sequence by 1 Step. There are 96 PPQN per step.</li>
-                    <li><b>CLOCK Output</b> - For each internal clock signal step</li>
-                    <li><b>Global Gate Output</b> - Sums all Gate events into one output</li>
-                    <li><b>Global Bender Output</b> - Sums all Bender events into one output</li>
-                </ol>
+                <LegendContainer items={DegreeLendenItems} />
             </div>
             <Grid>
                 <Col>
