@@ -17,6 +17,13 @@ import { OCTAVE_TOUCH_PAD } from "./Legend/octave-touch-pad";
 import { DEGREE_TOUCH_PAD } from "./Legend/degree-touch-pad";
 import { CLOCK_INPUT } from "./Legend/clock-input";
 import { CLOCK_OUTPUT } from "./Legend/clock-output";
+import { BENDER_RANGE_BTN } from "./Legend/bender-range-btn";
+import { BENDER_MODE_BTN } from "./Legend/bender-mode-btn";
+import { ALT_BTN } from "./Legend/alt-btn";
+import { QUANTIZE_BTN } from "./Legend/quantize-btn";
+import { SEQ_CLEAR_BEND_BTN } from "./Legend/seq-clear-bend-btn";
+import { SEQ_CLEAR_TOUCH_BTN } from "./Legend/seq-clear-touch-btn";
+import { TEMPO_POT } from "./Legend/tempo-pot";
 
 
 export const DEGREE_LEGEND = [
@@ -38,5 +45,12 @@ export const DEGREE_LEGEND = [
     CLOCK_OUTPUT,
     GLOBAL_GATE_OUTPUT,
     GLOBAL_BENDER_OUTPUT,
-    BENDER
+    BENDER,
+    BENDER_RANGE_BTN,
+    BENDER_MODE_BTN,
+    ALT_BTN,
+    QUANTIZE_BTN,
+    SEQ_CLEAR_BEND_BTN,
+    SEQ_CLEAR_TOUCH_BTN,
+    TEMPO_POT,
 ]

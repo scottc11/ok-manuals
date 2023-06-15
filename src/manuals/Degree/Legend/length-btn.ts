@@ -1,5 +1,5 @@
 import { LegendItem } from "../../../types";
-import { ALT_FIRMWARE } from "./alt-firmware";
+import { ALT_FIRMWARE } from "./definitions/alt-firmware";
 
 export const LENGTH_BTN: LegendItem = {
     description: "Adjusts the length of a sequence.",

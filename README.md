@@ -15,3 +15,7 @@ Based on the following guides
 - [FlexBox Guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 - https://reactjs.org/docs/static-type-checking.html#typescript
 - https://webpack.js.org/guides/typescript/
+- https://github.com/openscopeproject/InteractiveHtmlBom
+
+## SVG to React TypeScript Generator
+- https://react-svgr.com/playground/?expandProps=start&exportType=named&namedExport=PanelSVG&typescript=true

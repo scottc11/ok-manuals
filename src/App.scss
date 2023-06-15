@@ -1,5 +1,10 @@
 @import "./variables.scss";
 
+/* enabled svg click event */
+svg {
+  pointer-events: all;
+}
+
 body {
   background-color: $background-color;
   margin: 3rem auto;

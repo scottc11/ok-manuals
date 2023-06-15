@@ -2,23 +2,26 @@ import React from "react";
 import { AiFillClockCircle } from 'react-icons/ai';
 import ManualHeader from "../components/ManualHeader/ManualHeader";
 import Image from '../components/Image/Image';
-import degree_img from '../media/DEGREE.png';
-import degree_switch_legend from '../media/degree-switch-legend.png';
-import monophonic_gif from '../media/monophonic-demo.gif';
-import quantizer_gif from '../media/quantizer-demo.gif';
+import degree_img from '../media/DEGREE/DEGREE.png';
+import degree_svg from '../media/DEGREE/DEGREE.svg';
+import degree_switch_legend from '../media/DEGREE/degree-switch-legend.png';
+import monophonic_gif from '../media/DEGREE/monophonic-demo.gif';
+import quantizer_gif from '../media/DEGREE/quantizer-demo.gif';
 import Col from "../components/Col/Col";
 import Grid from "../components/Grid/Grid";
 import Anchor from "../components/Anchor/Anchor";
 import Note from "../components/Note/Note";
 import { DEGREE_LEGEND } from "./Degree";
 import LegendContainer from "../components/LegendContainer/LegendContainer";
+import PanelSVG from "./Degree/PanelSVG";
 
 const DegreeManual = () => {
     return (
         <div>
             <ManualHeader text={'Manual'}/>
             <div>
-                <Image source={degree_img} paddingTop={24} paddingBottom={24} />
+                {/* <Image source={degree_img} paddingTop={24} paddingBottom={24} /> */}
+                <PanelSVG />
                 <LegendContainer items={DEGREE_LEGEND} />
             </div>
             <Grid>
@@ -34,8 +37,6 @@ const DegreeManual = () => {
                     <ul>
                         <li>8 illuminated capacitive touch pads for scale degree selection</li>
                         <li>4 illuminated capacitive touch pads for octave selection</li>
-                        <li>Tactile Mode button for toggling between MONOPHONIC/QUANTIZER modes</li>
-                        <li>Toggle switch for activating / deactivating the pitch bend</li>
                         <li>Slew control via slide potentiometer</li>
                         <li>1V/O Output</li>
                         <li>+-8V Pitch Bend Output</li>
