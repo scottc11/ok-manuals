@@ -8,18 +8,21 @@ type LegendContainerProps = {
 
 const LegendContainer = ({ items }: LegendContainerProps) => {
     return (
-        <ol className='legend_container'>
-            {items.sort((a, b) => a.imageRef - b.imageRef).map( item => {
-                return (
-                    <li key={item.label} className='legend_container__item'>
-                        <p className='legend_container__item__label'>
-                            <b>{item.label}: </b>
-                            <span className='legend_container__item__description'>{item.description}</span>
-                        </p>
-                    </li>
-                )
-            })}
-        </ol>
+        <div className='legend_container'>
+            <h1>Legend:</h1>
+            <ol>
+                {items.sort((a, b) => a.imageRef - b.imageRef).map(item => {
+                    return (
+                        <li key={item.label} className='legend_container__item'>
+                            <p className='legend_container__item__label'>
+                                <b>{item.label}: </b>
+                                <span className='legend_container__item__description'>{item.description}</span>
+                            </p>
+                        </li>
+                    )
+                })}
+            </ol>
+        </div>
     )
 }
 

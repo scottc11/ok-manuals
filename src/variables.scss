@@ -1,10 +1,28 @@
 // color palette
+$cornflower-blue: #528afeff;
+$lavender-floral: #c578ddff;
+$blue-green: #519abaff;
+$silver: #abacadff;
+$gold-metallic: #cca702ff;
+$emerald: #72c890ff;
+$eerie-black: #181a1fff;
+$raisin-black: #21252bff;
+$gunmetal: #282c34ff;
+$gunmetal-2: #333842ff;
+
 $canary-yellow: #fff100ff;
 $amber-sae-ece: #ff7f11ff;
-$cultured: #f7f7f7ff;
-$onyx: #404040ff;
+$white: #d5d5d5;
+$onyx: #404040;
 $quick-silver: #a5a6a5ff;
-$background-color: $cultured;
+
+$background-color: $raisin-black;
+$note-bg-color: $gunmetal;
+$note-font-color: $silver;
+
+$font-color-body: $white;
+$font-color-heading: $gold-metallic;
+$font-color-asset: $cornflower-blue;
 
 $grey-1: #0B0C10;
 $grey-2: #383838;
@@ -14,14 +32,6 @@ $grey-5: #66FCF1;
 
 
 $corner-radius: 10px;
-
-// global variables
-$mainContainerBoxShadow: inset 0 0 5px $amber-sae-ece;
-$yellowContainerBoxShadow: 0 0 5px $canary-yellow;
-$orangeContainerBoxShadow: 0 0 10px $amber-sae-ece;
-$grayBackgroundShadow: 0 0 10px 1000px rgba(0, 0, 0, 0.7);
-$standardBorderRadius: 1rem;
-$standardBorder: 1px solid black;
 
 $font-roboto-mono: 'Roboto Mono', monospace;
 $font-bungee-shade: 'Bungee Shade', cursive;

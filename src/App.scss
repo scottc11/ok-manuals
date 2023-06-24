@@ -26,28 +26,57 @@ svg {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: $font-roboto-mono;
+  color: $font-color-heading;
 }
 
 h1 {
   margin: 2rem 0;
-  color: $grey-1;
 }
 
 h2 {
   margin: 1.7rem 0;
-  color: $grey-1;
 }
 
 h3 {
   margin-top: 1.5rem;
   margin-bottom: 1rem;
-  color: $grey-1;
 }
 
 p, li {
   font-family: $font-inconsolata;
   font-weight: 400;
+  font-size: 1.2rem;
   line-height: 1.8rem;
+  color: $font-color-body;
+}
+
+.legend-asset {
+  color: $font-color-asset;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.definition {
+  &__label {
+    color: $gold-metallic;
+    // color: $cornflower-blue;
+    // font-weight: bold;
+  }
+}
+
+.accent {
+  &--blue {
+    color: $cornflower-blue;
+  }
+  &--gold {
+    color: $gold-metallic;
+  }
+  &--silver {
+    color: $silver;
+  }
 }
 
 .app {

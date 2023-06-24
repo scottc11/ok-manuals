@@ -24,6 +24,8 @@ import { QUANTIZE_BTN } from "./Legend/quantize-btn";
 import { SEQ_CLEAR_BEND_BTN } from "./Legend/seq-clear-bend-btn";
 import { SEQ_CLEAR_TOUCH_BTN } from "./Legend/seq-clear-touch-btn";
 import { TEMPO_POT } from "./Legend/tempo-pot";
+import { SEQ_DISPLAY } from "./Legend/seq-display";
+import { CLOCK_LED } from "./Legend/clock-led";
 
 
 export const DEGREE_LEGEND = [
@@ -43,6 +45,7 @@ export const DEGREE_LEGEND = [
     DEGREE_TOUCH_PAD,
     CLOCK_INPUT,
     CLOCK_OUTPUT,
+    CLOCK_LED,
     GLOBAL_GATE_OUTPUT,
     GLOBAL_BENDER_OUTPUT,
     BENDER,
@@ -53,4 +56,7 @@ export const DEGREE_LEGEND = [
     SEQ_CLEAR_BEND_BTN,
     SEQ_CLEAR_TOUCH_BTN,
     TEMPO_POT,
+    SEQ_DISPLAY,
 ]
+
+export { VO_OUTPUT, GATE_OUTPUT, CV_INPUT, BENDER_OUTPUT, SELECT_PAD, FREEZE_BTN, RESET_BTN, LENGTH_BTN, RECORD_BTN, BENDER, GLOBAL_GATE_OUTPUT, GLOBAL_BENDER_OUTPUT, DEGREE_SWITCH, CV_MODE_BTN, GLIDE_CONTROL, OCTAVE_TOUCH_PAD, DEGREE_TOUCH_PAD, CLOCK_INPUT, CLOCK_OUTPUT, CLOCK_LED, BENDER_RANGE_BTN, BENDER_MODE_BTN, ALT_BTN, QUANTIZE_BTN, SEQ_CLEAR_BEND_BTN, SEQ_CLEAR_TOUCH_BTN, TEMPO_POT, SEQ_DISPLAY};

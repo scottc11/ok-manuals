@@ -2,8 +2,6 @@ import React from "react";
 import { AiFillClockCircle } from 'react-icons/ai';
 import ManualHeader from "../components/ManualHeader/ManualHeader";
 import Image from '../components/Image/Image';
-import degree_img from '../media/DEGREE/DEGREE.png';
-import degree_svg from '../media/DEGREE/DEGREE.svg';
 import degree_switch_legend from '../media/DEGREE/degree-switch-legend.png';
 import monophonic_gif from '../media/DEGREE/monophonic-demo.gif';
 import quantizer_gif from '../media/DEGREE/quantizer-demo.gif';
@@ -11,19 +9,28 @@ import Col from "../components/Col/Col";
 import Grid from "../components/Grid/Grid";
 import Anchor from "../components/Anchor/Anchor";
 import Note from "../components/Note/Note";
-import { DEGREE_LEGEND } from "./Degree";
+import { ALT_BTN, BENDER, BENDER_RANGE_BTN, CLOCK_INPUT, CLOCK_LED, CV_INPUT, CV_MODE_BTN, DEGREE_LEGEND, DEGREE_TOUCH_PAD, GATE_OUTPUT, GLIDE_CONTROL, OCTAVE_TOUCH_PAD, QUANTIZE_BTN, RECORD_BTN, SELECT_PAD, SEQ_DISPLAY, TEMPO_POT, VO_OUTPUT } from "./Degree";
 import LegendContainer from "../components/LegendContainer/LegendContainer";
 import PanelSVG from "./Degree/PanelSVG";
+import LegendAsset from "../components/LegendAsset/LegendAsset";
+import { ACTIVE_DEGREES, ALT_FIRMWARE, BEND_EVENT, CHANNEL, MONOPHONIC_MODE, QUANTIZER_MODE, QUANTIZE_GRID_UI, SEQUENCER_MODE, TIME_SIGNATURE, TOUCH_EVENT } from "./Degree/Legend/definitions";
+import Definition from "../components/Definition/Definition";
 
 const DegreeManual = () => {
     return (
         <div>
             <ManualHeader text={'Manual'}/>
             <div>
-                {/* <Image source={degree_img} paddingTop={24} paddingBottom={24} /> */}
                 <PanelSVG />
                 <LegendContainer items={DEGREE_LEGEND} />
             </div>
+
+            <Grid>
+                <Col>
+                    <h1>Table of Contents</h1>
+                </Col>
+            </Grid>
+
             <Grid>
                 <Col>
                     <h1>
@@ -31,30 +38,38 @@ const DegreeManual = () => {
                     </h1>
                 </Col>
                 <Col>
-                    <p>DEGREE is a performance oriented VCO controller designed around custom manufactured illuminated capacitive touch pads. The modules main purpose is to control the pitch of 4 independent VCOs by interacting with the touch pads.  Additionally, the module can auto-calibrate your VCOs 1v/o tracking, quantize incoming CV, output gate/triggers, apply analog slew/portamento, and has 4 custom “Bender” components for classic synth pitch bend effects.</p>
-                    <p>The module is internally clocked with a resolution of 96 pulses per quarter note (PPQN), allowing you to record sequences of touch events / pitch bend action and play them back in real-time.</p>
-                    <h3>Each channel consists of the following hardware:</h3>
+                    <p><span className="accent--blue">DEGREE</span> is a performance oriented VCO controller / sequencer designed around custom manufactured illuminated capacitive touch pads. The modules main purpose is to control the pitch of 4 independent VCOs by interacting with the touch pads.  Additionally, the module can auto-calibrate your VCOs 1v/o tracking, quantize incoming CV, output gate/triggers, apply analog slew/portamento, and has 4 custom <Definition item={BENDER} /> components for pitch bend and ratcheting effects.</p>
+                    <p>The module contains 4 identical <Definition item={CHANNEL} plural />, with each channel consisting of the following hardware:</p>
                     <ul>
-                        <li>8 illuminated capacitive touch pads for scale degree selection</li>
-                        <li>4 illuminated capacitive touch pads for octave selection</li>
-                        <li>Slew control via slide potentiometer</li>
-                        <li>1V/O Output</li>
-                        <li>+-8V Pitch Bend Output</li>
-                        <li>Gate/Trigger Output</li>
-                        <li>CV Input jack</li>
-                        <li>Bender component</li>
-                        <li>16 LEDs indicating sequence length and position</li>
+                        <li><Definition item={DEGREE_TOUCH_PAD} plural />: <span className="accent--silver">{DEGREE_TOUCH_PAD.description}</span></li>
+                        <li><Definition item={OCTAVE_TOUCH_PAD} plural />: <span className="accent--silver">{OCTAVE_TOUCH_PAD.description}</span></li>
+                        <li><Definition item={GLIDE_CONTROL} />: <span className="accent--silver">{GLIDE_CONTROL.description}</span></li>
+                        <li><Definition item={VO_OUTPUT} />: <span className="accent--silver">{VO_OUTPUT.description}</span></li>
+                        <li><Definition item={GATE_OUTPUT} />: <span className="accent--silver">{GATE_OUTPUT.description}</span></li>
+                        <li><Definition item={CV_INPUT} />: <span className="accent--silver">{CV_INPUT.description}</span></li>
+                        <li><Definition item={BENDER} />: <span className="accent--silver">{BENDER.description}</span></li>
+                        <li><Definition item={SEQ_DISPLAY} />: <span className="accent--silver">{SEQ_DISPLAY.description}</span></li>
                     </ul>
-                    <p>At any given time each channel operates in one of two modes. <b>MONOPHONIC</b> Mode, and <b>QUANTIZER</b> Mode.</p>
+
+                    <p>The module has a column of 8 3-stage toggle switches for setting the "scale".</p>
+
+                    <p>The module is internally clocked with a resolution of 96 pulses per quarter note (PPQN), allowing you to record sequences of <Definition item={TOUCH_EVENT} plural /> and <Definition item={BEND_EVENT} plural/> and play them back in real-time.</p>
+                    
                 </Col>
             </Grid>
             <Grid>
                 <Col>
-                    <h1>Monophonic Mode</h1>
+                    <h1>Channel Modes</h1>
+                    <p>At any given time each channel operates in one of two modes. <Definition item={MONOPHONIC_MODE} /> or <Definition item={QUANTIZER_MODE} />.</p>
+                    <p>You can toggle between a channels modes by holding your finger on a <Definition item={SELECT_PAD} /> and pressing the <Definition item={CV_MODE_BTN} />.</p>
+                </Col>
+                <Col>
+                    <h3>Monophonic Mode</h3>
                 </Col>
                 <Col size={8}>
-                    <p>This is the most basic of modes. For each channel, only one scale degree can be active at a time.</p>
-                    <p>The only input the module takes is that of your fingers. Touching any of the touch pads pads immediately outputs the respective scale degrees voltage to that channel's 1V/O output.</p>
+                    <p>This is the most basic of modes.</p>
+                    <p>For each channel, only one touch pad will be illuminated at a time.</p>
+                    <p>Touching any of the touch pads pads immediately outputs the respective scale degrees voltage to that channel's <Definition item={VO_OUTPUT}/>.</p>
                     <p>Additionally, when a touch pad is touched the corresponding channels GATE output is set to HIGH (+5V), and on release set back to LOW (0V).</p>
                 </Col>
                 <Col size={4}>
@@ -63,10 +78,11 @@ const DegreeManual = () => {
             </Grid>
             <Grid>
                 <Col>
-                    <h1>Quantizer Mode</h1>
+                    <h3>Quantizer Mode</h3>
                 </Col>
                 <Col size={8}>
-                    <p>In quantizer mode, all 8 degrees become available options which incoming CV signals get latched to. If a degree is illuminated, it means that incoming CV can be latched to it. When a CV voltage latches to a active degree; that degrees LED will dim; the 1V/O output gets updated; and a trigger signal gets triggered.</p>
+                    <p>In quantizer mode, all 8 degrees become available options for incoming CV signals to get latched to. If a touch pad is illuminated, incoming CV can be latched to it.</p>
+                    <p>When a CV voltage latches to an active degree, that touch pad LED will dim; the <Definition item={VO_OUTPUT}/> gets updated; and a trigger signal will appear at the <Definition item={GATE_OUTPUT} />.</p>
                 </Col>
                 <Col size={4}>
                     <Image source={quantizer_gif} />
@@ -78,30 +94,46 @@ const DegreeManual = () => {
                     <h1>Sequencing</h1>
                 </Col>
                 <Col>
-                    <p>Both <b>MONOPHONIC</b> and <b>QUANTIZER</b> modes have the ability to enter a third mode: <b>SEQUENCER mode</b>. When in sequencer mode, the module will record touch and bend events, map them to a 32 step (96 PPQN) grid, and play them back in real-time.</p>
-                    <p>To enable recording, press the RECORD button. The button will illuminate RED to signify recording is now active / enabled.</p>
-                    <p>When RECORD is enabled, all TOUCH and BENDER events will be recorded into the running sequence. Additionally, as the sequence plays back any new events will overdub / overwrite previously existing events (should they overlap).</p>
-                    <p>Press the RECORD button once more to disable RECORD MODE. If any events occurred on any of the channels while RECORD was enabled, then those channels will continue to playback and remain in SEQUENCER mode. If during this process a channel didn’t receive any new events, this channel will be reverted to its previous mode (prior to enabling RECORD).</p>
+                    <p>Both <Definition item={MONOPHONIC_MODE} /> and <Definition item={QUANTIZER_MODE} /> have the ability to enter a third mode: <Definition item={SEQUENCER_MODE} />. When in sequencer mode, the module will record touch and bend events, map them to a 32 step (96 PPQN) grid, and play them back in real-time.</p>
+                    
+                    <p>To enable recording, press the <Definition item={RECORD_BTN}/>. The button will illuminate RED to signify recording is now active / enabled.</p>
+                    
+                    <p>When RECORD is enabled, each channel will constantly listen for new <Definition item={TOUCH_EVENT} plural /> and/or <Definition item={BEND_EVENT} plural /> and add them to the actively running sequence, while simultaneously playing back any pre-existing touch or bend events.</p>
+                    
+                    <p>As a sequence plays back, new events will overdub / overwrite previously existing events (should they overlap).</p>
+                    
+                    <p>To disable sequence recording, press the <Definition item={RECORD_BTN} /> once more. If any <Definition item={TOUCH_EVENT} plural /> or <Definition item={BEND_EVENT} plural /> occurred on any of the channels while RECORD was enabled, then those channels will remain in <Definition item={SEQUENCER_MODE} /> and continue to playback the recorded sequence. If during this process a channel didn’t receive any new events, this channel will be reverted to its previous mode (prior to enabling record).</p>
+
+                    <Note>
+                        <p><Definition item={ALT_FIRMWARE} />: In the alternate firmware, sequence recording works a little differently. </p>
+                        <p>Pressing the <Definition item={RECORD_BTN} /> will "arm" sequence recording (LED will Flash / blink). Recording only gets enabled (or disabled) once beat 1 of the bar rolls over.</p>
+                        <p>Note: Although recording theoretically doesn't begin until beat 1 occurs, there is a short grace period no longer then a 16th note prior to beat 1 which will listen for touch events and include them in the recorded sequence (they get quantized to beat 1 of the bar).</p>
+                    </Note>
                 </Col>
                 <Col>
-                    <h3>Monophonic Sequence Mode</h3>
+                    <h3>Sequencing in {MONOPHONIC_MODE.label}</h3>
                 </Col>
                 <Col>
-                    <p>When a channel is in this mode it will constantly listen for new touch and/or bend events, while simultaneously playing back any pre-existing touch or bend events. To add an event, just touch one of the channels touch pads. On touch, the sequencer sets the GATE OUT HIGH, and on release sets the GATE OUT LOW. If a new event overlaps with any pre-existing events, the new event will take priority and any pre-existing events will be permanently over-written.</p>
+                    <p>To add an event, just touch one of the channels touch pads while record is enabled. On touch, the sequencer sets the GATE OUT HIGH, and on release sets the GATE OUT LOW. If a new event overlaps with any pre-existing events, the new event will take priority and any pre-existing events will be permanently over-written.</p>
+                    
+                    <h4>Sequence override:</h4>
+                    <p>During playback of a sequence, should record be <b>disabled</b>, interacting with the touch pads will <b>override</b> the playback of a sequence.</p>
+                    <p>On touch: stops playback of sequence, sets the <Definition item={GATE_OUTPUT}/> HIGH, and outputs the 1VO value associated with that touch pad.</p>
+                    <p>On release: sets <Definition item={GATE_OUTPUT} /> LOW, and resumes playback of sequence </p>
+                    <Note>
+                        <p>When freezing a sequence, the sequence will continue to progress through its steps in the background. This way, the sequence will "pick up where it left off", so to speak.</p>
+                    </Note>
                 </Col>
 
                 <Col>
-                    <h3>Quantizer Sequence Mode</h3>
+                    <h3>Sequencing in {QUANTIZER_MODE.label}</h3>
                 </Col>
                 <Col>
-                    <p>In this mode - when you touch a degree - it will enable/disable that degree from an ACTIVE DEGREES list, then insert a “snapshot” of this list as a new event in the sequence. As the sequence progresses, it will update the ACTIVE DEGREES list based on each events “snapshot”.</p>
-                </Col>
-
-                <Col>
-                    <h3>Sequence Override</h3>
-                </Col>
-                <Col>
-                    <p>After a sequence has been recorded, and RECORD has been disabled, the sequence will continue to playback. In this state, any new TOUCH or BENDER events will now over-ride the current sequence until you release your finger from the touch pad and/or return the Bender to its original position.</p>
+                    <p>In this mode, a sequence contains a series of <Definition item={ACTIVE_DEGREES} /> <span>"snapshots"</span>.</p>
+                    <p>Touching a pad will either add or remove that degree/octave from an <Definition item={ACTIVE_DEGREES} /> list, then insert a “snapshot” of this list and insert it as a new event in the sequence. As the sequence progresses, it will update the <Definition item={ACTIVE_DEGREES} /> list based on each events “snapshot”.</p>
+                    <Note>
+                        <p><span className="accent--blue">Gesture: </span>If you hold your finger on a channels <Definition item={SELECT_PAD} /> while a sequence is playing back in <Definition item={QUANTIZER_MODE} />, interacting with the touch pads will override the incoming signal at the <Definition item={CV_INPUT} /> and output the 1VO value associated with that touch pad.</p>
+                    </Note>
                 </Col>
 
                 <Col>
@@ -111,19 +143,30 @@ const DegreeManual = () => {
                     <p>The length of a sequence can range from 2 steps to 32 steps. Each LED in the sequence display accounts for 2 steps.</p>
                     <p>To adjust the length (number of steps) of a sequence, press the LENGTH button.  The Sequencer display will illuminate the length of each channel's sequence. You can now use the BENDERs to increase or decrease the length of a sequence (by pushing / pulling the BENDER up or down). Presently, you can only have sequence lengths of even division. (ie. 2 steps, 4, steps, 6 steps, 8 steps, etc.)</p>
                     <p>NOTE: The Sequencer Display uses 16 LEDs to represent the 32 steps of a sequence.</p>
+                    <Note>
+                        <p>
+                            <Definition item={ALT_FIRMWARE} />: The sequence length is measured in bars instead of steps. For example, if the <Definition item={TIME_SIGNATURE} /> is set to <b>4/4</b>, the sequence length would either be 4 steps, 8 steps, 12 steps... with a max of 32 steps.
+                        </p>
+                    </Note>
                 </Col>
                 <Col>
                     <h3>
                         <Anchor text="Quantizing a Recorded Sequence" />
                     </h3>
 
-                    <p>You can quantize a sequences touch events to quarter notes, 8th nots, 16th notes, 32nd notes, and 64th notes.</p>
+                    <p>Using the <Definition item={QUANTIZE_BTN}/>, you can quantize a sequences touch events to a grid of quarter notes, 8th notes, 16th notes, 32nd notes, and 64th notes.</p>
 
-                    <p>You can set a channels quantization amount using the "quantize amount" UI. To enter this UI, hold down the ALT + RANGE button. After performing this gesture, the LEDs of each channels degree touch pads will start flashing at varying rates. The rates each LED is flashing at corresponds to the level of quantization. For example, the bottom most LED will be flashing at the same rate as the CLOCK LED. Selecting this value will set the quantization amount to “quarter notes”.</p>
+                    <p>You can set a channels quantization amount using the <Definition item={QUANTIZE_GRID_UI} /> UI. To enter this UI, hold down the <Definition item={ALT_BTN} /> + <Definition item={BENDER_RANGE_BTN} />.</p>
+                    
+                    <p>After performing this gesture, the LEDs of each channels degree touch pads will start flashing at varying rates. The rates at which each LED is flashing corresponds to the level of quantization.</p>
 
-                    <p>Pressing the Quantize button will iterate through each active sequence of touch events and then quantize those events to whichever</p>
+                    <p>For example, the bottom most LED will be flashing at the same rate as the <Definition item={CLOCK_LED} />. Selecting this value will set the quantization amount to “quarter notes”.</p>
 
-                    <p>If you only want to quantize a particular channel, then hold your finger on that channels “select” pad, and then press the quantize button. This will only quantize that channel.</p>
+                    <p>Once the <Definition item={QUANTIZE_BTN} /> is pressed, the firmware will iterate through each active sequence of touch events (for every channel) and snap those events to whichever <Definition item={QUANTIZE_GRID_UI}/> presently selected.</p>
+
+                    <Note>
+                        <p>If you only want to quantize a particular channel, hold your finger on one of the <Definition item={SELECT_PAD} plural/> before pressing the <Definition item={QUANTIZE_BTN}/>. This will only quantize that channel.</p>
+                    </Note>
                 </Col>
             </Grid>
 
@@ -132,8 +175,11 @@ const DegreeManual = () => {
                     <h1>Clocking <span><AiFillClockCircle /></span></h1>
                 </Col>
                 <Col>
-                    <p>The internal clock ranges from 20 BPM up to 240 BPM.</p>
-                    <p>To use an external clock source for the DEGREE, turn the TEMPO knob all the way to the left. The clock resolution works best when sending the DEGREE 1PPQN (quarter note pulses).</p>
+                    <p>The internal clock ranges from 20 BPM up to 240 BPM, and is set using the <Definition item={TEMPO_POT} />.</p>
+                    <p>If you want to use an external clock source for the DEGREE, plug the external clock signal into the <Definition item={CLOCK_INPUT}/> jack and turn the <Definition item={TEMPO_POT}/> all the way to the left.</p>
+                    <Note>
+                        <p>NOTE: The clock resolution works best when sending the DEGREE 1PPQN (quarter note pulses).</p>
+                    </Note>
                 </Col>                
             </Grid>
 
@@ -169,7 +215,7 @@ const DegreeManual = () => {
                     <p>As mentioned, there is a variety of modes a BENDER can be in at any one time. It can either be in Pitch Bend Mode, Ratchet Mode, Pitch Bend + Ratchet Mode, or simply just “off”.</p>
                     
                     <Note>
-                        <p>NOTE: regardless of which mode a BENDER is in, it will ALWAYS output the raw CV value. You cannot disable this. (and why would you?!)</p>
+                        <p>NOTE: regardless of which mode a <LegendAsset asset={BENDER} /> is in, it will ALWAYS output the raw CV value. You cannot disable this. (and why would you?!)</p>
                     </Note>
                 </Col>
                 
@@ -200,13 +246,13 @@ const DegreeManual = () => {
                         <Anchor text="Pitch Bend + Ratchet Mode" />
                     </h3>
 
-                    <p>In this mode, both the 🔃 and the ⏸ symbols will be illuminated, and thus execute the corresponding modes simultaneously</p>
+                    <p>In this mode, both the 🔃 and the ⏸ symbols will be illuminated, and thus execute the corresponding modes simultaneously.</p>
 
                     <h3>
                         <Anchor text="OFF Mode" />
                     </h3>
 
-                    <p>There is no good name for this mode, but it is still quite useful. In the case when you don’t want the benders effecting the GATE outputs or the 1VO outputs, but still wish to use the raw CV output of the bender for modulating other modules in your system, use this mode.</p>
+                    <p>In the case when you don't want the benders effecting the GATE outputs or the 1VO outputs, but still wish to use the raw CV output of the bender for modulating other modules in your system, use this mode.</p>
                 </Col>
                 
                 
@@ -231,7 +277,7 @@ const DegreeManual = () => {
                     <p>To enter Bender Calibration Mode, hold down ALT and then press BEND MODE. Once calibration has been initialized, the sequencer display will illuminate the top most and bottom most LEDs. When you see this, start push/pulling the benders to their maximum bend ranges (as limited by the panel). When you have done this for all the benders, hold down ALT and then press BEND MODE to exit the calibration process. The new calibration data will now be saved to flash and preserved between power downs.</p>
 
                     <Note>
-                        NOTE: You should only need to do this once, but it would be worth while to re-calibrate your benders whenever you relocate your modular system - as the temperature of the air does effects the sensitivity of the analog sensors attached to the bender components.
+                        <p>NOTE: You should only need to do this once, but it would be worth while to re-calibrate your benders whenever you relocate your modular system - as the temperature of the air does effects the sensitivity of the analog sensors attached to the bender components.</p>
                     </Note>
 
                     <p><b>Bender Replacement:</b> Should any of your Bender components become faulty, please contact me and I will provide a replacement. You only need a screw driver to replace a Bender component yourself.</p>

@@ -1,5 +1,5 @@
 
-export type IO = "input" | "output" | "touch" | "button" | "toggle-switch" | "slide-potentiometer" | "potentiometer" | "bender";
+export type IO = "led" | "input" | "output" | "display" | "touch" | "button" | "toggle-switch" | "slide-potentiometer" | "potentiometer" | "bender";
 
 export type LegendItem = {
     label: string;
@@ -15,5 +15,5 @@ export type LegendItem = {
 
 export type LegendDefinition = {
     label: string;
-    description: string;
+    description?: string;
 }

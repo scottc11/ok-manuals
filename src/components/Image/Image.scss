@@ -1,5 +1,8 @@
+@import "../../variables.scss";
+
 .image {
     display: block;
+    background-color: $gunmetal-2;
     & img {
         width: 100%;
     }
