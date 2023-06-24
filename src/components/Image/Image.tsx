@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import Lightbox from "../Lightbox/Lightbox";
 import './Image.scss';
 
 type ImageProps = {
@@ -10,9 +11,13 @@ type ImageProps = {
 };
 
 const Image = ({ source, width, height, paddingTop, paddingBottom }: ImageProps) => {
+
+    const [lightbox, showLightbox ] = useState(false);
+
     return (
         <div className="image" style={{ height, paddingTop, paddingBottom }}>
-            <img style={{width: width}} src={source} />
+            <img onClick={() => showLightbox(true)} style={{width: width}} src={source} />
+            {lightbox && <Lightbox source={source} onClose={() => showLightbox(false)} />}
         </div>
     )
 }

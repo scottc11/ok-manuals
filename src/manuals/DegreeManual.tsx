@@ -20,6 +20,7 @@ const DegreeManual = () => {
     return (
         <div>
             <ManualHeader text={'Manual'}/>
+
             <div>
                 <PanelSVG />
                 <LegendContainer items={DEGREE_LEGEND} />
