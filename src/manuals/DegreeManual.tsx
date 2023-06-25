@@ -9,7 +9,7 @@ import Col from "../components/Col/Col";
 import Grid from "../components/Grid/Grid";
 import Anchor from "../components/Anchor/Anchor";
 import Note from "../components/Note/Note";
-import { ALT_BTN, BENDER, BENDER_RANGE_BTN, CLOCK_INPUT, CLOCK_LED, CV_INPUT, CV_MODE_BTN, DEGREE_LEGEND, DEGREE_TOUCH_PAD, GATE_OUTPUT, GLIDE_CONTROL, OCTAVE_TOUCH_PAD, QUANTIZE_BTN, RECORD_BTN, SELECT_PAD, SEQ_DISPLAY, TEMPO_POT, VO_OUTPUT } from "./Degree";
+import { ALT_BTN, BENDER, BENDER_RANGE_BTN, CLOCK_INPUT, CLOCK_LED, CV_INPUT, CV_MODE_BTN, DEGREE_LEGEND, DEGREE_SWITCH, DEGREE_TOUCH_PAD, GATE_OUTPUT, GLIDE_CONTROL, OCTAVE_TOUCH_PAD, QUANTIZE_BTN, RECORD_BTN, SELECT_PAD, SEQ_DISPLAY, TEMPO_POT, VO_OUTPUT } from "./Degree";
 import LegendContainer from "../components/LegendContainer/LegendContainer";
 import PanelSVG from "./Degree/PanelSVG";
 import LegendAsset from "../components/LegendAsset/LegendAsset";
@@ -60,32 +60,32 @@ const DegreeManual = () => {
             </Grid>
             <Grid>
                 <Col>
-                    <h1>Channel Modes</h1>
+                    <h1><Anchor text="Channel Modes" /></h1>
                     <p>At any given time each channel operates in one of two modes. <Definition item={MONOPHONIC_MODE} /> or <Definition item={QUANTIZER_MODE} />.</p>
                     <p>You can toggle between a channels modes by holding your finger on a <Definition item={SELECT_PAD} /> and pressing the <Definition item={CV_MODE_BTN} />.</p>
                 </Col>
                 <Col>
-                    <h3>Monophonic Mode</h3>
+                    <h3><Anchor text="Monophonic Mode" /></h3>
                 </Col>
-                <Col size={8}>
+                <Col sm={12} xl={8}>
                     <p>This is the most basic of modes.</p>
                     <p>For each channel, only one touch pad will be illuminated at a time.</p>
                     <p>Touching any of the touch pads pads immediately outputs the respective scale degrees voltage to that channel's <Definition item={VO_OUTPUT}/>.</p>
                     <p>Additionally, when a touch pad is touched the corresponding channels GATE output is set to HIGH (+5V), and on release set back to LOW (0V).</p>
                 </Col>
-                <Col size={4}>
+                <Col sm={12} xl={4}>
                     <Image source={monophonic_gif} />
                 </Col>
             </Grid>
             <Grid>
                 <Col>
-                    <h3>Quantizer Mode</h3>
+                    <h3><Anchor text="Quantizer Mode" /></h3>
                 </Col>
-                <Col size={8}>
+                <Col sm={12} xl={8}>
                     <p>In quantizer mode, all 8 degrees become available options for incoming CV signals to get latched to. If a touch pad is illuminated, incoming CV can be latched to it.</p>
                     <p>When a CV voltage latches to an active degree, that touch pad LED will dim; the <Definition item={VO_OUTPUT}/> gets updated; and a trigger signal will appear at the <Definition item={GATE_OUTPUT} />.</p>
                 </Col>
-                <Col size={4}>
+                <Col sm={12} xl={4}>
                     <Image source={quantizer_gif} />
                 </Col>
             </Grid>
@@ -189,15 +189,26 @@ const DegreeManual = () => {
                     <h1>Scale Selection</h1>
                 </Col>
                 
-                <Col size={8}>
-                    <p>There are 8 3-stage toggle switches which based on their position determines the scale for all 4 channels.</p>
+                <Col sm={12} xl={8}>
+                    <p>There are 8 3-stage toggle switches (<Definition item={DEGREE_SWITCH} />) which based on their position determines the scale for all 4 channels.</p>
                     <p>If you toggle any of these switches, all channels will immediately update and output the newly desired scale degree.</p>
                     <p>They are not recordable, nor modifiable via CV.</p>
+                </Col>
+                <Col sm={12} xl={4}>
+                    <Image source={degree_switch_legend} />
+                </Col>
+
+                <Col>
+                    <h3>Logic and Theory</h3>
+                    <p>Western music consists of 12 notes. If you were to put all 12 notes into a scale, you would get whats called a "chromatic" scale.</p>
+                    <p>The DEGREE does not offer the option of such a scale... But what it does offer is the option to build a scale using 8 of those 12 notes.</p>
+                    <p>In western music, a scale usually consists of a total of 7 notes, but if you were to include the upper octave you would get 8 notes (ex. <b>C</b>, D, E, F, G, A, B, <b>C</b></p>
+
+                    <p>Each <Definition item={DEGREE_SWITCH} /> is seperated by a whole tone</p>
+                    <p>Toggling a <Definition item={DEGREE_SWITCH} /> will effect that switches entire row of <Definition item={DEGREE_TOUCH_PAD} plural />.</p>
+                    <p>If you toggle a <Definition item={DEGREE_SWITCH} /> upwards, the pitch of that entire row will increase by 1 semitone.</p>
                     <p>Each position of a toggle switch represents a single semitone. If you change the position of the switch upwards, all 4 channels horizontally will increase their pitch by one semitone. If you go downwards, then it will decrease their pitch by one semitone.</p>
                     <p>If you have each of the 8 toggle switches set in their middle position, then each degree would be a separated by a “whole-tone” (ie. two semi-tones).</p>
-                </Col>
-                <Col size={4}>
-                    <Image source={degree_switch_legend} />
                 </Col>
             </Grid>
 

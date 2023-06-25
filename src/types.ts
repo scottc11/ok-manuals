@@ -17,3 +17,11 @@ export type LegendDefinition = {
     label: string;
     description?: string;
 }
+
+export enum Breakpoint {
+    XSMALL = 'xs',
+    SMALL = 'sm',
+    MEDIUM = 'md',
+    LARGE = 'lg',
+    XLARGE = 'xl'
+}
