@@ -29,7 +29,7 @@ const Lightbox = ({ source, onClose }: LightboxProps) => {
             <div ref={targetRef} className="lightbox__window">
                 <img src={source} />
                 <div className="lightbox__window__close">
-                    <AiOutlineCloseSquare size={60} onClick={() => onClose()} />
+                    <AiOutlineCloseSquare size={40} onClick={() => onClose()} />
                 </div>
             </div>
         </div>
