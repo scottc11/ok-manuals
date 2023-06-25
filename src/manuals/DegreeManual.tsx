@@ -67,13 +67,13 @@ const DegreeManual = () => {
                 <Col>
                     <h3><Anchor text="Monophonic Mode" /></h3>
                 </Col>
-                <Col sm={12} xl={8}>
+                <Col md={12} xl={8}>
                     <p>This is the most basic of modes.</p>
                     <p>For each channel, only one touch pad will be illuminated at a time.</p>
                     <p>Touching any of the touch pads pads immediately outputs the respective scale degrees voltage to that channel's <Definition item={VO_OUTPUT}/>.</p>
                     <p>Additionally, when a touch pad is touched the corresponding channels GATE output is set to HIGH (+5V), and on release set back to LOW (0V).</p>
                 </Col>
-                <Col sm={12} xl={4}>
+                <Col md={12} xl={4}>
                     <Image source={monophonic_gif} />
                 </Col>
             </Grid>
@@ -81,11 +81,11 @@ const DegreeManual = () => {
                 <Col>
                     <h3><Anchor text="Quantizer Mode" /></h3>
                 </Col>
-                <Col sm={12} xl={8}>
+                <Col md={12} xl={8}>
                     <p>In quantizer mode, all 8 degrees become available options for incoming CV signals to get latched to. If a touch pad is illuminated, incoming CV can be latched to it.</p>
                     <p>When a CV voltage latches to an active degree, that touch pad LED will dim; the <Definition item={VO_OUTPUT}/> gets updated; and a trigger signal will appear at the <Definition item={GATE_OUTPUT} />.</p>
                 </Col>
-                <Col sm={12} xl={4}>
+                <Col md={12} xl={4}>
                     <Image source={quantizer_gif} />
                 </Col>
             </Grid>
@@ -189,12 +189,12 @@ const DegreeManual = () => {
                     <h1>Scale Selection</h1>
                 </Col>
                 
-                <Col sm={12} xl={8}>
+                <Col md={12} xl={8}>
                     <p>There are 8 3-stage toggle switches (<Definition item={DEGREE_SWITCH} />) which based on their position determines the scale for all 4 channels.</p>
                     <p>If you toggle any of these switches, all channels will immediately update and output the newly desired scale degree.</p>
                     <p>They are not recordable, nor modifiable via CV.</p>
                 </Col>
-                <Col sm={12} xl={4}>
+                <Col md={12} xl={4}>
                     <Image source={degree_switch_legend} />
                 </Col>
 
