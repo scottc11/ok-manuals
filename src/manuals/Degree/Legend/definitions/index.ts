@@ -22,6 +22,18 @@ export const SEQUENCER_MODE: LegendDefinition = {
     description: "nope."
 }
 
+export const PITCH_BEND_MODE: LegendDefinition = {
+    label: "Pitch Bend Mode"
+}
+
+export const RATCHET_MODE: LegendDefinition = {
+    label: "Ratchet Mode"
+}
+
+export const BENDER_CALIBRATION_MODE: LegendDefinition = {
+    label: "Bender Calibration Mode"
+}
+
 export const QUANTIZE_GRID_UI: LegendDefinition = {
     label: "Quantization Grid",
     description: "UI for selecting the quantization level for each channel."

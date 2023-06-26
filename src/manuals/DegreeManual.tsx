@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, createContext, useContext } from "react";
 import { AiFillClockCircle } from 'react-icons/ai';
 import ManualHeader from "../components/ManualHeader/ManualHeader";
 import Image from '../components/Image/Image';
@@ -9,14 +9,18 @@ import Col from "../components/Col/Col";
 import Grid from "../components/Grid/Grid";
 import Anchor from "../components/Anchor/Anchor";
 import Note from "../components/Note/Note";
-import { ALT_BTN, BENDER, BENDER_RANGE_BTN, CLOCK_INPUT, CLOCK_LED, CV_INPUT, CV_MODE_BTN, DEGREE_LEGEND, DEGREE_SWITCH, DEGREE_TOUCH_PAD, GATE_OUTPUT, GLIDE_CONTROL, OCTAVE_TOUCH_PAD, QUANTIZE_BTN, RECORD_BTN, SELECT_PAD, SEQ_DISPLAY, TEMPO_POT, VO_OUTPUT } from "./Degree";
+import { ALT_BTN, BENDER, BENDER_MODE_BTN, BENDER_OUTPUT, BENDER_RANGE_BTN, CLOCK_INPUT, CLOCK_LED, CV_INPUT, CV_MODE_BTN, DEGREE_LEGEND, DEGREE_SWITCH, DEGREE_TOUCH_PAD, FREEZE_BTN, GATE_OUTPUT, GLIDE_CONTROL, OCTAVE_TOUCH_PAD, QUANTIZE_BTN, RECORD_BTN, SELECT_PAD, SEQ_DISPLAY, TEMPO_POT, VO_OUTPUT } from "./Degree";
 import LegendContainer from "../components/LegendContainer/LegendContainer";
 import PanelSVG from "./Degree/PanelSVG";
-import LegendAsset from "../components/LegendAsset/LegendAsset";
-import { ACTIVE_DEGREES, ALT_FIRMWARE, BEND_EVENT, CHANNEL, MONOPHONIC_MODE, QUANTIZER_MODE, QUANTIZE_GRID_UI, SEQUENCER_MODE, TIME_SIGNATURE, TOUCH_EVENT } from "./Degree/Legend/definitions";
+import { ACTIVE_DEGREES, ALT_FIRMWARE, BENDER_CALIBRATION_MODE, BEND_EVENT, CHANNEL, MONOPHONIC_MODE, PITCH_BEND_MODE, QUANTIZER_MODE, QUANTIZE_GRID_UI, RATCHET_MODE, SEQUENCER_MODE, TIME_SIGNATURE, TOUCH_EVENT } from "./Degree/Legend/definitions";
 import Definition from "../components/Definition/Definition";
+import Link from "../components/Link/Link";
+import Section from "../components/Section/Section";
+import ContentsContextProvider, { ContentsContext } from "../context";
 
 const DegreeManual = () => {
+    const { contents, updateContents } = useContext(ContentsContext);
+
     return (
         <div>
             <ManualHeader text={'Manual'}/>
@@ -26,16 +30,24 @@ const DegreeManual = () => {
                 <LegendContainer items={DEGREE_LEGEND} />
             </div>
 
-            <Grid>
-                <Col>
-                    <h1>Table of Contents</h1>
-                </Col>
-            </Grid>
+            <Section collapsable heading="Table of Contents">
+                <Grid>
+                    <Col>
+                        {contents.map((anchor) => {
+                            return (
+                                <div key={anchor.id}>
+                                    <Link href={`#${anchor.id}`}>{anchor.label}</Link>
+                                </div>
+                            )
+                        })}
+                    </Col>
+                </Grid>
+            </Section>
 
             <Grid>
                 <Col>
                     <h1>
-                        <Anchor text="Introduction" />
+                        <Anchor key={1} text="Introduction" />
                     </h1>
                 </Col>
                 <Col>
@@ -189,26 +201,55 @@ const DegreeManual = () => {
                     <h1>Scale Selection</h1>
                 </Col>
                 
-                <Col md={12} xl={8}>
-                    <p>There are 8 3-stage toggle switches (<Definition item={DEGREE_SWITCH} />) which based on their position determines the scale for all 4 channels.</p>
+                <Col>
+                    <p>There are 8 3-stage toggle switches (<Definition item={DEGREE_SWITCH} />) which, based on their position, determine the musical scale for all 4 channels.</p>
                     <p>If you toggle any of these switches, all channels will immediately update and output the newly desired scale degree.</p>
                     <p>They are not recordable, nor modifiable via CV.</p>
-                </Col>
-                <Col md={12} xl={4}>
-                    <Image source={degree_switch_legend} />
                 </Col>
 
                 <Col>
                     <h3>Logic and Theory</h3>
-                    <p>Western music consists of 12 notes. If you were to put all 12 notes into a scale, you would get whats called a "chromatic" scale.</p>
-                    <p>The DEGREE does not offer the option of such a scale... But what it does offer is the option to build a scale using 8 of those 12 notes.</p>
-                    <p>In western music, a scale usually consists of a total of 7 notes, but if you were to include the upper octave you would get 8 notes (ex. <b>C</b>, D, E, F, G, A, B, <b>C</b></p>
+                    <p>The DEGREE is very muched centered around the <Link href="https://en.wikipedia.org/wiki/Chromatic_scale" external>12 notes of western music</Link>.</p>
+                    <p>In western music, a scale usually consists of a total of 7 notes, but if you were to include the upper octave you would get 8 notes (ex. <b>C</b>, D, E, F, G, A, B, <b>C</b>).</p>
+                    <p>The DEGREE offers the option to build such a scale using the 8 <Definition item={DEGREE_SWITCH} plural e />.</p>
+                </Col>
 
-                    <p>Each <Definition item={DEGREE_SWITCH} /> is seperated by a whole tone</p>
-                    <p>Toggling a <Definition item={DEGREE_SWITCH} /> will effect that switches entire row of <Definition item={DEGREE_TOUCH_PAD} plural />.</p>
-                    <p>If you toggle a <Definition item={DEGREE_SWITCH} /> upwards, the pitch of that entire row will increase by 1 semitone.</p>
+                <Col md={12} xl={8}>
+                    <h3>Building a scale</h3>
+                    <p>If you want to start from a clean slate when building a <Link href="https://en.wikipedia.org/wiki/Scale_(music)" external>scale</Link>, switch all the <Definition item={DEGREE_SWITCH} plural e /> to their middle position.</p>
+                    <p>When all 8 switches are in their middle position, they are each seperated by a whole tone (two semi-tones). In this state, you get what is called a <Link href="https://en.wikipedia.org/wiki/Whole-tone_scale" external>"whole tone scale"</Link>.</p>
                     <p>Each position of a toggle switch represents a single semitone. If you change the position of the switch upwards, all 4 channels horizontally will increase their pitch by one semitone. If you go downwards, then it will decrease their pitch by one semitone.</p>
-                    <p>If you have each of the 8 toggle switches set in their middle position, then each degree would be a separated by a “whole-tone” (ie. two semi-tones).</p>
+                </Col>
+                <Col md={12} xl={4}>
+                    <Image source={degree_switch_legend} />
+                </Col>
+                <Col>
+                    <p>If musical theory isn't your thing and you just want to set-and-forget the configuration of these switches, use the following switch configurations for reference:</p>
+                    <h4>Minor Scale:</h4>
+                    <ul>
+                        <li>Switch 8 :: UP or MIDDLE :: (either a Major 2nd or a minor 3rd)</li>
+                        <li>Switch 7 :: MIDDLE :: (Tonic octave)</li>
+                        <li>Switch 6 :: MIDDLE :: (minor 7)</li>
+                        <li>Switch 5 :: DOWN :: (perfect 5th)</li>
+                        <li>Switch 4 :: DOWN :: (perfect 4th)</li>
+                        <li>Switch 3 :: DOWN :: (Minor 3rd)</li>
+                        <li>Switch 2 :: MIDDLE :: (Major 2nd)</li>
+                        <li>Switch 1 :: MIDDLE :: (Tonic)</li>
+                    </ul>
+                    <h4>Major Scale:</h4>
+                    <ul>
+                        <li>Switch 8 :: MIDDLE :: (major 2nd)</li>
+                        <li>Switch 7 :: DOWN or MIDDLE :: (major 7th or Tonic octave)</li>
+                        <li>Switch 6 :: DOWN :: (major 6th)</li>
+                        <li>Switch 5 :: DOWN :: (perfect 5th)</li>
+                        <li>Switch 4 :: DOWN :: (perfect 4th)</li>
+                        <li>Switch 3 :: MIDDLE :: (Minor 3rd)</li>
+                        <li>Switch 2 :: MIDDLE :: (Major 2nd)</li>
+                        <li>Switch 1 :: MIDDLE :: (Tonic)</li>
+                    </ul>
+                    <Note>
+                        <p><span className="accent--blue">NOTE:</span> In most cases you will usually end up with only 6 of the 7 notes in a scale. This is by design. Learn to flick these switches during your permformance to reach certain notes of a scale. In more advanced cases, they can be used to create <Link href="https://en.wikipedia.org/wiki/Modulation_(music)" external>key changes</Link> during a performance.</p>
+                    </Note>
                 </Col>
             </Grid>
 
@@ -218,16 +259,14 @@ const DegreeManual = () => {
                 </Col>
                 
                 <Col>
-                    <p>
-                        Each of the four channels hosts a dedicated bender module which acts as a conduit between your finger and your modular system. 
-                        It can be used in a variety of ways to modify the various outputs of the DEGREE, 
-                        as well as provide a modulation source for other modules via its dedicated +-8V CV output.
-                    </p>
+                    <p>Each of the four channels hosts a dedicated <Definition item={BENDER}/> component to act as a conduit between your finger and your modular system.</p>
+
+                    <p>It can be used in a variety of ways to modify the various outputs of the DEGREE, as well as provide a modulation source for other modules via its dedicated <Definition item={BENDER_OUTPUT} /> (+-8V).</p>
                     
-                    <p>As mentioned, there is a variety of modes a BENDER can be in at any one time. It can either be in Pitch Bend Mode, Ratchet Mode, Pitch Bend + Ratchet Mode, or simply just “off”.</p>
+                    <p>As mentioned, there is a variety of modes a <Definition item={BENDER} /> can be in at any one time. It can either be in <Definition item={PITCH_BEND_MODE} />, <Definition item={RATCHET_MODE} />, <Definition item={PITCH_BEND_MODE} /> + <Definition item={PITCH_BEND_MODE} />, or simply just “off”.</p>
                     
                     <Note>
-                        <p>NOTE: regardless of which mode a <LegendAsset asset={BENDER} /> is in, it will ALWAYS output the raw CV value. You cannot disable this. (and why would you?!)</p>
+                        <p>NOTE: regardless of which mode a <Definition item={BENDER} /> is in, it will ALWAYS output the raw CV value. You cannot disable this. (and why would you?!)</p>
                     </Note>
                 </Col>
                 
@@ -240,19 +279,19 @@ const DegreeManual = () => {
                         <Anchor text="Pitch Bend Mode" />
                     </h3>
                     
-                    <p>When the 🔃 symbol is illuminated, the BENDER is in “Pitch Bend” mode. In this mode, the BENDER will apply a pitch bend effect to the 1V/O output of that channel.</p>
+                    <p>When the 🔃 symbol is illuminated, the <Definition item={BENDER} /> is in “Pitch Bend” mode. In this mode, the <Definition item={BENDER} /> will apply a pitch bend effect to the <Definition item={VO_OUTPUT} /> of that channel.</p>
 
-                    <p>Pitch Bend Range: When holding down the BEND RANGE button, you can set the range in which the BENDER effects the Volt Per Octave output (in semi-tones). There are 8 possible semi-tone ranges: 1, 2, 3, 4, 5, 7, 10, and 12 semi-tones.</p>
+                    <p>Pitch Bend Range: When holding down the <Definition item={BENDER_RANGE_BTN} />, you can set the range in which the <Definition item={BENDER} /> effects the <Definition item={VO_OUTPUT} /> (in semi-tones). There are 8 possible semi-tone ranges: 1, 2, 3, 4, 5, 7, 10, and 12 semi-tones.</p>
 
                     <h3>
                         <Anchor text="Ratchet Mode" />
                     </h3>
                     
-                    <p>When the ⏸ symbol is illuminated, the bender is in “Ratchet” mode, and will directly effect the GATE output of the corresponding channel.</p>
+                    <p>When the ⏸ symbol is illuminated, the <Definition item={BENDER} /> is in “Ratchet” mode, and will directly effect the <Definition item={GATE_OUTPUT} /> of the corresponding channel.</p>
 
-                    <p>When pushing the BENDER “upwards” (ie. towards the top of the module), then the GATE output will begin creating trigger events at an increasing rate (quarter notes ^ 8th notes ^^ 16th notes ^^^ 32nd notes)</p>
+                    <p>When pressing the <Definition item={BENDER} /> “upwards” (ie. towards the top of the module), then the <Definition item={GATE_OUTPUT} /> will begin creating trigger events at an increasing rate (quarter notes ^ 8th notes ^^ 16th notes ^^^ 32nd notes), etc.</p>
 
-                    <p>When pushing the BENDER “downwards” (ie. towards the bottom of the module), then the GATE output will create trigger events that are triplets.</p>
+                    <p>When pulling the <Definition item={BENDER} /> “downwards” (ie. towards the bottom of the module), then the <Definition item={GATE_OUTPUT} /> will create trigger events that are triplets (at an increasing rate).</p>
 
                     <h3>
                         <Anchor text="Pitch Bend + Ratchet Mode" />
@@ -264,7 +303,7 @@ const DegreeManual = () => {
                         <Anchor text="OFF Mode" />
                     </h3>
 
-                    <p>In the case when you don't want the benders effecting the GATE outputs or the 1VO outputs, but still wish to use the raw CV output of the bender for modulating other modules in your system, use this mode.</p>
+                    <p>In the case when you don't want the benders effecting the <Definition item={GATE_OUTPUT} /> or the <Definition item={VO_OUTPUT} />, but still wish to use the raw <Definition item={BENDER_OUTPUT} /> of for modulating other modules in your system, use this mode.</p>
                 </Col>
                 
                 
@@ -273,7 +312,7 @@ const DegreeManual = () => {
                         <Anchor text="Bender Sequencing" />
                     </h2>
                     <p>
-                        To record the movements of the BENDERs into a channels sequence, enable RECORD and start bending. 
+                        To record the movements of the <Definition item={BENDER} plural /> into a channels sequence, enable RECORD and start bending. 
                         The sequencer will record the raw CV values of the bender into the sequence, giving you the option 
                         to apply Pitch Bend or Ratchet effects after the fact, should you wish too.
                     </p>
@@ -284,15 +323,15 @@ const DegreeManual = () => {
                         <Anchor text="Bender Calibration" />
                     </h2>
                     
-                    <p>The Bender components are very sensitive analog components. Each Bender component in your DEGREE is unique, and react differently from one another. Because of this, they must be calibrated by the on-board microcontroller to obtain the most stable and consistent operation.</p>
+                    <p>The <Definition item={BENDER} /> components are very sensitive analog components. Each Bender component in your DEGREE is unique, and will react differently from its neighbor. Because of this, they must be calibrated by the on-board microcontroller to obtain the most stable and consistent operation.</p>
 
-                    <p>To enter Bender Calibration Mode, hold down ALT and then press BEND MODE. Once calibration has been initialized, the sequencer display will illuminate the top most and bottom most LEDs. When you see this, start push/pulling the benders to their maximum bend ranges (as limited by the panel). When you have done this for all the benders, hold down ALT and then press BEND MODE to exit the calibration process. The new calibration data will now be saved to flash and preserved between power downs.</p>
+                    <p>To enter <Definition item={BENDER_CALIBRATION_MODE} />, hold down <Definition item={ALT_BTN} /> and then press the <Definition item={BENDER_MODE_BTN} />. Once calibration has been initialized, the sequencer display will illuminate the top most and bottom most LEDs. When you see this, start push/pulling the <Definition item={BENDER} plural /> to their maximum bend ranges (as limited by the panel). When you have done this for all the benders, hold down <Definition item={ALT_BTN} /> and then press the <Definition item={BENDER_MODE_BTN} /> to exit the calibration process. The new calibration data will now be saved in the flash memory of the device and preserved between power cylces.</p>
 
                     <Note>
                         <p>NOTE: You should only need to do this once, but it would be worth while to re-calibrate your benders whenever you relocate your modular system - as the temperature of the air does effects the sensitivity of the analog sensors attached to the bender components.</p>
                     </Note>
 
-                    <p><b>Bender Replacement:</b> Should any of your Bender components become faulty, please contact me and I will provide a replacement. You only need a screw driver to replace a Bender component yourself.</p>
+                    <p><b>Bender Replacement:</b> Should any of your Bender components become faulty, please contact me and I will provide a replacement. You only need a screw driver to replace a Bender component yourself 🙂.</p>
                 </Col>
                 
                 <Col>
@@ -305,18 +344,20 @@ const DegreeManual = () => {
                     <ul>
                         <li>1 V/O calibration data</li>
                         <li>Bender calibration data</li>
-                        <li>Quantize amount</li>
-                        <li>Default Bender mode</li>
+                        <li>Channel mode</li>
+                        <li>Bender mode</li>
                         <li>Pitch Bend range</li>
+                        <li>quantize grid</li>
+                        <li>The recorded sequence (should one exist)</li>
                     </ul>
 
                     <p>If you ever want to save or reset the current configuration of the module, use the following gestures 👇.</p>
 
                     <h3>Config. Reset</h3>                    
-                    <p>Holding ALT + the FREEZE button with reset any/all of the the saved configuration data on the module. This includes the 1v/o calibration, the bender calibration, and the various channel settings to their default values.</p>
+                    <p>Holding <Definition item={ALT_BTN} /> + the <Definition item={FREEZE_BTN} /> with reset any/all of the the saved configuration data on the module. This includes the 1v/o calibration, the bender calibration, and the various channel settings to their default values.</p>
 
                     <h3>Config. Save</h3>
-                    <p>Holding ALT + the REC button will save the current settings of each channel so you don't need to reconfigure things after a power cycle. This includes what the default bender mode will be on startup, the quantize amount, the Pitch Bend range</p>
+                    <p>Holding <Definition item={ALT_BTN} /> + the <Definition item={RECORD_BTN} /> will save the current settings of each channel so you don't need to reconfigure things after a power cycle.</p>
                 </Col>
             </Grid>
         </div>

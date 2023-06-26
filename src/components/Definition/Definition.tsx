@@ -5,11 +5,15 @@ type DefinitionProps = {
     item: LegendDefinition | LegendItem;
     plural?: boolean;
     owner?: boolean;
+    e?: boolean; 
 }
 
-const Definition = ({ item, plural, owner }: DefinitionProps) => {
+const Definition = ({ item, plural, owner, e }: DefinitionProps) => {
     return (
-        <span className="definition__label">{item.label}{plural ? owner ? `'s` : `s` : null}</span>
+        <span className="definition__label">
+            {item.label}
+            {plural ? owner ? `'s` : e ? `es` : `s` : null}
+        </span>
     )
 }
 
