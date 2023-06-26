@@ -10,7 +10,6 @@ const LegendContainer = ({ items }: LegendContainerProps) => {
     return (
         <div className='legend_container'>
             <h1>Legend:</h1>
-            <p>todo: you gotta alternate the bg color of each item to make it more legible</p>
             <ol>
                 {items.sort((a, b) => a.imageRef - b.imageRef).map(item => {
                     return (
