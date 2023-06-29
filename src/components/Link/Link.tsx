@@ -8,9 +8,21 @@ type LinkProps = {
     children?: React.ReactNode;
 }
 
-const Link = ({text, href, external, children}: LinkProps) => {
+const Link = ({text, href, external, anchor, children}: LinkProps) => {
+
+    const handleScrollTo = (e: React.MouseEvent) => {
+        if (anchor) {
+            const id = href.split("#")[1];
+            e.preventDefault();
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({behavior: 'smooth', block: 'start'});
+            }
+        }
+    }
+
     return (
-        <a href={href} target={external ? '_blank' : '_self'}>
+        <a href={href} onClick={handleScrollTo} target={external ? '_blank' : '_self'}>
             {text && text}
             {children && children}
         </a>

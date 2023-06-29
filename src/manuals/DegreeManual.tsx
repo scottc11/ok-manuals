@@ -16,33 +16,21 @@ import { ACTIVE_DEGREES, ALT_FIRMWARE, BENDER_CALIBRATION_MODE, BEND_EVENT, CHAN
 import Definition from "../components/Definition/Definition";
 import Link from "../components/Link/Link";
 import Section from "../components/Section/Section";
-import ContentsContextProvider, { ContentsContext } from "../context";
+import { ContentsContext } from "../context";
+import TableOfContents from "../components/TableOfContents/TableOfContents";
 
 const DegreeManual = () => {
     const { contents, updateContents } = useContext(ContentsContext);
 
     return (
         <div>
-            <ManualHeader text={'Manual'}/>
+            <ManualHeader text={'DEGREE Manual'}/>
 
-            <div>
-                <PanelSVG />
-                <LegendContainer items={DEGREE_LEGEND} />
-            </div>
+            <PanelSVG />
+            
+            <TableOfContents />
 
-            <Section collapsable heading="Table of Contents">
-                <Grid>
-                    <Col>
-                        {contents.map((anchor) => {
-                            return (
-                                <div key={anchor.id}>
-                                    <Link href={`#${anchor.id}`}>{anchor.label}</Link>
-                                </div>
-                            )
-                        })}
-                    </Col>
-                </Grid>
-            </Section>
+            <LegendContainer items={DEGREE_LEGEND} />
 
             <Grid>
                 <Col>
