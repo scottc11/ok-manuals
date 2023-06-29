@@ -10,7 +10,6 @@ body {
   margin: 3rem auto;
   font-size: 1rem;
   max-width: 1024px;
-  padding: 2rem;
 }
 
 div {
@@ -30,7 +29,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  margin: 2rem 0;
+  margin: 1.8rem 0;
 }
 
 h2 {
@@ -80,6 +79,9 @@ a {
   }
   &--silver {
     color: $silver;
+  }
+  &--white {
+    color: $white;
   }
 }
 

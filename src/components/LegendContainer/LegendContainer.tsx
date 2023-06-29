@@ -1,5 +1,6 @@
 import React from 'react';
 import { LegendItem } from '../../types';
+import Anchor from '../Anchor/Anchor';
 import './LegendContainer.scss';
 
 type LegendContainerProps = {
@@ -9,19 +10,22 @@ type LegendContainerProps = {
 const LegendContainer = ({ items }: LegendContainerProps) => {
     return (
         <div className='legend_container'>
-            <h1>Legend:</h1>
-            <ol>
+            <h1><Anchor text='Legend' /></h1>
+            <div>
                 {items.sort((a, b) => a.imageRef - b.imageRef).map(item => {
                     return (
-                        <li key={item.label} className='legend_container__item'>
-                            <div className='legend_container__item__label'>
-                                <b>{item.label}: </b>
-                                <span className='legend_container__item__description'>{item.description}</span>
+                        <div key={item.label} className='legend_container__item'>
+                            <div className='legend_container__item__number'>
+                                <span>{item.imageRef}. </span>
                             </div>
-                        </li>
+                            <div className='legend_container__item__label'>
+                                <b className='accent--gold'>{item.label}: </b>
+                                <span className='legend_container__item__description accent--white'>{item.description}</span>
+                            </div>
+                        </div>
                     )
                 })}
-            </ol>
+            </div>
         </div>
     )
 }
