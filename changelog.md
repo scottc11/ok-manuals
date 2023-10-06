@@ -13,7 +13,7 @@ bug fixes:
 Features / Enhancements:
     - Sequencing octave touch pads (mono + qunatizer mode)
     - Saving sequences between power cycles
-    - Holding a channel select pad in qunatizer mode will let you override the incoming CV when touching the touch pads
+    - Holding a channel select pad in quantizer mode will let you override the incoming CV when touching the touch pads
 
 
 ALT Firmware:
@@ -26,5 +26,3 @@ ALT Firmware:
     - This means each sequence will either be 1 bar long, 2 bars long, 3 bars long, etc.
     - Reset will reset all sequences to beat 1, as well as the current bar to beat 1
     - Progress of a channels sequence is now displayed like a clock face (much like ableton does it with their clip looping)
-    
-
