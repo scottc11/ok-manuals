@@ -2,12 +2,19 @@
 
 .header {
   display: flex;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding-bottom: 36px;
 
-  & img {
-    width: 25%;
+  &__logo {
+    text-align: center;
+    & img {
+      width: 25%;
+    }
+  }
+
+  &__nav {
     
   }
 }

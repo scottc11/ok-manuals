@@ -6,7 +6,7 @@ type ManualHeaderProps = {
 
 const ManualHeader = ({ text }: ManualHeaderProps) => {
     return (
-        <h1>
+        <h1 style={{textAlign: 'center'}}>
             {text}
         </h1>
     )

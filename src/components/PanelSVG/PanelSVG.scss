@@ -1,0 +1,10 @@
+@import "../../variables.scss";
+
+
+.panel-svg {
+    text-align: center;
+    & svg {
+        width: 75%;
+        height: 100%;
+    }
+}

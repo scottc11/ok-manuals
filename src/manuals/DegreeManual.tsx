@@ -11,19 +11,17 @@ import Anchor from "../components/Anchor/Anchor";
 import Note from "../components/Note/Note";
 import { ALT_BTN, BENDER, BENDER_MODE_BTN, BENDER_OUTPUT, BENDER_RANGE_BTN, CLOCK_INPUT, CLOCK_LED, CV_INPUT, CV_MODE_BTN, DEGREE_LEGEND, DEGREE_SWITCH, DEGREE_TOUCH_PAD, FREEZE_BTN, GATE_OUTPUT, GLIDE_CONTROL, OCTAVE_TOUCH_PAD, QUANTIZE_BTN, RECORD_BTN, SELECT_PAD, SEQ_DISPLAY, TEMPO_POT, VO_OUTPUT } from "./Degree";
 import LegendContainer from "../components/LegendContainer/LegendContainer";
-import PanelSVG from "./Degree/PanelSVG";
+import PanelSVG from "../components/PanelSVG/PanelSVG";
 import { ACTIVE_DEGREES, ALT_FIRMWARE, BENDER_CALIBRATION_MODE, BEND_EVENT, CHANNEL, MONOPHONIC_MODE, PITCH_BEND_MODE, QUANTIZER_MODE, QUANTIZE_GRID_UI, RATCHET_MODE, SEQUENCER_MODE, TIME_SIGNATURE, TOUCH_EVENT } from "./Degree/Legend/definitions";
 import Definition from "../components/Definition/Definition";
 import Link from "../components/Link/Link";
 import Section from "../components/Section/Section";
-import { ContentsContext } from "../context";
+import ContentsContextProvider from "../context";
 import TableOfContents from "../components/TableOfContents/TableOfContents";
 
 const DegreeManual = () => {
-    const { contents, updateContents } = useContext(ContentsContext);
-
     return (
-        <div>
+        <ContentsContextProvider>
             <ManualHeader text={'DEGREE Manual'}/>
 
             <PanelSVG />
@@ -348,7 +346,7 @@ const DegreeManual = () => {
                     <p>Holding <Definition item={ALT_BTN} /> + the <Definition item={RECORD_BTN} /> will save the current settings of each channel so you don't need to reconfigure things after a power cycle.</p>
                 </Col>
             </Grid>
-        </div>
+        </ContentsContextProvider>
     )
 }
 
