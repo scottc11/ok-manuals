@@ -1,15 +1,12 @@
 @import "./variables.scss";
 
+body {
+  margin: 0;
+}
+
 /* enabled svg click event */
 svg {
   pointer-events: all;
-}
-
-body {
-  background-color: $background-color;
-  margin: 3rem auto;
-  font-size: 1rem;
-  max-width: 1200px;
 }
 
 div {
@@ -87,13 +84,31 @@ a {
 
 .app {
   font-family: $font-inconsolata;
-  
+  background-color: $background-color;
+  // background: rgb(37, 65, 54);
+  // background: linear-gradient(45deg, rgba(37, 65, 54, 1) 37%, rgba(27, 26, 26, 1) 100%);  
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
   &__body {
     display: flex;
     flex-direction: column;
     justify-content: left;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    min-height: 100vh;
+    margin: auto 3rem;
+    max-width: 1200px;
+  }
+
+  &__footer {
+    margin-top: 2rem;
+    text-align: center;
+    min-height: 20vh;
+    width: 100vw;
+    color: $silver;
+    background-color: $gunmetal;
   }
 }
 
