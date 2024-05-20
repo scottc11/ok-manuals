@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from "react";
 import { ContentsContext } from "../../context";
-import Col from "../Col/Col";
+import Col from "../Grid/Col";
 import Grid from "../Grid/Grid";
 import Link from "../Link/Link";
 import Section from "../Section/Section";

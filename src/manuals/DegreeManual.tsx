@@ -5,7 +5,7 @@ import Image from '../components/Image/Image';
 import degree_switch_legend from '../media/DEGREE/degree-switch-legend.png';
 import monophonic_gif from '../media/DEGREE/monophonic-demo.gif';
 import quantizer_gif from '../media/DEGREE/quantizer-demo.gif';
-import Col from "../components/Col/Col";
+import Col from "../components/Grid/Col";
 import Grid from "../components/Grid/Grid";
 import Anchor from "../components/Anchor/Anchor";
 import Note from "../components/Note/Note";

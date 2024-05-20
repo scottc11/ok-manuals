@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "../../../components/Grid/Grid";
-import Col from "../../../components/Col/Col";
+import Col from "../../../components/Grid/Col";
 
 const SuperSeqDetail = () => {
     return (

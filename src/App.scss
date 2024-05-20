@@ -111,32 +111,3 @@ a {
     background-color: $gunmetal;
   }
 }
-
-
-.grid {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-$column-count: 12;
-$column-width: 8.33%; // Default width for each column
-
-.column {
-  padding-left: 8px;
-  padding-right: 8px;
-}
-
-.col {
-  flex-basis: 100%;
-}
-
-.col-0 {
-  display: hidden;
-}
-
-@for $i from 1 through $column-count {
-  .col-#{$i} {
-    flex-basis: $column-width * $i;
-  }
-}
