@@ -1,30 +1,33 @@
 import React from "react";
 import "./Header.scss";
 import logo from "../../media/OK200.png";
-import { Link } from "react-router-dom";
-import { Row, Col } from "../Grid";
+import { Link, NavLink } from "react-router-dom";
 
 const Header: React.FC = () => {
+
+  const highlight = (isActive: boolean) => isActive ? "text-orange underline" : "text-slate/70 hover:text-orange";
+
   return (
-    <Row classNames="header">
-      <Col sm={12} md={3} lg={3}>
-        <div className="header__logo">
-          <Link to="/">
-            <img src={logo} alt="ok200-logo" />
-          </Link>
+    <div className="border-b border-b-slate/20">
+      <div className="container py-8">
+        <div className="flex flex-row justify-items-center gap-4">
+          <div>
+            <Link to="/">
+              <img className="max-h-24" src={logo} alt="ok200-logo" />
+            </Link>
+          </div>
+          <div className="grow flex flex-row justify-start place-items-center gap-4">
+            <NavLink to="/" exact className={(isActive) => highlight(isActive)}> Home </NavLink>
+            <NavLink to="/modules" className={(isActive) => highlight(isActive)}>Modules</NavLink>
+            <NavLink to="/manuals" className={(isActive) => highlight(isActive)}>Manuals</NavLink>
+            <NavLink to="/firmware-updater" className={(isActive) => highlight(isActive)}>Firmware Updater</NavLink>
+            <NavLink to="/blog" className={(isActive) => highlight(isActive)}>Blog</NavLink>
+            <NavLink to="/about" className={(isActive) => highlight(isActive)}>About</NavLink>
+            <NavLink to="/LFO" className={(isActive) => highlight(isActive)}>LFO</NavLink>
+          </div>
         </div>
-      </Col>
-      <Col md={3} lg={3}>
-        <div>
-          OK200 Electronic Instruments
-        </div>
-      </Col>
-      <Col md={6} lg={6}>
-        <div className="header__nav">
-          <Link to="/degree">Degree</Link>
-        </div>
-      </Col>
-    </Row>
+      </div>
+    </div>
   );
 };
 

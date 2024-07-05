@@ -1,54 +1,5 @@
 @import "./variables.scss";
 
-body {
-  margin: 0;
-}
-
-/* enabled svg click event */
-svg {
-  pointer-events: all;
-}
-
-div {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-svg {
-  vertical-align: middle;
-  height: 100%;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: $font-bungee;
-  color: $font-color-heading;
-}
-
-h1 {
-  margin: 1.8rem 0;
-}
-
-h2 {
-  margin: 1.7rem 0;
-}
-
-h3 {
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-p, li {
-  font-family: $font-quicksand;
-  font-weight: 400;
-  font-size: 1.2rem;
-  line-height: 1.8rem;
-  color: $font-color-body;
-}
-
-a {
-  color: $lavender-floral;
-}
 
 .legend-asset {
   color: $font-color-asset;
@@ -83,31 +34,22 @@ a {
 }
 
 .app {
-  font-family: $font-inconsolata;
-  background-color: $background-color;
-  // background: rgb(37, 65, 54);
-  // background: linear-gradient(45deg, rgba(37, 65, 54, 1) 37%, rgba(27, 26, 26, 1) 100%);  
-  font-size: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  &__body {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    min-height: 100vh;
-    margin: auto 3rem;
-    max-width: 1200px;
-  }
 
-  &__footer {
-    margin-top: 2rem;
-    text-align: center;
-    min-height: 20vh;
-    width: 100vw;
-    color: $silver;
-    background-color: $gunmetal;
+  &__container {
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    overflow-y: auto; /* Adds a vertical scrollbar if needed */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    // background: linear-gradient(135deg, rgb(27, 26, 26) 60%, rgb(76, 50, 11) 100%);
+    // background: linear-gradient(135deg, rgb(76, 50, 11) 60%, rgb(27, 26, 26) 100%);
+    // background: linear-gradient(135deg, rgb(64, 64, 64) 60%, rgb(255, 127, 17) 100%);
+    // background: linear-gradient(45deg, rgba(37, 65, 54, 1) 37%, rgba(27, 26, 26, 1) 100%);
+    background-color: #ff9d77; /* Fallback color for older browsers that do not support gradients */
+    // background-color: $amber-sae-ece;
   }
 }
