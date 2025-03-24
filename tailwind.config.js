@@ -7,9 +7,15 @@ module.exports = {
     ],
     theme: {
         colors: {
-            orange: "#ff9d77",
+            lava: "#FF753C",
+            lime: "#ADFF5B",
+            onyx: "#0F0F0F",
+            azure: "#1954D8",
+            lavender: "#CF9EFF",
             white: "#ffffff",
-            slate: "#2f4f4f"
+            offwhite: "#f5f5f5",
+            slate: "#2f4f4f",
+            black: "#121212"
         },
         screens: {
             'sm': '640px',
@@ -23,11 +29,11 @@ module.exports = {
         },
         extend: {
             fontFamily: {
-                body: ['Inconsolata'],
+                body: ['Helvetica'],
                 mono: ['Inconsolata'],
                 unica: ['"Unica One"'],
-                heading: ['Bungee'],
-                sans: ['Inconsolata'], // default ( Preflight sets the font family on the html element to match your configured sans font )
+                bungee: ['Bungee'],
+                sans: ['Helvetica'], // default ( Preflight sets the font family on the html element to match your configured sans font )
             },
             fontSize: {
                 h1: ['2.25rem', {

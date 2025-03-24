@@ -11,7 +11,7 @@ const PanelSVG = () => {
     // }, [svg])
 
     return (
-        <div className='panel-svg'>
+        <div className='panel-svg container'>
             <SvgComponent />
         </div>
     )

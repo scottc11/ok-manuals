@@ -1,58 +1,37 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React from "react";
 import "./App.scss";
 import Header from "./components/Header/Header";
-import ContentsContextProvider from "./context";
 import DegreeManual from "./manuals/DegreeManual";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./views/pages/Home/Home";
-import { SuperSeq } from "./content/modules";
-import SuperSeqDetail from "./views/modules/SuperSeq/SuperSeqDetail";
-import logo from "./media/OK200.png";
-import About from "./views/pages/About";
-import Draw from "./views/pages/Draw";
-
+import Counterpoint from "./manuals/Counterpoint";
+import logo from "./media/logo-white.svg";
 
 function App() {  
   return (
     <Router>
-      <div className="w-screen h-screen overflow-auto">
+      <div className="w-screen h-screen overflow-auto bg-black">
         <Header />
-        <div className="min-h-screen">
+        <div className="min-h-screen text-white">
           <Switch>
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/modules">
-              <Home />
-            </Route>
-            <Route exact path="/manuals">
+            <Route exact path="/manuals/degree">
               <DegreeManual />
             </Route>
-            <Route exact path={SuperSeq.path}>
-              <SuperSeqDetail />
-            </Route>
-            <Route exact path="/about">
-              <About />
-            </Route>
-            <Route exact path="/LFO">
-              <Draw />
+            <Route exact path="/manuals/counterpoint">
+              <Counterpoint />
             </Route>
             <Route path="*">
-              <div>404 Not Found</div>
+              <div className="container h-auto">
+                <h1 className="text-2xl font-bold">404 Not Found</h1>
+              </div>
             </Route>
           </Switch>
         </div>
-        <div className="footer w-screen bg-slate">
-          <div className="container mx-auto py-8">
-            <div className="flex flex-row items-center gap-4">
-              <div>
-                <input type="text" className="h-10 rounded px-2" placeholder="example@email.com" />
-              </div>
-              <div>
-                <button className="bg-orange text-white rounded px-4 py-2 h-10">Subscribe</button>
-              </div>
-            </div>
-          </div>
+        <div className="flex justify-center items-center py-4">
+          <img className="max-h-12" src={logo} alt="ok200-logo" />
         </div>
       </div>
     </Router>
