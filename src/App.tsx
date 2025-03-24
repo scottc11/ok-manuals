@@ -30,7 +30,7 @@ function App() {
             </Route>
           </Switch>
         </div>
-        <div className="flex justify-center items-center py-4">
+        <div className="flex justify-center items-center py-8">
           <img className="max-h-12" src={logo} alt="ok200-logo" />
         </div>
       </div>
