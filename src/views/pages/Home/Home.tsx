@@ -1,18 +1,16 @@
 import React from "react";
 import Rack from "../../../components/Rack/Rack";
 import RackModule from "../../../components/RackModule/RackModule";
-import { BendAndRatch, Counterpoint, QuadDCO, SuperSeq } from "../../../content/modules";
+import Section from "../../../components/Section/Section";
 
 const Home = () => {
     return (
-        <div>
+        <Section>
             <Rack>
-                <RackModule module={Counterpoint} />
-                <RackModule module={BendAndRatch} />
-                <RackModule module={QuadDCO} />
-                <RackModule module={SuperSeq} />
+                <RackModule name="Counterpoint" image={require('../../../media/counterpoint/panel.svg')} path="/manuals/counterpoint" />
+                <RackModule name="DEGREE" image={require('../../../media/DEGREE/DEGREE.svg')} path="/manuals/degree" />
             </Rack>
-        </div>
+        </Section>
     );
 }
 
