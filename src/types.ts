@@ -25,3 +25,11 @@ export enum Breakpoint {
     LARGE = 'lg',
     XLARGE = 'xl'
 }
+
+
+export type EurorackModule = {
+    name: string;
+    path: string;
+    hp: number;
+    image: string;
+}

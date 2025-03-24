@@ -1,13 +1,14 @@
 @import "../../variables.scss";
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin-top: 2rem;
   padding-bottom: 36px;
+  
+  &__logo {
 
-  & img {
-    width: 25%;
+  }
+
+  &__nav {
     
   }
 }

@@ -10,7 +10,7 @@ type DefinitionProps = {
 
 const Definition = ({ item, plural, owner, e }: DefinitionProps) => {
     return (
-        <span className="definition__label">
+        <span className="font-bold">
             {item.label}
             {plural ? owner ? `'s` : e ? `es` : `s` : null}
         </span>

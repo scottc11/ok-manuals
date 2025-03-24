@@ -1,0 +1,38 @@
+
+$column-count: 12;
+$column-width: 8.33%; // Default width for each column
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    &__row {
+        display: flex;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        align-items: center;
+        align-content: flex-start;
+        justify-content: space-evenly;
+    }
+
+    &__column {
+        padding-top: 16px;
+        padding-left: 16px;
+        box-sizing: border-box;
+    }
+}
+
+.col {
+    flex-basis: 100%;
+}
+
+.col-0 {
+    display: hidden;
+}
+
+@for $i from 1 through $column-count {
+    .col-#{$i} {
+        flex-basis: $column-width * $i;
+    }
+}

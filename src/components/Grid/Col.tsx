@@ -4,6 +4,7 @@ import { Breakpoint } from '../../types';
 
 type ColProps = {
     children?: React.ReactNode;
+    classNames?: string;
     xs?: number;
     sm?: number;
     md?: number;
@@ -11,7 +12,7 @@ type ColProps = {
     xl?: number;
 };
 
-const Col = ({xs, sm, md, lg, xl, children }: ColProps) => {
+const Col = ({ xs, sm, md, lg, xl, children, classNames }: ColProps) => {
     const breakpoint: Breakpoint = useBreakpoint();
     const [column, setColumn] = useState('col');
     
@@ -44,7 +45,7 @@ const Col = ({xs, sm, md, lg, xl, children }: ColProps) => {
     }, [breakpoint])
 
     return (
-        <div className={`column ${column}`}>
+        <div className={`grid__column ${column} ${classNames ? classNames : ''}`}>
             {children}
         </div>
     )

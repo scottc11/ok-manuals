@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import SVGS from '../../media/DEGREE/DEGREE.svg';
-import SvgComponent from './DegreeSVG';
+import './PanelSVG.scss';
+import SvgComponent from '../../manuals/Degree/DegreeSVG';
 
 const PanelSVG = () => {
     // note: SVG doesn’t have backwards browser support, which means most older browser versions won’t support SVG. 
@@ -10,7 +11,7 @@ const PanelSVG = () => {
     // }, [svg])
 
     return (
-        <div>
+        <div className='panel-svg container'>
             <SvgComponent />
         </div>
     )

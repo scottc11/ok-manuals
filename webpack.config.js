@@ -22,6 +22,10 @@ module.exports = {
         use: ["style-loader", "css-loader", "sass-loader"],
       },
       {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader', 'postcss-loader'],
+      },
+      {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: {
@@ -34,7 +38,7 @@ module.exports = {
       },
       {
         test: /\.svg$/i,
-        issuer: /\.[jt]sx?$/,
+        issuer: /\.SVG\.[jt]sx?$/,
         use: [{ loader: '@svgr/webpack', options: {typescript: true}}],
       },
     ],
@@ -48,6 +52,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
+      favicon: './src/media/favicon.svg',
     }),
   ],
 };
