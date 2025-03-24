@@ -66,26 +66,29 @@ const SectionDivider = () => {
 
 const Counterpoint: React.FC = () => {    
     return (
-        <div className="bg-offwhite text-black font-body">
+        <div className="bg-offwhite text-black font-body pb-8">
             <ContentsContextProvider>
 
                 <Section>
+
                     <h1 className="text-4xl md:text-6xl pt-12 pb-6 font-bold font-bungee">Counterpoint</h1>
                     <h2 className="text-2xl">Eurorack performance sequencer.</h2>
+                    <div className="flex flex-row my-4 justify-center">
+                        <img className="p-4" src={require('../media/counterpoint/panel.svg')} alt="Counterpoint panel" />
+                    </div>
                 </Section>
 
                 <Section>
-                    <h2 className="text-4xl py-4">index</h2>
                     <TableOfContents />
                 </Section>
 
                 <Section>
-                    <SectionHeading title="inputs / outputs" />
+                    <SectionHeading title="Inputs / outputs" />
                     <div className="flex flex-row m-6 justify-center">
                         <img className="bg-panel p-4 w-3/4" src={require('../media/counterpoint/panel_jacks.svg')} alt="sequence length and meter" />
                     </div>
 
-                    <p>The input / output jacks are split into two sections. On the right side is a grid of jacks corresponding to each channel, and on the left side is a "global" control section.</p>
+                    <p>The input / output jacks are split into two sections. On the right side there is a grid of jacks corresponding to each channel, and on the left side there there are jacks which for "universal" controls.</p>
 
                     <SectionSubheading title="Channel IO" />
 
@@ -114,6 +117,8 @@ const Counterpoint: React.FC = () => {
                 <Section>
                     <SectionHeading title="Channel Modes" />
                     
+                    <p className="text-xl">Each channel can be in one of three modes: <b>MONOPHONIC</b> mode, <b>QUANTIZER</b> mode, or <b>ARPEGGIATOR</b> mode.</p>
+
                     <SectionSubheading title="Monophonic Mode" />
                     <div className="flex flex-col md:flex-row items-center">
                         <div className="basis-full md:basis-2/3">
@@ -130,17 +135,18 @@ const Counterpoint: React.FC = () => {
                     </div>
 
                     <SectionSubheading title="Quantizer Mode" />
-                    <p>To enter a channel into QUANTIZER mode, press the <b>Q ON</b> button while touching the SELECT PAD for that channel. The [Q] symbol for that channel will illuminate.</p>
-                    <div className="flex flex-row justify-center m-4">
+                    <p>To enter a channel into <b>QUANTIZER</b> mode, press the <b>Q ON</b> button while touching the <b>SELECT PAD</b> for that channel. The <b>[Q]</b> symbol for that channel will illuminate.</p>
+                    <div className="flex flex-row justify-center m-4 gap-8">
+                        <img className="w-1/3 bg-panel p-4" src={require('../media/counterpoint/bend_mode_toggle.svg')} alt="bend mode toggle" />
                         <img className="w-1/3 bg-panel p-4" src={require('../media/counterpoint/quant_toggle.svg')} alt="quantizer mode symbols" />
                     </div>
 
                     <p>In this mode, a channel will detect the voltage present on the <b>Q CV</b> input jack and remap that voltage to the nearest scale degree.</p>
-                    <p>You can use the touch pads to activate/deactivate scale degrees and octaves, limiting the range of the 1VO output.</p>
+                    <p>You can use the touch pads to activate/deactivate scale degrees and octaves, limiting the range of the <b>1VO</b> output.</p>
                     
                     <SectionSubheading title="Arpeggiator Mode" />
                     <p>In this mode, a channel will arpeggiate all the currently touched scale degrees based on the active rate and direction of the Arpeggiator.</p>
-                    <p>A channels <b>[ARP]</b> symbol will illuminate when the channel is in ARPEGGIATOR mode.</p>
+                    <p>A channels <b>[ARP]</b> symbol will illuminate when the channel is in <b>ARPEGGIATOR</b> mode.</p>
                     <div className="flex flex-row justify-center m-4">
                         <img className="w-1/3 bg-panel p-4" src={require('../media/counterpoint/arp_toggle.svg')} alt="arpeggiator mode symbols" />
                     </div>
@@ -189,13 +195,46 @@ const Counterpoint: React.FC = () => {
                     </div>
                 </Section>
 
+
+                <Section>
+                    <SectionHeading title="Pitch Bend / Portamento" />
+                    <div className="flex flex-col md:flex-row items-start gap-8">
+                        <div className="basis-full order-first md:order-last md:basis-1/4">
+                            <div className="flex flex-row justify-center h-48 md:h-96 m-4">
+                                <img className="bg-panel p-4" src={require('../media/counterpoint/bend_controls.svg')} alt="bend controls" />
+                            </div>
+                        </div>
+
+                        <div className="basis-full md:basis-3/4">
+                            <p>Each channel can apply one of <b>PORTAMENTO</b> or <b>PITCH BEND</b> to the <b>1VO</b> output using the vertical <b>sliders</b> and the <b>B CV</b> input.</p>
+
+                            <p><b>PORTAMENTO</b>: Smoothly move between scale degrees</p>
+                            <p><b>PITCH BEND</b>: Converts the control voltage present on the <b>B CV</b> input to an unquantized value between 1 and 12 semitones (in both directions).</p>
+
+                            <p>You can toggle the <b>BEND MODE</b> of a channel by pressing the <b>B MODE</b> button while touching the <b>SELECT PAD</b> for that channel.</p>
+                            <div className="flex flex-row justify-center m-4">
+                                <img className="w-1/3 bg-panel p-2" src={require('../media/counterpoint/bend_mode_toggle.svg')} alt="bend mode toggle" />
+                            </div>
+                            
+                            <p>Both the <b>SLIDER</b> and the <b>B CV</b> input operate differently depending on which <b>BEND MODE</b> the channel is in.</p>
+
+                            <p>In <b>PORTAMENTO</b> mode, the <b>SLIDER</b> sets the amount of time it takes for a channel to move between scale degrees, and CV at the <b>B CV</b> input will add or subtract from that time.</p>
+                            <p>In <b>PITCH BEND</b> mode, the <b>SLIDER</b> acts as an attenuator for the control voltage present on the <b>B CV</b> input.</p>
+
+                            <Note>
+                                <p>Note: the CV input range for the B CV input is <b>-10V to 10V</b>.</p>
+                            </Note>
+                        </div>
+                    </div>
+                </Section>
+
                 <Section>
                     <SectionHeading title="Arpeggiator" />
 
                     <div className="flex flex-col md:flex-row items-start gap-8">
                         <div className="basis-full order-first md:order-last md:basis-1/4">
-                            <div className="flex flex-row bg-panel py-4 px-8 m-4">
-                                <img src={require('../media/counterpoint/panel_arp.svg')} alt="Input / Output" />
+                            <div className="flex flex-row justify-center m-4">
+                                <img className="bg-panel h-48 md:h-96 p-4" src={require('../media/counterpoint/panel_arp.svg')} alt="Arpeggiator" />
                             </div>
                         </div>
                         
@@ -212,9 +251,11 @@ const Counterpoint: React.FC = () => {
                     </Note>
 
                     <SectionSubheading title="Arp Rate" />
-                    <p>The arp rate can be set to 1/32, 1/16, 1/8, or 1/4 notes.</p>
-                    <p>To set the arp rate, touch one of the four ARP RATE pads. The arp rate will change based on the pad that is touched.</p>
-                    <p>The arp rate can also be CV controlled via the RATE CV input.</p>
+                    <p>The arp rate can be set to quarter notes (1/4), eighth notes (1/8), sixteenth notes (1/16), or thirty second notes (1/32).</p>
+                    <p>Additionally, if you hold the TRIPLET pad in conjunction with an ARP RATE pad, the arp rate will be set to a triplet of the selected note value.</p>
+                    <p>To set the arp rate, touch one of the four <b>ARP RATE</b> pads. The arp rate will change based on the <b>highest arp rate</b> that is touched.</p>
+
+                    <p>The arp rate can also be CV controlled via the <b>RATE CV</b> input (0V to 10V).</p>
 
                     <SectionSubheading title="Arp Direction" />
                     <p>The arp direction can be set to UP, DOWN, UP/DOWN, or ORDER.</p>
@@ -227,18 +268,20 @@ const Counterpoint: React.FC = () => {
                     <SectionHeading title="Sequencing" />
 
                     <div className="flex flex-row m-6 justify-center">
-                        <img className="bg-panel p-4 w-3/4" src={require('../media/counterpoint/panel_seq_actions.svg')} alt="sequencer actions" />
+                        <img className="bg-panel p-4 w-2/3" src={require('../media/counterpoint/panel_seq_actions.svg')} alt="sequencer actions" />
                     </div>
 
-                    <p className="pt-4">If you have not already noticed, there is a really large "RECORD" button on the module. This button is used to record interactions with a channels touch pads (and play them back as a sequence 😉).</p>
+                    <p className="pt-4">If you have not already noticed, there is a really large <b>RECORD</b> button on the module. This button is used to record interactions with a channels touch pads (and play them back as a sequence).</p>
                     
-                    <p>Pressing the RECORD button will illuminate the RECORD button red. When the RECORD button is red, all channels become primed for sequencing.</p>
+
+                    <SectionSubheading title="Recording a sequence" />
+                    <p>After pressing the <b className="bg-lava text-black p-1 rounded-sm">RECORD</b> button it will begin to illuminate red. This indicates <b>all channels</b> are primed for sequencing.</p>
 
                     <p>Once a channel is primed for sequencing, it will playback any touch events that occur on that channels touch pads. This includes the octave pads.</p>
 
                     <p>As a sequence plays back, new events will overdub / overwrite previously existing events (should they overlap).</p>
 
-                    <p>Each channel can be sequenced independently. The sequence <b>length</b> and <b>meter</b> can be set for each channel.</p>
+                    <p>If this is not already obvious, each channel can be sequenced independently.</p>
                     
                     <Note>
                         <p>Note: Once a sequence is created for a channel, the meter of that sequence will be locked and no longer follows the active meter displayed on the panel.</p>
@@ -249,8 +292,8 @@ const Counterpoint: React.FC = () => {
                     
                     <SectionSubheading title="Sequence length and meter" />
 
-                    <div className="flex flex-row bg-panel py-4 px-8 m-4">
-                        <img src={require('../media/counterpoint/sequence_length_meter.svg')} alt="sequence length and meter" />
+                    <div className="flex flex-row m-4 justify-center">
+                        <img className="bg-panel py-4 px-8 w-2/3" src={require('../media/counterpoint/sequence_length_meter.svg')} alt="sequence length and meter" />
                     </div>
 
                     <SectionSubheading title="Sequence length" />
@@ -312,8 +355,8 @@ const Counterpoint: React.FC = () => {
                     <p>Pressing the <b>RESET</b> button will reset the sequence, but not immediately. It will wait until the next quarter note occurs before resetting.</p>
 
                     <SectionSubheading title="Quantizing a sequence" />
-                    <p>Pressing ALT + RECORD will "snap" all touch events <b>in all</b> active sequences to a grid of 32nd notes.</p>
-                    <p>If you wish quantization to occur automatically, enter SETTINGS and make sure the AQ row is illuminated.</p>
+                    <p>Pressing <b>ALT</b> + <b>RECORD</b> will "snap" all touch events <b>in all</b> active sequences to a grid of 32nd notes.</p>
+                    <p>If you wish quantization to occur automatically, enter <b>SETTINGS</b> and make sure the <b>AQ</b> row is illuminated.</p>
                     <p>If you want to quantize only a single sequence, press the <b>ALT</b> + <b>RECORD</b> button while touching the <b>SELECT PAD</b> for that channel.</p>
                 </div>
             </ContentsContextProvider>
