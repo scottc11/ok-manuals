@@ -28,6 +28,9 @@ module.exports = {
             center: true,
         },
         extend: {
+            backgroundImage: {
+                'panel': 'linear-gradient(to top right, #373636, #1c1c1c)',
+            },
             fontFamily: {
                 body: ['Helvetica'],
                 mono: ['Inconsolata'],
