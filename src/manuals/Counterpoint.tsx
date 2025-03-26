@@ -6,57 +6,6 @@ import Note from '../components/Note/Note';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import SectionSubheading from '../components/SectionSubHeading/SectionSubHeading';
 
-// https://teenage.engineering/guides/cm-15
-
-/**
- * 
- * Inputs / Outputs
- *   - GATE output
- *   - 1VO output
- *   - Bend CV Input
- *   - Quantizer CV Input
- *   - Clock Input
- *   - Reset Input
- *   - Arpeggiator CV Rate Input
- *   - Arpeggiator CV Direction Input
- * 
- * Channel Modes
- *   - Monophonic Mode
- *   - Quantizer Mode
- *   - Arpeggiator Mode
- * 
- * scale degree switches
- * 
- * Sequencing
- *   - RECORD button
- *   - Sequence length
- *   - meter
- *   - Sequencing in Monophonic Mode
- *   - Sequencing in Quantizer Mode
- *   - Sequencing in Arpeggiator Mode
- *   - Clear sequence
- *   - Reset sequence
- *   - Quantize sequence
- * 
- * Channel Sliders
- *   - Portamento
- *     - CV control
- *   - Pitch Bend
- *     - CV control
- * 
- * Arpeggiator
- *   - setting arp rate
- *   - setting arp direction
- *   - Arp Lock
- *     - channel arp lock
- *   - CV control
- *     - CV Rate
- *     - CV Direction
- * 
- * LINK mode
- *   - Linking channels
- */
-
 const SectionDivider = () => {
     return (
         <div className="my-4 border-white"></div>
@@ -102,7 +51,7 @@ const Counterpoint: React.FC = () => {
                     <p><b>Q CV</b>: When a channel is in Quantizer mode, the voltage present on this input will be quantized to the nearest scale degree.</p>
                     
                     <SectionSubheading title="Global IO" />
-                    <p>Additionally, there is an isolated column for "global" controls:</p>
+                    <p>Additionally, there is an isolated column for "global" CV control:</p>
                     
                     <p><b>CLOCK</b>: A clock signal must be present here in order for time related functions to work. Ideally, use a 1/4 note (quarter note) clock signal here, as the firmware will divide this signal to a 24 PPQN (pulses per quarter note) grid.</p>
                     <p><b>RESET</b>: Reset any active sequences to beat one. (it will wait till the next quarter note occurs before resetting)</p>
@@ -116,7 +65,6 @@ const Counterpoint: React.FC = () => {
 
                 <Section>
                     <SectionHeading title="Channel Modes" />
-                    
                     <p className="text-xl">Each channel can be in one of three modes: <b>MONOPHONIC</b> mode, <b>QUANTIZER</b> mode, or <b>ARPEGGIATOR</b> mode.</p>
 
                     <SectionSubheading title="Monophonic Mode" />
@@ -135,14 +83,13 @@ const Counterpoint: React.FC = () => {
                     </div>
 
                     <SectionSubheading title="Quantizer Mode" />
+                    <p>In this mode, a channel will detect the voltage present on the <b>Q CV</b> input jack and remap that voltage to the nearest scale degree.</p>
+                    <p>You can use the touch pads to activate/deactivate scale degrees and octaves, limiting the range of the <b>1VO</b> output.</p>
                     <p>To enter a channel into <b>QUANTIZER</b> mode, press the <b>Q ON</b> button while touching the <b>SELECT PAD</b> for that channel. The <b>[Q]</b> symbol for that channel will illuminate.</p>
                     <div className="flex flex-row justify-center m-4 gap-8">
                         <img className="w-1/3 bg-panel p-4" src={require('../media/counterpoint/bend_mode_toggle.svg')} alt="bend mode toggle" />
                         <img className="w-1/3 bg-panel p-4" src={require('../media/counterpoint/quant_toggle.svg')} alt="quantizer mode symbols" />
                     </div>
-
-                    <p>In this mode, a channel will detect the voltage present on the <b>Q CV</b> input jack and remap that voltage to the nearest scale degree.</p>
-                    <p>You can use the touch pads to activate/deactivate scale degrees and octaves, limiting the range of the <b>1VO</b> output.</p>
                     
                     <SectionSubheading title="Arpeggiator Mode" />
                     <p>In this mode, a channel will arpeggiate all the currently touched scale degrees based on the active rate and direction of the Arpeggiator.</p>
@@ -198,7 +145,7 @@ const Counterpoint: React.FC = () => {
 
                 <Section>
                     <SectionHeading title="Pitch Bend / Portamento" />
-                    <div className="flex flex-col md:flex-row items-start gap-8">
+                    <div className="flex flex-col md:flex-row gap-8">
                         <div className="basis-full order-first md:order-last md:basis-1/4">
                             <div className="flex flex-row justify-center h-48 md:h-96 m-4">
                                 <img className="bg-panel p-4" src={require('../media/counterpoint/bend_controls.svg')} alt="bend controls" />
