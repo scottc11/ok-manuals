@@ -9,7 +9,7 @@ import logo from "./media/logo-white.svg";
 
 function App() {  
   return (
-    <Router>
+    <Router basename="/ok-manuals">
       <div className="w-screen h-screen overflow-auto bg-black">
         <Header />
         <div className="min-h-screen text-white">
