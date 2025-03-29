@@ -26,29 +26,46 @@ const Counterpoint: React.FC = () => {
 
                 <Section>
                     <SectionHeading title="👋 Introduction" />
-                    <p>Hello there!</p>
-                    <p>This is Counterpoint. It is a Eurorack module designed to control multiple oscillators in a modular system, with the core focus being to keep each oscillator musically coherent with each other.</p>
+                    <div className="bg-white p-4 rounded-lg font-serif my-4">
+                        <p className="mb-2">
+                            <span className="text-xl font-bold">coun·ter·point</span>
+                            <span className="text-onyx/70 italic ml-2">ˈkoun(t)ərˌpoint'</span>
+                        </p>
+                        <p>
+                            <span className="text-onyx/60 italic mr-2">noun</span>
+                        </p>
+                        <p className="ml-4 mb-4">
+                            <span className="text-onyx/70 mr-2">1.</span>
+                            <span className="text-onyx/60 italic mr-2">Music</span>
+                            <span>the art or technique of setting, writing, or playing a melody or melodies in conjunction with another, according to fixed rules.</span>
+                        </p>
+                        <p>
+                            <span className="text-onyx/60 italic mr-2">verb</span>
+                        </p>
+                        <p className="ml-4">
+                            <span className="text-onyx/70 mr-2">1.</span>
+                            <span className="text-onyx/60 italic mr-2">Music</span>
+                            <span>add counterpoint to (a melody).</span>
+                            <br />
+                            <span className="ml-4 text-onyx/40 italic">"the orchestra counterpoints the vocal part"</span>
+                        </p>
+                    </div>
+                    <p>This is <b>COUNTERPOINT</b>. It is a Eurorack module designed to control multiple oscillators in a modular system, with the core focus being to keep each oscillator musically coherent with each other.</p>
                     <p>It uses four channels of <b>brass touch pads</b> (capacitive touch) to control the pitch of four independant oscillators (VCOs), all while containing them to a common musical scale.</p>
-                    <p>The scale is set by 8 "scale degree" switches on the module.</p>
+                    <p>The scale is set using 8 "scale degree" switches on the module.</p>
                     <p>It is very hands on and <b>performative</b>. It features a sequencer that allows you to record and playback sequences of notes played on the touch pads.</p>
-                    <p>Counterpoint also features a few extra bells and whistles such as an arpeggiator, per channel CV (control voltage) quantization, and per channel pitch bend / portamento effects.</p>
+                    <p>Counterpoint also features a few extra bells and whistles such as an <b>arpeggiator</b>, per channel <b>CV quantization</b>, and per channel <b>pitch bend / portamento</b> effects.</p>
                     <p>This manual will guide you through the various features and functions of the Counterpoint 🤓.</p>
                     <p>For more info on the name, check out <a className="text-azure hover:text-azure/80 underline" href="https://en.wikipedia.org/wiki/Counterpoint" target="_blank" rel="noopener noreferrer">this wikipedia page</a>.</p>
-                    <p>coun·ter·point
-                        ˈkoun(t)ərˌpoint'
-                        noun
-                        1.
-                        Music
-                        the art or technique of setting, writing, or playing a melody or melodies in conjunction with another, according to fixed rules.</p>
                 </Section>
 
-                <Section>
+                {/* <Section>
                     <SectionHeading title="🔌 Setup and installation" />
                     <p>How the hoot do you plug this thing in!? 🤔</p>
                     <p>Whats in the box?</p>
                     <p>How do you mount it?</p>
                     <p>How do you hook it up to your Eurorack system?</p>
-                </Section>
+                </Section> */}
 
                 <Section>
                     <SectionHeading title="🔄 Inputs / outputs" />
@@ -167,7 +184,7 @@ const Counterpoint: React.FC = () => {
                                 If musical theory isn't your thing, use the following switch configurations to get a major or a minor scale <span className="text-xs">(and everything will sound nice 🌈)</span>:
                             </p>
                             <h3 className="text-xl mb-2"><b>Major Scale</b></h3>
-                            <table className="w-full mb-8 border-collapse text-sm text-onyx/60">
+                            <table className="w-full mb-8 border-collapse text-sm">
                                 <thead>
                                     <tr className="border-b-2 border-black">
                                         <th className="text-left">Switch</th>
@@ -219,7 +236,7 @@ const Counterpoint: React.FC = () => {
                                 </tbody>
                             </table>
                             <h3 className="text-xl mb-2"><b>Minor Scale</b></h3>
-                            <table className="w-full mb-8 border-collapse text-sm text-onyx/60">
+                            <table className="w-full mb-8 border-collapse text-sm">
                                 <thead>
                                     <tr className="border-b-2 border-black">
                                         <th className="text-left">Switch</th>
@@ -455,27 +472,27 @@ const Counterpoint: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td className="border border-black p-2">
+                            <tr className="border-b border-dotted border-black pt-4">
+                                <td>
                                     SELECT PAD + RECORD
                                 </td>
-                                <td className="border border-black p-2">
+                                <td>
                                     Adds one bar to the actively running sequence, or creates a new sequence with a length of one bar.
                                 </td>
                             </tr>
-                            <tr>
-                                <td className="border border-black p-2">
+                            <tr className="border-b border-dotted border-black pt-4">
+                                <td>
                                     TRIPLET + OCTAVE PAD
                                 </td>
-                                <td className="border border-black p-2">
+                                <td>
                                     Applies an octave offset to the active sequence of the corrosponding channel. (top octave pad is +1 octave, bottom is -1 octave)
                                 </td>
                             </tr>
-                            <tr>
-                                <td className="border border-black p-2">
+                            <tr className="border-b border-dotted border-black pt-4">
+                                <td>
                                     TRIPLET + ARP RATE PAD
                                 </td>
-                                <td className="border border-black p-2">
+                                <td>
                                     Sets the arp rate to a triplet of the corrosponding note value.
                                 </td>
                             </tr>

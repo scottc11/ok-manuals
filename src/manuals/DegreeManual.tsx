@@ -25,7 +25,7 @@ const DegreeManual = () => {
             <ContentsContextProvider>
 
                 <Section>
-                    <SectionHeading title={'DEGREE'} />
+                    <h1 className="text-4xl md:text-6xl pt-12 pb-6 font-bold font-bungee">DEGREE</h1>
 
                     <div className="flex justify-center py-4">
                         <img src={degree_image} />

@@ -1,9 +1,14 @@
 import React from "react";
 
-const SectionSubheading = ({ title }: { title: string }) => {
+type SectionSubheadingProps = {
+    title?: string;
+    children?: React.ReactNode;
+}   
+
+const SectionSubheading = ({ title, children }: SectionSubheadingProps) => {
     return (
         <div className="bg-onyx/30 -mx-2 px-2 mt-6 rounded-sm">
-            <h3 className="text-xl py-2">{title}</h3>
+            <h3 className="text-xl py-2">{title || children}</h3>
         </div>
     )
 }
