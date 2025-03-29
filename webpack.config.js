@@ -8,12 +8,14 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
+    publicPath: '/',
   },
   devtool: "inline-source-map",
   devServer: {
     port: 3000,
     static: "./dist",
     historyApiFallback: true,
+    hot: true,
   },
   module: {
     rules: [
@@ -48,7 +50,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify("development"),
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV || "development"),
     }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",

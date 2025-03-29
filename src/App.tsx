@@ -2,14 +2,15 @@ import React from "react";
 import "./App.scss";
 import Header from "./components/Header/Header";
 import DegreeManual from "./manuals/DegreeManual";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, HashRouter } from "react-router-dom";
 import Home from "./views/pages/Home/Home";
 import Counterpoint from "./manuals/Counterpoint";
 import logo from "./media/logo-white.svg";
 
 function App() {  
   return (
-    <Router basename="/ok-manuals">
+    // basename is set to the GitHub Pages URL
+    <HashRouter basename={process.env.NODE_ENV === 'production' ? '/ok-manuals' : '/'}>
       <div className="w-screen h-screen overflow-auto bg-black">
         <Header />
         <div className="min-h-screen text-white">
@@ -34,7 +35,7 @@ function App() {
           <img className="max-h-12" src={logo} alt="ok200-logo" />
         </div>
       </div>
-    </Router>
+    </HashRouter>
   );
 }
 
