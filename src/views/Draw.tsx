@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import Canvas from "../../components/Canvas/Canvas";
-import Slider from "../../components/Slider/Slider";
+import Canvas from "../components/Canvas/Canvas";
+import Slider from "../components/Slider/Slider";
 
 
 interface WaveformParams {

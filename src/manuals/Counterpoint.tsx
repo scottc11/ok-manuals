@@ -5,6 +5,7 @@ import Section from '../components/Section/Section';
 import Note from '../components/Note/Note';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import SectionSubheading from '../components/SectionSubHeading/SectionSubHeading';
+import Link from '../components/Link/Link';
 
 const Counterpoint: React.FC = () => {    
     return (
@@ -27,11 +28,12 @@ const Counterpoint: React.FC = () => {
                     <SectionHeading title="👋 Introduction" />
                     <p>Hello there!</p>
                     <p>This is Counterpoint. It is a Eurorack module designed to control multiple oscillators in a modular system, with the core focus being to keep each oscillator musically coherent with each other.</p>
-                    <p>It uses four channels of <b>brass touch pads</b> (capacitive touch) to control the pitch of four independant oscillators (VCOs), all while containing them to the same musical scale set by the <b>8 scale degree switches</b> on the module.</p>
+                    <p>It uses four channels of <b>brass touch pads</b> (capacitive touch) to control the pitch of four independant oscillators (VCOs), all while containing them to a common musical scale.</p>
+                    <p>The scale is set by 8 "scale degree" switches on the module.</p>
                     <p>It is very hands on and <b>performative</b>. It features a sequencer that allows you to record and playback sequences of notes played on the touch pads.</p>
                     <p>Counterpoint also features a few extra bells and whistles such as an arpeggiator, per channel CV (control voltage) quantization, and per channel pitch bend / portamento effects.</p>
                     <p>This manual will guide you through the various features and functions of the Counterpoint 🤓.</p>
-                    <p>For more info on the name, check out <a href="https://en.wikipedia.org/wiki/Counterpoint" target="_blank" rel="noopener noreferrer">this wikipedia page</a>.</p>
+                    <p>For more info on the name, check out <a className="text-azure hover:text-azure/80 underline" href="https://en.wikipedia.org/wiki/Counterpoint" target="_blank" rel="noopener noreferrer">this wikipedia page</a>.</p>
                     <p>coun·ter·point
                         ˈkoun(t)ərˌpoint'
                         noun
