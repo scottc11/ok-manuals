@@ -6,20 +6,12 @@ import Note from '../components/Note/Note';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import SectionSubheading from '../components/SectionSubHeading/SectionSubHeading';
 
-const SectionDivider = () => {
-    return (
-        <div className="my-4 border-white"></div>
-    )
-}
-
-
 const Counterpoint: React.FC = () => {    
     return (
         <div className="bg-offwhite text-black font-body pb-8">
             <ContentsContextProvider>
 
                 <Section>
-
                     <h1 className="text-4xl md:text-6xl pt-12 pb-6 font-bold font-bungee">Counterpoint</h1>
                     <h2 className="text-2xl">Eurorack performance sequencer.</h2>
                     <div className="flex flex-row my-4 justify-center">
@@ -32,31 +24,88 @@ const Counterpoint: React.FC = () => {
                 </Section>
 
                 <Section>
-                    <SectionHeading title="Inputs / outputs" />
+                    <SectionHeading title="👋 Introduction" />
+                    <p>Hello there!</p>
+                    <p>This is Counterpoint. It is a Eurorack module designed to control multiple oscillators in a modular system, with the core focus being to keep each oscillator musically coherent with each other.</p>
+                    <p>It uses four channels of <b>brass touch pads</b> (capacitive touch) to control the pitch of four independant oscillators (VCOs), all while containing them to the same musical scale set by the <b>8 scale degree switches</b> on the module.</p>
+                    <p>It is very hands on and <b>performative</b>. It features a sequencer that allows you to record and playback sequences of notes played on the touch pads.</p>
+                    <p>Counterpoint also features a few extra bells and whistles such as an arpeggiator, per channel CV (control voltage) quantization, and per channel pitch bend / portamento effects.</p>
+                    <p>This manual will guide you through the various features and functions of the Counterpoint 🤓.</p>
+                    <p>For more info on the name, check out <a href="https://en.wikipedia.org/wiki/Counterpoint" target="_blank" rel="noopener noreferrer">this wikipedia page</a>.</p>
+                    <p>coun·ter·point
+                        ˈkoun(t)ərˌpoint'
+                        noun
+                        1.
+                        Music
+                        the art or technique of setting, writing, or playing a melody or melodies in conjunction with another, according to fixed rules.</p>
+                </Section>
+
+                <Section>
+                    <SectionHeading title="🔌 Setup and installation" />
+                    <p>How the hoot do you plug this thing in!? 🤔</p>
+                    <p>Whats in the box?</p>
+                    <p>How do you mount it?</p>
+                    <p>How do you hook it up to your Eurorack system?</p>
+                </Section>
+
+                <Section>
+                    <SectionHeading title="🔄 Inputs / outputs" />
                     <div className="flex flex-row m-6 justify-center">
                         <img className="bg-panel p-4 w-3/4" src={require('../media/counterpoint/panel_jacks.svg')} alt="sequence length and meter" />
                     </div>
 
-                    <p>The input / output jacks are split into two sections. On the right side there is a grid of jacks corresponding to each channel, and on the left side there there are jacks which for "universal" controls.</p>
+                    <p>The input / output jacks are split into two sections. On the right side there is a grid of jacks corresponding to each channel (channel A, B, C, D), and on the left side are jacks corrosponding to "universal" controls for all channels.</p>
 
-                    <SectionSubheading title="Channel IO" />
+                    <SectionSubheading title="Channel in/out" />
 
-                    <p>The input / output jacks are laid out as a grid. Each column in the grid contains the input / output jacks for a channel.</p>
+                    <p>The input / output jacks are arranged as a grid. Each column (A, B, C, D) in the grid contains the input / output jacks for a channel.</p>
                     
-                    <p>The rows are labeled with the name of the input / output jack:</p>
+                    <p>The rows of the grid corrospond to the type of input / output jack:</p>
 
-                    <p><b>GATE</b>: 5V gate signal</p>
-                    <p><b>1VO</b>: 1 volt per octave output (-1V to 9V range)</p>
-                    <p><b>B CV</b>: CV control over channel slew OR "pitch bend" of 1VO output</p>
-                    <p><b>Q CV</b>: When a channel is in Quantizer mode, the voltage present on this input will be quantized to the nearest scale degree.</p>
+                    <table className="w-full mb-4 border-collapse">
+                        <thead>
+                            <tr className="border-b-2 border-black">
+                                <th className="text-left">Label</th>
+                                <th className="text-left">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className="font-bold pr-4">1VO</td>
+                                <td>1 volt per octave output (-1V to 9V range)</td>
+                            </tr>
+                            <tr>
+                                <td className="font-bold pr-4">GATE</td>
+                                <td>5V gate signal</td>
+                            </tr>
+                            <tr>
+                                <td className="font-bold pr-4">B CV</td>
+                                <td>CV control over channel slew OR "pitch bend" of 1VO output</td>
+                            </tr>
+                            <tr>
+                                <td className="font-bold pr-4">Q CV</td>
+                                <td>When a channel is in Quantizer mode, the voltage present on this input will be quantized to the nearest scale degree</td>
+                            </tr>
+                        </tbody>
+                    </table>
                     
-                    <SectionSubheading title="Global IO" />
+                    <SectionSubheading title="Global in/out" />
                     <p>Additionally, there is an isolated column for "global" CV control:</p>
                     
-                    <p><b>CLOCK</b>: A clock signal must be present here in order for time related functions to work. Ideally, use a 1/4 note (quarter note) clock signal here, as the firmware will divide this signal to a 24 PPQN (pulses per quarter note) grid.</p>
+                    <p><b>CLOCK</b>: A clock signal must be present here in order for time related functions to work. See the <b>Clocking</b> section for more information.</p>
                     <p><b>RESET</b>: Reset any active sequences to beat one. (it will wait till the next quarter note occurs before resetting)</p>
                     <p><b>DIR CV</b>: CV control over the direction of the arpeggiator.</p>
                     <p><b>RATE CV</b> CV control over the rate of the arpeggiator.</p>
+                </Section>
+
+                <Section>
+                    <SectionHeading title="⏰ Clocking" />
+                    <p>"Clocking" is the process of using an external clock signal to synchronize the module with the rest of your system. <b>It is necessary for the module to function properly.</b></p>
+                    <p>Presently, the Counterpoint can only be clocked externally via the <b>CLOCK</b> input jack.</p>
+                    <p>Ideally you will want to use a 1/4 note (quarter note) pulse signal at the <b>CLOCK</b> input jack. The onboard microcontroller will divide this signal into a 24 PPQN (pulses per quarter note) grid in order to achieve various time related functions (sequencing, arpeggiation, etc).</p>
+                    <Note>
+                        <p>The internal clock will never exceed 240 BPM nor go below 40 BPM (regardless of the clock signal present at the <b>CLOCK</b> input jack).</p>
+                    </Note>
                 </Section>
 
                 <Section>
@@ -64,7 +113,7 @@ const Counterpoint: React.FC = () => {
                 </Section>
 
                 <Section>
-                    <SectionHeading title="Channel Modes" />
+                    <SectionHeading title="🎛️ Channel Modes" />
                     <p className="text-xl">Each channel can be in one of three modes: <b>MONOPHONIC</b> mode, <b>QUANTIZER</b> mode, or <b>ARPEGGIATOR</b> mode.</p>
 
                     <SectionSubheading title="Monophonic Mode" />
@@ -102,10 +151,10 @@ const Counterpoint: React.FC = () => {
                 </Section>
 
                 <Section>
-                    <SectionHeading title="Scale Degree Switches" />
+                    <SectionHeading title="🎼 Scale Degree Switches" />
                     <div className="flex flex-col md:flex-row">
                         <div className="basis-full md:basis-3/4">
-                            <p>Each channel has 8 scale degree switches which can be used to construct a common scale between all 4 channels.</p>
+                            <p>Each channel has 8 <b><u>scale degree</u></b> switches which can be used to construct a <u>common scale between all 4 channels</u>.</p>
                             <p>
                                 When all 8 switches are in their middle position, they are each seperated by a whole tone (two semi-tones). In this state, you get what is called a "whole tone scale".
                             </p>
@@ -113,28 +162,114 @@ const Counterpoint: React.FC = () => {
                                 Each position of a toggle switch represents a single semitone. If you change the position of the switch upwards, all 4 channels horizontally will increase their pitch by one semitone. If you go downwards, then it will decrease their pitch by one semitone.
                             </p>
                             <p>
-                                If musical theory isn't your thing, the following switch configurations will give you a major or a minor scale:
+                                If musical theory isn't your thing, use the following switch configurations to get a major or a minor scale <span className="text-xs">(and everything will sound nice 🌈)</span>:
                             </p>
-                            <p><b>Major Scale</b></p>
-                            <p>Switch 8 :: MIDDLE :: (major 2nd)</p>
-                            <p>Switch 7 :: DOWN or MIDDLE :: (major 7th or Tonic octave)</p>
-                            <p>Switch 6 :: DOWN :: (major 6th)</p>
-                            <p>Switch 5 :: DOWN :: (perfect 5th)</p>
-                            <p>Switch 4 :: DOWN :: (perfect 4th)</p>
-                            <p>Switch 3 :: MIDDLE :: (Minor 3rd)</p>
-                            <p>Switch 2 :: MIDDLE :: (Major 2nd)</p>
-                            <p>Switch 1 :: MIDDLE :: (Tonic)</p>
-                            <p><b>Minor Scale</b></p>
-                            <p>Switch 8 :: UP or MIDDLE :: (either a Major 2nd or a minor 3rd)</p>
-                            <p>Switch 7 :: MIDDLE :: (Tonic octave)</p>
-                            <p>Switch 6 :: MIDDLE :: (minor 7)</p>
-                            <p>Switch 5 :: DOWN :: (perfect 5th)</p>
-                            <p>Switch 4 :: DOWN :: (perfect 4th)</p>
-                            <p>Switch 3 :: DOWN :: (Minor 3rd)</p>
-                            <p>Switch 2 :: MIDDLE :: (Major 2nd)</p>
-                            <p>Switch 1 :: MIDDLE :: (Tonic)</p>
+                            <h3 className="text-xl mb-2"><b>Major Scale</b></h3>
+                            <table className="w-full mb-8 border-collapse text-sm text-onyx/60">
+                                <thead>
+                                    <tr className="border-b-2 border-black">
+                                        <th className="text-left">Switch</th>
+                                        <th className="text-left">Position</th>
+                                        <th className="text-left">Scale degree</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>8 (top)</td>
+                                        <td>CENTER</td>
+                                        <td>Major 2nd</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>DOWN or CENTER</td>
+                                        <td>Major 7th or Tonic octave</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>DOWN</td>
+                                        <td>Major 6th</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>DOWN</td>
+                                        <td>Perfect 5th</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>DOWN</td>
+                                        <td>Perfect 4th</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>CENTER</td>
+                                        <td>Minor 3rd</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>CENTER</td>
+                                        <td>Major 2nd</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 (bottom)</td>
+                                        <td>CENTER</td>
+                                        <td>Tonic</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <h3 className="text-xl mb-2"><b>Minor Scale</b></h3>
+                            <table className="w-full mb-8 border-collapse text-sm text-onyx/60">
+                                <thead>
+                                    <tr className="border-b-2 border-black">
+                                        <th className="text-left">Switch</th>
+                                        <th className="text-left">Position</th>
+                                        <th className="text-left">Scale degree</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>8 (top)</td>
+                                        <td>UP or CENTER</td>
+                                        <td>Either a Major 2nd or a minor 3rd</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>CENTER</td>
+                                        <td>Tonic octave</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>CENTER</td>
+                                        <td>Minor 7th</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>DOWN</td>
+                                        <td>Perfect 5th</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>DOWN</td>
+                                        <td>Perfect 4th</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>DOWN</td>
+                                        <td>Minor 3rd</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>CENTER</td>
+                                        <td>Major 2nd</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 (bottom)</td>
+                                        <td>CENTER</td>
+                                        <td>Tonic</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <div className="basis-full md:basis-1/4">
+                        <div className="order-first sm:order-last basis-full md:basis-1/4">
                             <div className="flex flex-row justify-center h-96 m-4">
                                 <img className="bg-panel p-4" src={require('../media/counterpoint/scale_degree_switches.svg')} alt="scale degree switches" />
                             </div>
@@ -144,7 +279,7 @@ const Counterpoint: React.FC = () => {
 
 
                 <Section>
-                    <SectionHeading title="Pitch Bend / Portamento" />
+                    <SectionHeading title="⤴️ Pitch Bend / Portamento" />
                     <div className="flex flex-col md:flex-row gap-8">
                         <div className="basis-full order-first md:order-last md:basis-1/4">
                             <div className="flex flex-row justify-center h-48 md:h-96 m-4">
@@ -176,9 +311,9 @@ const Counterpoint: React.FC = () => {
                 </Section>
 
                 <Section>
-                    <SectionHeading title="Arpeggiator" />
+                    <SectionHeading title="🎵 Arpeggiator" />
 
-                    <div className="flex flex-col md:flex-row items-start gap-8">
+                    <div className="flex flex-col md:flex-row gap-8">
                         <div className="basis-full order-first md:order-last md:basis-1/4">
                             <div className="flex flex-row justify-center m-4">
                                 <img className="bg-panel h-48 md:h-96 p-4" src={require('../media/counterpoint/panel_arp.svg')} alt="Arpeggiator" />
@@ -211,8 +346,8 @@ const Counterpoint: React.FC = () => {
 
                 </Section>
 
-                <div className="container">
-                    <SectionHeading title="Sequencing" />
+                <Section>
+                    <SectionHeading title="🎹 Sequencing" />
 
                     <div className="flex flex-row m-6 justify-center">
                         <img className="bg-panel p-4 w-2/3" src={require('../media/counterpoint/panel_seq_actions.svg')} alt="sequencer actions" />
@@ -234,8 +369,6 @@ const Counterpoint: React.FC = () => {
                         <p>Note: Once a sequence is created for a channel, the meter of that sequence will be locked and no longer follows the active meter displayed on the panel.</p>
                         <p>For example, one channel can have a sequence playing back in a meter of 3/4, and another channel can have a sequence playing back in a meter of 4/4.</p>
                     </Note>
-                    
-                    <SectionDivider />
                     
                     <SectionSubheading title="Sequence length and meter" />
 
@@ -305,7 +438,71 @@ const Counterpoint: React.FC = () => {
                     <p>Pressing <b>ALT</b> + <b>RECORD</b> will "snap" all touch events <b>in all</b> active sequences to a grid of 32nd notes.</p>
                     <p>If you wish quantization to occur automatically, enter <b>SETTINGS</b> and make sure the <b>AQ</b> row is illuminated.</p>
                     <p>If you want to quantize only a single sequence, press the <b>ALT</b> + <b>RECORD</b> button while touching the <b>SELECT PAD</b> for that channel.</p>
-                </div>
+                </Section>
+
+
+                <Section>
+                    <SectionHeading title="👌 Gestures" />
+                    <p>Counterpoint features a number of gestures which alter the behavior of a particular channel mode, usually to aid in live performance.</p>
+
+                    <table className="w-full mb-4 border-collapse">
+                        <thead>
+                            <tr className="border-b-2 border-black">
+                                <th className="text-left w-1/3">Gesture</th>
+                                <th className="text-left w-2/3">Effect</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className="border border-black p-2">
+                                    SELECT PAD + RECORD
+                                </td>
+                                <td className="border border-black p-2">
+                                    Adds one bar to the actively running sequence, or creates a new sequence with a length of one bar.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="border border-black p-2">
+                                    TRIPLET + OCTAVE PAD
+                                </td>
+                                <td className="border border-black p-2">
+                                    Applies an octave offset to the active sequence of the corrosponding channel. (top octave pad is +1 octave, bottom is -1 octave)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="border border-black p-2">
+                                    TRIPLET + ARP RATE PAD
+                                </td>
+                                <td className="border border-black p-2">
+                                    Sets the arp rate to a triplet of the corrosponding note value.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </Section>
+                
+                <Section>
+                    <SectionHeading title="📝 Specifications" />
+                    <table className="w-full mb-4 border-collapse">
+                        <thead>
+                            <tr className="border-b-2 border-black">
+                                <th className="text-left">Parameter</th>
+                                <th className="text-left">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="border-b border-dotted border-black pt-4">
+                                <td className="pt-2">Power consumption</td>
+                                <td className="pt-2">+12V rail 60mA, -12V rail 10mA, 5V rail n/a</td>
+                            </tr>
+                            <tr className="border-b border-dotted border-black">
+                                <td className="pt-2">HP</td>
+                                <td className="pt-2">42</td>
+                            </tr>
+                        </tbody>
+                    </table>    
+                </Section>
             </ContentsContextProvider>
         </div>
     )
