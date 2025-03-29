@@ -9,7 +9,6 @@ import { BiChevronsUp, BiChevronRight } from "react-icons/bi";
 
 const TableOfContents = () => {
     const { contents, updateContents } = useContext(ContentsContext);
-    console.log(contents);
     const [backToTop, showBackToTop] = useState(true);
     const myRef = useRef(null);
 

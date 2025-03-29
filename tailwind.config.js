@@ -15,7 +15,8 @@ module.exports = {
             white: "#ffffff",
             offwhite: "#f5f5f5",
             slate: "#2f4f4f",
-            black: "#121212"
+            black: "#121212",
+            gold: "#93894e",
         },
         screens: {
             'sm': '640px',

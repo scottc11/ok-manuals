@@ -13,16 +13,11 @@ const RackModule = ({ name, image, path }: RackModuleProps) => {
     const [isHovered, setHovered] = useState(false);
     
     return (
-        <div className="rack-module" onMouseEnter={(e) => setHovered(true)} onMouseLeave={(e) => setHovered(false)}>
+        <div className="rack-module w-full" onMouseEnter={(e) => setHovered(true)} onMouseLeave={(e) => setHovered(false)}>
             <Link to={path}>
                 <img src={image} />
             </Link>
-            {/* {isHovered && 
-                <div className="rack-module__overlay">
-                    <h3 className="rack-module__overlay__title">{name}</h3>
-                    <Link to={path}>Details</Link>
-                </div>
-            } */}
+            {/* <h2 className="text-center text-sm text-white hover:text-lime transition-all duration-300">{name}</h2> */}
         </div>
     );
 }

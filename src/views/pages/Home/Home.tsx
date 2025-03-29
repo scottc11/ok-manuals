@@ -7,8 +7,10 @@ const Home = () => {
     return (
         <Section>
             <Rack>
-                <RackModule name="Counterpoint" image={require('../../../media/counterpoint/panel.svg')} path="/manuals/counterpoint" />
-                <RackModule name="DEGREE" image={require('../../../media/DEGREE/DEGREE.svg')} path="/manuals/degree" />
+                <div className="flex flex-col gap-8">
+                    <RackModule name="Counterpoint" image={require('../../../media/counterpoint/panel.svg')} path="/manuals/counterpoint" />
+                    <RackModule name="DEGREE" image={require('../../../media/DEGREE/DEGREE.svg')} path="/manuals/degree" />
+                </div>
             </Rack>
         </Section>
     );

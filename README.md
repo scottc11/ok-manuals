@@ -1,9 +1,15 @@
 # OK200 Manuals
 
+https://scottc11.github.io/ok-manuals/
+
+## Deployment
+Deployed using [GitHub pages](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages)
+
 ## Tech stack
 - React
 - TypeScript
 - Sass
+- (Tailwind)[https://v3.tailwindcss.com/docs/installation]
 - Webpack
 
 Based on the following guides
