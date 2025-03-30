@@ -5,7 +5,6 @@ import DegreeManual from "./manuals/DegreeManual";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import Home from "./views/Home";
 import Counterpoint from "./manuals/Counterpoint";
-import FirmwareUpdater from "./views/FirmwareUpdater";
 import logo from "./media/logo-white.svg";
 
 function App() {  
@@ -24,9 +23,6 @@ function App() {
             </Route>
             <Route exact path="/manuals/counterpoint">
               <Counterpoint />
-            </Route>
-            <Route exact path="/firmware-updater">
-              <FirmwareUpdater />
             </Route>
             <Route path="*">
               <div className="container h-auto">

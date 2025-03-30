@@ -60,7 +60,6 @@ const Header: React.FC = () => {
             <NavLink to="/" exact className={(isActive) => highlight(isActive)}>Manuals</NavLink>
             <NavLink to="/manuals/counterpoint" className={(isActive) => highlight(isActive)}>Counterpoint</NavLink>
             <NavLink to="/manuals/degree" className={(isActive) => highlight(isActive)}>DEGREE</NavLink>
-            <NavLink to="/firmware-updater" className={(isActive) => highlight(isActive)}>Firmware Updater</NavLink>
           </div>
         </div>
       </div>

@@ -6,6 +6,18 @@ import Note from '../components/Note/Note';
 import SectionHeading from '../components/SectionHeading/SectionHeading';
 import SectionSubheading from '../components/SectionSubHeading/SectionSubHeading';
 import Link from '../components/Link/Link';
+import { AiOutlineDownload } from 'react-icons/ai';
+import { TbCircuitPushbutton } from 'react-icons/tb';
+import FirmwareUpdater from '../views/FirmwareUpdater';
+import Code from '../components/Code/Code';
+
+const Label = ({children}: {children: React.ReactNode}) => {
+    return (
+        <span className="text-azure bg-white font-unica p-1 rounded-sm">
+            {children}
+        </span>
+    )
+}
 
 const Counterpoint: React.FC = () => {    
     return (
@@ -50,11 +62,11 @@ const Counterpoint: React.FC = () => {
                             <span className="ml-4 text-onyx/40 italic">"the orchestra counterpoints the vocal part"</span>
                         </p>
                     </div>
-                    <p>This is <b>COUNTERPOINT</b>. It is a Eurorack module designed to control multiple oscillators in a modular system, with the core focus being to keep each oscillator musically coherent with each other.</p>
+                    <p>This is <Label>COUNTERPOINT</Label>. It is a Eurorack module designed to <u>control multiple oscillators</u> in a modular system, with the core focus being to keep each oscillator musically coherent with each other.</p>
                     <p>It uses four channels of <b>brass touch pads</b> (capacitive touch) to control the pitch of four independant oscillators (VCOs), all while containing them to a common musical scale.</p>
                     <p>The scale is set using 8 "scale degree" switches on the module.</p>
                     <p>It is very hands on and <b>performative</b>. It features a sequencer that allows you to record and playback sequences of notes played on the touch pads.</p>
-                    <p>Counterpoint also features a few extra bells and whistles such as an <b>arpeggiator</b>, per channel <b>CV quantization</b>, and per channel <b>pitch bend / portamento</b> effects.</p>
+                    <p>Counterpoint also features a few extra bells and whistles such as an <Label>arpeggiator</Label>, per channel <Label>CV quantization</Label>, and per channel <Label>pitch bend / portamento</Label> effects.</p>
                     <p>This manual will guide you through the various features and functions of the Counterpoint 🤓.</p>
                     <p>For more info on the name, check out <a className="text-azure hover:text-azure/80 underline" href="https://en.wikipedia.org/wiki/Counterpoint" target="_blank" rel="noopener noreferrer">this wikipedia page</a>.</p>
                 </Section>
@@ -120,10 +132,10 @@ const Counterpoint: React.FC = () => {
                 <Section>
                     <SectionHeading title="⏰ Clocking" />
                     <p>"Clocking" is the process of using an external clock signal to synchronize the module with the rest of your system. <b>It is necessary for the module to function properly.</b></p>
-                    <p>Presently, the Counterpoint can only be clocked externally via the <b>CLOCK</b> input jack.</p>
-                    <p>Ideally you will want to use a 1/4 note (quarter note) pulse signal at the <b>CLOCK</b> input jack. The onboard microcontroller will divide this signal into a 24 PPQN (pulses per quarter note) grid in order to achieve various time related functions (sequencing, arpeggiation, etc).</p>
+                    <p>Presently, the Counterpoint can only be clocked externally via the <Label>CLOCK</Label> input jack.</p>
+                    <p>Ideally you will want to use a 1/4 note (quarter note) pulse signal at the <Label>CLOCK</Label> input jack. The onboard microcontroller will divide this signal into a 24 PPQN (pulses per quarter note) grid in order to achieve various time related functions (sequencing, arpeggiation, etc).</p>
                     <Note>
-                        <p>The internal clock will never exceed 240 BPM nor go below 40 BPM (regardless of the clock signal present at the <b>CLOCK</b> input jack).</p>
+                        <p>The internal clock will never exceed 240 BPM nor go below 40 BPM (regardless of the clock signal present at the CLOCK input jack).</p>
                     </Note>
                 </Section>
 
@@ -521,6 +533,46 @@ const Counterpoint: React.FC = () => {
                             </tr>
                         </tbody>
                     </table>    
+                </Section>
+
+
+                <Section>
+                    <SectionHeading title="💻 Firmware updates" />
+                    <p>From time to time, new firmware updates will be available for Counterpoint. These updates will add new features and fix bugs.</p>
+                    <p>You can update the firmware on your Counterpoint module right here in the manual by following the steps below.</p>
+                    
+                    <SectionSubheading title="Step 1: Requirements" />
+                    <p>To flash the firmware, you will need the following:</p>
+                    <ul className="list-disc list-inside">
+                        <li>A computer with a <b>USB-C</b> port</li>
+                        <li>A <b>USB-C</b> cable</li>
+                        <li>The latest firmware file</li>
+                        <li>An installation of Google Chrome version 61 or higher</li>
+                    </ul>
+                    <Note>
+                        <p>Note: You will NOT need to power the module from your eurorack system for this process.</p>
+                    </Note>
+                    
+                    
+                    <SectionSubheading title="Step 2: Download the latest firmware" />
+                    <p>The latest firmware can be found at <a className="text-azure hover:text-azure/80 underline" href="https://github.com/scottc11/ok-counterpoint" target="_blank" rel="noopener noreferrer">https://github.com/scottc11/ok-counterpoint</a>.</p>
+                    <p>The available firmware will be labeled with a date and have a filename similar to <Code>counterpoint-20250330.bin</Code>.</p>
+                    <p>Click on the file you wish to download. On the far right, there should be a <span className="inline-block"><AiOutlineDownload /></span> icon. Pressing that icon will <b>download the file to your local computer</b>.</p>
+                    
+                    
+                    <SectionSubheading title="Step 3: USB-C connection" />
+                    <p>Remove the module from your eurorack system and disconnect any cables that were attached to it (ie. disconnect the power cable!).</p>
+                    <p>Connect the module to your computer using a <b>USB-C</b> cable.</p>
+                    <p>Now, on the underside of the module, there are two <b>tiny black buttons</b>. One is labelled <b>BOOT</b> and the other is labelled <b>RESET</b>.</p>
+                    <p>While the <b>BOOT</b> button is being held down, <span className="inline-block"><TbCircuitPushbutton /></span> press and release the <b>RESET</b> button.</p>
+                    
+                    <SectionSubheading title="Step 4: Flash the firmware" />
+                    <FirmwareUpdater />
+
+                    <SectionSubheading title="Step 5: Reconnect the module to your eurorack system" />
+                    <p>Once the firmware has been flashed, you can disconnect the USB cable and reconnect it to your eurorack system.</p>
+                    <p>Once powered on, you should now see the updated firmware on the module.</p>
+
                 </Section>
             </ContentsContextProvider>
         </div>

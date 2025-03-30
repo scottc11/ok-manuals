@@ -1,5 +1,5 @@
 import React, { useState, createContext, useContext } from "react";
-import { AiFillClockCircle } from 'react-icons/ai';
+import { AiFillClockCircle, AiOutlineDownload } from 'react-icons/ai';
 import Image from '../components/Image/Image';
 import degree_switch_legend from '../media/DEGREE/degree-switch-legend.png';
 import degree_image from '../media/DEGREE/DEGREE.png';
@@ -18,6 +18,9 @@ import ContentsContextProvider from "../context";
 import TableOfContents from "../components/TableOfContents/TableOfContents";
 import SectionHeading from "../components/SectionHeading/SectionHeading";
 import SectionSubheading from "../components/SectionSubHeading/SectionSubHeading";
+import { TbCircuitPushbutton } from "react-icons/tb";
+import { GrConnect } from "react-icons/gr";
+import FirmwareUpdater from "../views/FirmwareUpdater";
 
 const DegreeManual = () => {
     return (
@@ -337,6 +340,54 @@ const DegreeManual = () => {
                         <SectionSubheading title={'Config. Save'} />
                         <p>Holding <Definition item={ALT_BTN} /> + the <Definition item={RECORD_BTN} /> will save the current settings of each channel so you don't need to reconfigure things after a power cycle.</p>
                     </Col>
+                </Section>
+
+                <Section>
+                    <SectionHeading title="Firmware Updates" />
+                    <p>This web application is designed to update the firmware of OK200 Eurorack modules.</p>
+                    <p>Just follow the steps below, and everything will be ok 🙂.</p>
+
+                    <SectionSubheading title="STEP 1: Are you using Google Chrome v61 or greater? 👀" />
+                    <p>In order for this to work, you are going to need to <a className="text-azure hover:text-azure/80 underline" target="_blank" href="https://www.google.com/intl/en_ca/chrome/?brand=CHBD&gclid=Cj0KCQjwyLGjBhDKARIsAFRNgW-0DbYRWHdafOcyVQptTB-Ko36qyNh3Whw0Bp7RcopmCFanZ26NPPsaAmq4EALw_wcB&gclsrc=aw.dshttps://www.google.com/search?q=Install+Google+Chrome&rlz=1C5CHFA_enCA969CA969&oq=Install+Google+Chrome&aqs=chrome..69i57.562j0j7&sourceid=chrome&ie=UTF-8">Install Google Chrome</a>. It is the only way 🙏.</p>
+
+                    <SectionSubheading>STEP 2: Obtain firmware file <span className="inline-block"><AiOutlineDownload /></span></SectionSubheading>
+                    <p>You need a copy of the firmware you wish to upload to your module. To do so:</p>
+                    <ol className="list-decimal list-inside">
+                        <li>Navigate to the <a className="text-azure hover:text-azure/80 underline" target="_blank" href="https://github.com/scottc11/ok-web-programmer/blob/master/src/firmware">GitHub repository</a> which holds all the available firmware files.</li>
+                        <li>Select the firmware file you wish to upload. It will have a <b>'.bin'</b> extension.</li>
+                        <li>On the far right, there should be a <span className="inline-block"><AiOutlineDownload /></span> icon. Press that icon and <b>download the file to your local computer</b>.</li>
+                    </ol>
+
+                    <SectionSubheading title="STEP 3: Connect module to your computer / Google Chrome and prepare for upload" />
+                    <p>You now need to physically connect the module to your computer / laptop / tablet (? 🤷‍♂️). Follow these steps:</p>
+                    <ol className="list-decimal list-inside">
+                        <li>Power <b>OFF</b> your system.</li>
+                        <li>Bring your laptop over to your system (or bring your system close to your laptop)</li>
+                        <li>Remove your module from the case, <b>but keep the power cable connected</b>.</li>
+                        <li>Using a standard USB cable, connect one end of the cable to the associated USB connector on underside of the module</li>
+                        <li>Connect the other end of the USB cable to your computer</li>
+                        <li>Power on your Eurorack case / power supply. The module needs to be powered for the firmware upload to work. Once powered, it should be operating as usual.</li>
+                        <li>Now, on the underside of the module, there is a <b>tiny black button</b> and a <b>tiny white button</b> (near where the Benders are mounted)</li>
+                        <ul>
+                            <li><span className="inline-block"><TbCircuitPushbutton /></span> Press and hold down the BLACK button</li>
+                            <li>While the black button is being held down, <span className="inline-block"><TbCircuitPushbutton /></span> press the WHITE button</li>
+                        </ul>
+                        <li>The module should now be "frozen" (ie. clock LED no longer flashing, touch pads unresponsive). This is GOOD! The module is now in "BOOTLOADER" mode.</li>
+                    </ol>
+
+                    <SectionSubheading title="STEP 4: Upload firmware to the module" />
+                    <FirmwareUpdater />
+
+                    <SectionSubheading title="STEP 6:" />
+                    <h3 className="text-2xl py-4">Finishing up</h3>
+                    <ol className="list-decimal list-inside">
+                        <li>Once the upload process is complete, the module should automatically reset itself and start running the newly uploaded firmware</li>
+                        <li>Power off your Eurorack system / disconnect the power supply</li>
+                        <li>Gently remove the USB cable from the modules USB connector</li>
+                        <li>You can now mount the module back into your case and turn on the power.</li>
+                        <li>After the module powers up, you are going to want to <b>calibrate the BENDER components</b> (ALT + MODE)</li>
+                        <li>You are done!</li>
+                    </ol>
                 </Section>
             </ContentsContextProvider>
         </div>

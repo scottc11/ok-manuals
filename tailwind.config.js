@@ -6,18 +6,6 @@ module.exports = {
         "./src/**/*.{js,jsx,ts,tsx,html}",
     ],
     theme: {
-        colors: {
-            lava: "#FF753C",
-            lime: "#ADFF5B",
-            onyx: "#0F0F0F",
-            azure: "#1954D8",
-            lavender: "#CF9EFF",
-            white: "#ffffff",
-            offwhite: "#f5f5f5",
-            slate: "#2f4f4f",
-            black: "#121212",
-            gold: "#93894e",
-        },
         screens: {
             'sm': '640px',
             'md': '768px',
@@ -29,6 +17,16 @@ module.exports = {
             center: true,
         },
         extend: {
+            colors: {
+                lava: "#FF753C",
+                lime: "#ADFF5B",
+                onyx: "#0F0F0F",
+                azure: "#1954D8",
+                lavender: "#CF9EFF",
+                white: "#ffffff",
+                offwhite: "#f5f5f5",
+                gold: "#93894e",
+            },
             backgroundImage: {
                 'panel': 'linear-gradient(to top right, #373636, #1c1c1c)',
             },
