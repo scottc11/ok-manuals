@@ -13,7 +13,23 @@ import Code from '../components/Code/Code';
 
 const Label = ({children}: {children: React.ReactNode}) => {
     return (
-        <span className="text-azure bg-white font-unica p-1 rounded-sm">
+        <span className="text-azure font-unica p-1 rounded-sm">
+            {children}
+        </span>
+    )
+}
+
+const Highlight = ({children}: {children: React.ReactNode}) => {
+    return (
+        <span className="text-black bg-lime/50 font-bold p-1 rounded-sm">
+            {children}
+        </span>
+    )
+}
+
+const Micro = ({children}: {children: React.ReactNode}) => {
+    return (
+        <span className="text-onyx/60 italic text-sm">
             {children}
         </span>
     )
@@ -85,36 +101,36 @@ const Counterpoint: React.FC = () => {
                         <img className="bg-panel p-4 w-3/4" src={require('../media/counterpoint/panel_jacks.svg')} alt="sequence length and meter" />
                     </div>
 
-                    <p>The input / output jacks are split into two sections. On the right side there is a grid of jacks corresponding to each channel (channel A, B, C, D), and on the left side are jacks corrosponding to "universal" controls for all channels.</p>
+                    <p>The input / output jacks are split into two sections. On the right side there is a grid of jacks corresponding to each channel (channel <Label>A</Label>, <Label>B</Label>, <Label>C</Label>, <Label>D</Label>), and on the left side are jacks corrosponding to "universal" controls for all channels.</p>
 
                     <SectionSubheading title="Channel in/out" />
 
-                    <p>The input / output jacks are arranged as a grid. Each column (A, B, C, D) in the grid contains the input / output jacks for a channel.</p>
+                    <p>The input / output jacks are arranged as a grid. Each column (<Label>A</Label>, <Label>B</Label>, <Label>C</Label>, <Label>D</Label>) in the grid contains the input / output jacks for a channel.</p>
                     
                     <p>The rows of the grid corrospond to the type of input / output jack:</p>
 
                     <table className="w-full mb-4 border-collapse">
                         <thead>
                             <tr className="border-b-2 border-black">
-                                <th className="text-left">Label</th>
+                                <th className="text-left w-32">Label</th>
                                 <th className="text-left">Description</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td className="font-bold pr-4">1VO</td>
+                                <td className="font-bold pr-4"><Label>1VO</Label></td>
                                 <td>1 volt per octave output (-1V to 9V range)</td>
                             </tr>
                             <tr>
-                                <td className="font-bold pr-4">GATE</td>
+                                <td className="font-bold pr-4"><Label>GATE</Label></td>
                                 <td>5V gate signal</td>
                             </tr>
                             <tr>
-                                <td className="font-bold pr-4">B CV</td>
+                                <td className="font-bold pr-4"><Label>B CV</Label></td>
                                 <td>CV control over channel slew OR "pitch bend" of 1VO output</td>
                             </tr>
                             <tr>
-                                <td className="font-bold pr-4">Q CV</td>
+                                <td className="font-bold pr-4"><Label>Q CV</Label></td>
                                 <td>When a channel is in Quantizer mode, the voltage present on this input will be quantized to the nearest scale degree</td>
                             </tr>
                         </tbody>
@@ -123,21 +139,48 @@ const Counterpoint: React.FC = () => {
                     <SectionSubheading title="Global in/out" />
                     <p>Additionally, there is an isolated column for "global" CV control:</p>
                     
-                    <p><b>CLOCK</b>: A clock signal must be present here in order for time related functions to work. See the <b>Clocking</b> section for more information.</p>
-                    <p><b>RESET</b>: Reset any active sequences to beat one. (it will wait till the next quarter note occurs before resetting)</p>
-                    <p><b>DIR CV</b>: CV control over the direction of the arpeggiator.</p>
-                    <p><b>RATE CV</b> CV control over the rate of the arpeggiator.</p>
+                    <table className="w-full mb-4 border-collapse">
+                        <thead>
+                            <tr className="border-b-2 border-black">
+                                <th className="text-left w-32">Label</th>
+                                <th className="text-left">Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td className="font-bold pr-4"><Label>CLOCK</Label></td>
+                                <td>A clock signal must be present here in order for time related functions to work. See the <b>Clocking</b> section for more information.</td>
+                            </tr>
+                            <tr>
+                                <td className="font-bold pr-4"><Label>RESET</Label></td>
+                                <td>Reset any active sequences to beat one. (it will wait till the next quarter note occurs before resetting)</td>
+                            </tr>
+                            <tr>
+                                <td className="font-bold pr-4"><Label>DIR CV</Label></td>
+                                <td>CV control over the direction of the arpeggiator.</td>
+                            </tr>
+                            <tr>
+                                <td className="font-bold pr-4"><Label>RATE CV</Label></td>
+                                <td>CV control over the rate of the arpeggiator.</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </Section>
+
+
 
                 <Section>
                     <SectionHeading title="⏰ Clocking" />
-                    <p>"Clocking" is the process of using an external clock signal to synchronize the module with the rest of your system. <b>It is necessary for the module to function properly.</b></p>
+                    <p>"Clocking" is the process of using an external clock signal to synchronize the module with the rest of your system. <Highlight>It is necessary for the module to function properly.</Highlight></p>
                     <p>Presently, the Counterpoint can only be clocked externally via the <Label>CLOCK</Label> input jack.</p>
                     <p>Ideally you will want to use a 1/4 note (quarter note) pulse signal at the <Label>CLOCK</Label> input jack. The onboard microcontroller will divide this signal into a 24 PPQN (pulses per quarter note) grid in order to achieve various time related functions (sequencing, arpeggiation, etc).</p>
                     <Note>
-                        <p>The internal clock will never exceed 240 BPM nor go below 40 BPM (regardless of the clock signal present at the CLOCK input jack).</p>
+                        <p>Note: The internal clock will never exceed 240 BPM nor go below 40 BPM (regardless of the clock signal present at the CLOCK input jack).</p>
                     </Note>
                 </Section>
+
+
+
 
                 <Section>
                     <hr></hr>
@@ -145,15 +188,15 @@ const Counterpoint: React.FC = () => {
 
                 <Section>
                     <SectionHeading title="🎛️ Channel Modes" />
-                    <p className="text-xl">Each channel can be in one of three modes: <b>MONOPHONIC</b> mode, <b>QUANTIZER</b> mode, or <b>ARPEGGIATOR</b> mode.</p>
+                    <p className="text-xl">Each channel can be in one of three modes: <Label>MONOPHONIC</Label> mode, <Label>QUANTIZER</Label> mode, or <Label>ARPEGGIATOR</Label> mode.</p>
 
                     <SectionSubheading title="Monophonic Mode" />
                     <div className="flex flex-col md:flex-row items-center">
                         <div className="basis-full md:basis-2/3">
                             <p>This is the default mode for each channel when the module is powered on.</p>
                             <p>In this mode, the module will output a precise voltage corrosponding to the last touched scale degree.</p>
-                            <p>As long as a degree or octave pad is touched, that channels <b>GATE output</b> will be HIGH.</p>
-                            <p>When a channel is in MONOPHONIC mode, both the [Q] and [A] symbols will be dimmed.</p>
+                            <p>As long as a degree or octave pad is touched, that channels <Label>GATE</Label> output will be <b>HIGH</b>.</p>
+                            <p>When a channel is in MONOPHONIC mode, both the <Label>[Q]</Label> and <Label>[A]</Label> symbols will be dimmed.</p>
                         </div>
                         <div className="basis-full md:basis-1/3">
                             <div className="flex flex-row justify-center h-48 m-4">
@@ -163,9 +206,9 @@ const Counterpoint: React.FC = () => {
                     </div>
 
                     <SectionSubheading title="Quantizer Mode" />
-                    <p>In this mode, a channel will detect the voltage present on the <b>Q CV</b> input jack and remap that voltage to the nearest scale degree.</p>
-                    <p>You can use the touch pads to activate/deactivate scale degrees and octaves, limiting the range of the <b>1VO</b> output.</p>
-                    <p>To enter a channel into <b>QUANTIZER</b> mode, press the <b>Q ON</b> button while touching the <b>SELECT PAD</b> for that channel. The <b>[Q]</b> symbol for that channel will illuminate.</p>
+                    <p>In this mode, a channel will detect the voltage present on the <Label>Q CV</Label> input jack and remap that voltage to the nearest scale degree.</p>
+                    <p>You can use the touch pads to activate/deactivate scale degrees and octaves, limiting the range of the <Label>1VO</Label> output.</p>
+                    <p>To enter a channel into <Label>QUANTIZER</Label> mode, press the <Label>Q ON</Label> button while touching the <Label>SELECT PAD</Label> for that channel. The <Label>[Q]</Label> symbol for that channel will illuminate.</p>
                     <div className="flex flex-row justify-center m-4 gap-8">
                         <img className="w-1/3 bg-panel p-4" src={require('../media/counterpoint/bend_mode_toggle.svg')} alt="bend mode toggle" />
                         <img className="w-1/3 bg-panel p-4" src={require('../media/counterpoint/quant_toggle.svg')} alt="quantizer mode symbols" />
@@ -173,11 +216,11 @@ const Counterpoint: React.FC = () => {
                     
                     <SectionSubheading title="Arpeggiator Mode" />
                     <p>In this mode, a channel will arpeggiate all the currently touched scale degrees based on the active rate and direction of the Arpeggiator.</p>
-                    <p>A channels <b>[ARP]</b> symbol will illuminate when the channel is in <b>ARPEGGIATOR</b> mode.</p>
+                    <p>A channels <Label>[ARP]</Label> symbol will illuminate when the channel is in <Label>ARPEGGIATOR</Label> mode.</p>
                     <div className="flex flex-row justify-center m-4">
                         <img className="w-1/3 bg-panel p-4" src={require('../media/counterpoint/arp_toggle.svg')} alt="arpeggiator mode symbols" />
                     </div>
-                    <p>See the <b>Arpeggiator</b> section for more information.</p>
+                    <p>See the <Label>Arpeggiator</Label> section for more information.</p>
                     
                 </Section>
 
@@ -185,20 +228,22 @@ const Counterpoint: React.FC = () => {
                     <SectionHeading title="🎼 Scale Degree Switches" />
                     <div className="flex flex-col md:flex-row">
                         <div className="basis-full md:basis-3/4">
-                            <p>Each channel has 8 <b><u>scale degree</u></b> switches which can be used to construct a <u>common scale between all 4 channels</u>.</p>
-                            <p>
-                                When all 8 switches are in their middle position, they are each seperated by a whole tone (two semi-tones). In this state, you get what is called a "whole tone scale".
-                            </p>
-                            <p>
-                                Each position of a toggle switch represents a single semitone. If you change the position of the switch upwards, all 4 channels horizontally will increase their pitch by one semitone. If you go downwards, then it will decrease their pitch by one semitone.
-                            </p>
+                            <p>Each channel has 8 <Label>scale degree switches</Label> which can be used to construct a <Highlight>common scale between all 4 channels</Highlight>.</p>
+                            
+                            <p>Each position of a toggle switch represents a single semitone. If you change the position of a switch upwards, all 4 channels horizontally will increase their pitch by one semitone. If you go downwards, then it will decrease their pitch by one semitone.</p>
+                            
+                            <p>For example, when all 8 switches are in their middle position, all 8 scale degrees of each channel will be seperated by a whole tone (two semi-tones). In this state, you get what is called a "whole tone scale".</p>
+                            
+                            <p>You can adjust the position of the switches to create major scales, minor scales, and everything in between.</p>
+                            
                             <p>
                                 If musical theory isn't your thing, use the following switch configurations to get a major or a minor scale <span className="text-xs">(and everything will sound nice 🌈)</span>:
                             </p>
+                            
                             <h3 className="text-xl mb-2"><b>Major Scale</b></h3>
                             <table className="w-full mb-8 border-collapse text-sm">
                                 <thead>
-                                    <tr className="border-b-2 border-black">
+                                    <tr className="border-b-2 border-black pb-2">
                                         <th className="text-left">Switch</th>
                                         <th className="text-left">Position</th>
                                         <th className="text-left">Scale degree</th>
@@ -319,23 +364,39 @@ const Counterpoint: React.FC = () => {
                         </div>
 
                         <div className="basis-full md:basis-3/4">
-                            <p>Each channel can apply one of <b>PORTAMENTO</b> or <b>PITCH BEND</b> to the <b>1VO</b> output using the vertical <b>sliders</b> and the <b>B CV</b> input.</p>
+                            <p>Each channel can apply one of <Label>PORTAMENTO</Label> or <Label>PITCH BEND</Label> to the <Label>1VO</Label> output using the vertical <Label>sliders</Label> and the <Label>B CV</Label> input.</p>
 
-                            <p><b>PORTAMENTO</b>: Smoothly move between scale degrees</p>
-                            <p><b>PITCH BEND</b>: Converts the control voltage present on the <b>B CV</b> input to an unquantized value between 1 and 12 semitones (in both directions).</p>
+                            <table className="w-full mb-8 border-collapse">
+                                <thead>
+                                    <tr className="border-b-2 border-black">
+                                        <th className="text-left w-32">Mode</th>
+                                        <th className="text-left">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className="font-bold pr-4"><Label>PORTAMENTO</Label></td>
+                                        <td>Smoothly move between scale degrees</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="font-bold pr-4"><Label>PITCH BEND</Label></td>
+                                        <td>Converts the control voltage present on the <Label>B CV</Label> input to an unquantized value between 1 and 12 semitones (in both directions)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                            <p>You can toggle the <b>BEND MODE</b> of a channel by pressing the <b>B MODE</b> button while touching the <b>SELECT PAD</b> for that channel.</p>
+                            <p>You can toggle the <Label>BEND MODE</Label> of a channel by pressing the <Label>B MODE</Label> button while touching the <Label>SELECT PAD</Label> for that channel.</p>
                             <div className="flex flex-row justify-center m-4">
                                 <img className="w-1/3 bg-panel p-2" src={require('../media/counterpoint/bend_mode_toggle.svg')} alt="bend mode toggle" />
                             </div>
                             
-                            <p>Both the <b>SLIDER</b> and the <b>B CV</b> input operate differently depending on which <b>BEND MODE</b> the channel is in.</p>
+                            <p>Both the <Label>SLIDER</Label> and the <Label>B CV</Label> input operate differently depending on which <Label>BEND MODE</Label> the channel is in.</p>
 
-                            <p>In <b>PORTAMENTO</b> mode, the <b>SLIDER</b> sets the amount of time it takes for a channel to move between scale degrees, and CV at the <b>B CV</b> input will add or subtract from that time.</p>
-                            <p>In <b>PITCH BEND</b> mode, the <b>SLIDER</b> acts as an attenuator for the control voltage present on the <b>B CV</b> input.</p>
+                            <p>In <Label>PORTAMENTO</Label> mode, the <Label>SLIDER</Label> sets the amount of time it takes for a channel to move between scale degrees, and CV at the <Label>B CV</Label> input will add or subtract from that time.</p>
+                            <p>In <Label>PITCH BEND</Label> mode, the <Label>SLIDER</Label> acts as an attenuator for the control voltage present on the <Label>B CV</Label> input.</p>
 
                             <Note>
-                                <p>Note: the CV input range for the B CV input is <b>-10V to 10V</b>.</p>
+                                <p>Note: the CV input range for the <Label>B CV</Label> input is <b>-10V to 10V</b>.</p>
                             </Note>
                         </div>
                     </div>
@@ -352,28 +413,35 @@ const Counterpoint: React.FC = () => {
                         </div>
                         
                         <div className="basis-full md:basis-3/4">
-                            <p>The arpeggiator is a tool that allows you to play back all of the currently touched scale degrees as an arpeggio at varrying rates.</p>
-                            <p>To enable the arpeggiator, touch one of the four ARP RATE pads. As long as one of the ARP RATE pads is touched, any channel that was previously in MONOPHONIC mode will enter in to ARPEGGIATOR mode.</p>
-                            <p>As soon as you release the ARP RATE pad, all channels will revert back to MONOPHONIC mode.</p>
-                            <p>If you wish to have a channel remain in ARPEGGIATOR mode even after the ARP RATE pad is released, press the ARP LOCK button while touching the SELECT PAD for that channel. Perform the same gesture to exit a channel from ARPEGGIATOR mode.</p>
-                            <p>Additionally, pressing the ARP LOCK button without any SELECT PADs being touch will toggle the ARP LOCK for all channels.</p>
+                            <p>The <Label>ARPEGGIATOR</Label> is a tool that allows you to play back all of the currently touched scale degrees as an arpeggio at varrying rates.</p>
+                            
+                            <p>To enable the arpeggiator, touch one of the four <Label>ARP RATE</Label> pads. As long as one of the <Label>ARP RATE</Label> pads is touched, any channel that was previously in <Label>MONOPHONIC</Label> mode will enter in to <Label>ARPEGGIATOR</Label> mode.</p>
+
+                            <p>In this state, interacting with the <Label>TOUCH PADS</Label> of a channel will immediately play back the selected scaled degrees as an arpeggio. The arpeggio will play back at the rate set by the <Label>ARP RATE</Label> pad that is currently being touched, and the arpeggio will progress in the direction set by the <Label>ARP DIR</Label> button.</p>
+                            
+                            <p>As soon as you release the <Label>ARP RATE</Label> pad, all channels will revert back to <Label>MONOPHONIC</Label> mode.</p>
+                            
+                            <p>If you wish to have a channel remain in <Label>ARPEGGIATOR</Label> mode even after the <Label>ARP RATE</Label> pad is released, press the <Label>ARP LOCK</Label> button while touching the <Label>SELECT PAD</Label> for that channel <Micro>(perform the same gesture to revert a channel back to its previous mode)</Micro>.</p>
+                            <p>You can change the rate and direction of a specific channel while it is in <Label>ARPEGGIATOR</Label> mode by using the channel's <Label>SELECT PAD</Label> and the <Label>ARP RATE / ARP DIR</Label> pads.</p>
+                            
+                            <p>Additionally, pressing the <Label>ARP LOCK</Label> button <b>without</b> a <Label>SELECT PAD</Label> being touched will keep the arpeggiator engaged for all channels regardless of whether the <Label>ARP RATE</Label> pad is being touched.</p>
                         </div>
                     </div>
                     <Note>
-                        <p>Note: Enabling / disabling the arpeggiator will only work if a channel is in MONOPHONIC mode. If it is in QUANTIZER mode, the arpeggiator will not be enabled / disabled.</p>
+                        <p>Note: Enabling / disabling the arpeggiator will only work if a channel is in <Label>MONOPHONIC</Label> mode. If it is in <Label>QUANTIZER</Label> mode, the arpeggiator will not be enabled / disabled.</p>
                     </Note>
 
                     <SectionSubheading title="Arp Rate" />
                     <p>The arp rate can be set to quarter notes (1/4), eighth notes (1/8), sixteenth notes (1/16), or thirty second notes (1/32).</p>
-                    <p>Additionally, if you hold the TRIPLET pad in conjunction with an ARP RATE pad, the arp rate will be set to a triplet of the selected note value.</p>
-                    <p>To set the arp rate, touch one of the four <b>ARP RATE</b> pads. The arp rate will change based on the <b>highest arp rate</b> that is touched.</p>
+                    <p>Additionally, if you hold the <Label>TRIPLET</Label> pad in conjunction with an <Label>ARP RATE</Label> pad, the arp rate will be set to a triplet of the selected note value.</p>
+                    <p>To set the arp rate, touch one of the four <Label>ARP RATE</Label> pads. The arp rate will change based on the <b>highest arp rate</b> that is touched.</p>
 
-                    <p>The arp rate can also be CV controlled via the <b>RATE CV</b> input (0V to 10V).</p>
+                    <p>The arp rate can also be CV controlled via the <Label>RATE CV</Label> input (0V to 10V).</p>
 
                     <SectionSubheading title="Arp Direction" />
-                    <p>The arp direction can be set to UP, DOWN, UP/DOWN, or ORDER.</p>
-                    <p>To set the arp direction, press the ARP DIR button and use the ARP RATE pads to select the direction.</p>
-                    <p>The arp direction can also be CV controlled via the DIR CV input.</p>
+                    <p>The arp direction can be set to <Label>UP</Label>, <Label>DOWN</Label>, <Label>UP/DOWN</Label>, or <Label>ORDER</Label>.</p>
+                    <p>To set the arp direction, press the <Label>ARP DIR</Label> button and use the <Label>ARP RATE</Label> pads to select the direction.</p>
+                    <p>The arp direction can also be CV controlled via the <Label>DIR CV</Label> input (0V to 10V).</p>
 
                 </Section>
 
@@ -384,13 +452,13 @@ const Counterpoint: React.FC = () => {
                         <img className="bg-panel p-4 w-2/3" src={require('../media/counterpoint/panel_seq_actions.svg')} alt="sequencer actions" />
                     </div>
 
-                    <p className="pt-4">If you have not already noticed, there is a really large <b>RECORD</b> button on the module. This button is used to record interactions with a channels touch pads (and play them back as a sequence).</p>
+                    <p className="pt-4">If you have not already noticed, there is a really large <Label>RECORD</Label> button on the module. This button is used to record interactions with a channels touch pads (and play them back as a sequence).</p>
                     
 
                     <SectionSubheading title="Recording a sequence" />
-                    <p>After pressing the <b className="bg-lava text-black p-1 rounded-sm">RECORD</b> button it will begin to illuminate red. This indicates <b>all channels</b> are primed for sequencing.</p>
+                    <p>After pressing the <Label>RECORD</Label> button it will begin to illuminate red. This indicates <b>all channels</b> are primed for sequencing.</p>
 
-                    <p>Once a channel is primed for sequencing, it will playback any touch events that occur on that channels touch pads. This includes the octave pads.</p>
+                    <p>Once a channel is primed for sequencing, it will playback any touch events that occur on that channels touch pads. This includes <b>both</b> the <Label>OCTAVE</Label> and <Label>DEGREE</Label> pads.</p>
 
                     <p>As a sequence plays back, new events will overdub / overwrite previously existing events (should they overlap).</p>
 
@@ -416,15 +484,15 @@ const Counterpoint: React.FC = () => {
                             </div>
                         </div>
                         <div className="basis-full md:basis-2/3">
-                            <p>A sequences length is determined by both the BARS and the METER settings.</p>
-                            <p>If BARS is set to <b>[A]</b>, the sequence length will continue to increment (by bars, not steps) as long as record is enabled.</p>
-                            <p>If BARS is set to one of <b>[2]</b>, <b>[4]</b>, or <b>[8]</b>, then the sequence length will be preset to that number of bars.</p>
-                            <p>Additionally, you can append one bar to a channels sequence by holding down the corrosponing <b>SELECT PAD</b> and pressing the <b>RECORD</b> button.</p>
+                            <p>A sequence's length is determined by both the <Label>BARS</Label> and the <Label>METER</Label> settings.</p>
+                            <p>If <Label>BARS</Label> is set to <Label>[A]</Label>, the sequence length will continue to increment (by bars, not steps) as long as <Label>RECORD</Label> is enabled.</p>
+                            <p>If <Label>BARS</Label> is set to one of <Label>[2]</Label>, <Label>[4]</Label>, or <Label>[8]</Label>, then the sequence length will be preset to that number of bars.</p>
+                            <p>Additionally, you can append one bar to a channels sequence by holding down the corrosponing <Label>SELECT PAD</Label> and pressing the <Label>RECORD</Label> button.</p>
                         </div>
                     </div>
 
                     <Note>
-                        <p>How AUTO sequence length works: As long as RECORD is enabled and bars is set to AUTO, the length of a sequence will automatically increase in increments of one bar as time passes. Once you feel the sequence is long enough, you can press the RECORD button again to disable recording.</p>
+                        <p>How <Label>AUTO</Label> sequence length works: As long as <Label>RECORD</Label> is enabled and bars is set to <Label>AUTO</Label>, the length of a sequence will automatically increase in increments of one bar as time passes. Once you feel the sequence is long enough, you can press the <Label>RECORD</Label> button again to disable recording.</p>
                     </Note>                    
                     
                     <SectionSubheading title="Sequence meter" />
@@ -435,40 +503,40 @@ const Counterpoint: React.FC = () => {
                             </div>
                         </div>
                         <div className="basis-full md:basis-2/3">
-                            <p>A sequence's 'meter' is the number of beats in a bar. It can be set to <b>[3/4]</b>, <b>[4/4]</b>, <b>[5/4]</b>, or <b>[7/4]</b>.</p>
-                            <p>To set the meter of a sequence, press the button between the <b>BARS</b> and <b>METER</b> display while holding down the <b>ALT</b> button.</p>
+                            <p>A sequence's 'meter' is the number of beats in a bar. It can be set to <Label>[3/4]</Label>, <Label>[4/4]</Label>, <Label>[5/4]</Label>, or <Label>[7/4]</Label>.</p>
+                            <p>To set the meter of a sequence, press the button between the <Label>BARS</Label> and <Label>METER</Label> display while holding down the <Label>ALT</Label> button.</p>
                             <p>Any new sequences will automatically be set to the active meter. Any existing sequences will not change.</p>
-                            <p>To see the meter of an existing sequence, hold the <b>SELECT PAD</b> for that channel. The associated meter will begin pulsing.</p>
+                            <p>To see the meter of an existing sequence, hold the <Label>SELECT PAD</Label> for that channel. The associated meter will begin pulsing.</p>
                         </div>
                     </div>
                     
                     <SectionSubheading title="Sequencing in Monophonic Mode" />
-                    <p>When sequencing a channel that is in <b>MONOPHONIC</b> mode, all touch events to the octave touch pads and degree touch pads will be recorded and played backas a sequence.</p>
-                    <p>As long as <b>RECORD</b> is enabled, you can continue adding new events to the sequence.</p>
+                    <p>When sequencing a channel that is in <Label>MONOPHONIC</Label> mode, all touch events to the <Label>OCTAVE</Label> and <Label>DEGREE</Label> touch pads will be recorded and played back as a sequence.</p>
+                    <p>As long as <Label>RECORD</Label> is enabled, you can continue adding new events to the sequence.</p>
                     <p>If an new event occurs at the same time as a previous event, the previous event will be overwritten.</p>
                     <p>Additionally, all events which occur before a new event is "released" will be deleted / overwritten by the new event.</p>
                     <Note>
-                        <p><b>Sequence Override:</b> If a sequence is playing back and RECORD <b>is not</b> enabled, interacting with the touch pads will override the sequence and output + hold the last touched scale degree. Releasing your finger will re-activate playback of the sequence.</p>
+                        <p><b>Sequence Override:</b> If a sequence is playing back and <Label>RECORD</Label> <b>is not</b> enabled, interacting with the touch pads will override the sequence and output + hold the last touched scale degree. Releasing your finger will re-activate playback of the sequence.</p>
                     </Note>
 
                     <SectionSubheading title="Sequencing in Quantizer Mode" />
-                    <p>When sequencing a channel that is in <b>QUANTIZER</b> mode, touching a degree / octave pad <b>will add a "snapshot"</b> of the current active scale degrees (minus the one you just touched) to the sequence.</p>
+                    <p>When sequencing a channel that is in <Label>QUANTIZER</Label> mode, touching a degree / octave pad <b>will add a "snapshot"</b> of the current active scale degrees (minus the one you just touched) to the sequence.</p>
 
                     <SectionSubheading title="Sequencing with the arpeggiator" />
-                    <p>You can use the arpeggiator to add events to a sequence, but only when that channel is in <b>MONOPHONIC</b> mode.</p>
-                    <p>The <b>GATE</b> associated with events created with the arpeggiator are treated as "trigger" events.</p>
+                    <p>You can use the arpeggiator to add events to a sequence, but only when that channel is in <Label>MONOPHONIC</Label> mode.</p>
+                    <p>The <Label>GATE</Label> associated with events created with the arpeggiator are treated as "trigger" events.</p>
                     
                     <SectionSubheading title="Clear a sequence" />
-                    <p>Pressing the <b>CLEAR</b> button will "clear" / delete all sequences.</p>
-                    <p>If you want to clear a sequence for a single channel, press the <b>CLEAR</b> button while touching that channel's <b>SELECT PAD</b>.</p>
+                    <p>Pressing the <Label>CLEAR</Label> button will "clear" / delete all sequences.</p>
+                    <p>If you want to clear a sequence for a single channel, press the <Label>CLEAR</Label> button while touching that channel's <Label>SELECT PAD</Label>.</p>
 
                     <SectionSubheading title="Reset a sequence" />
-                    <p>Pressing the <b>RESET</b> button will reset the sequence, but not immediately. It will wait until the next quarter note occurs before resetting.</p>
+                    <p>Pressing the <Label>RESET</Label> button will reset the sequence, but not immediately. It will wait until the next quarter note occurs before resetting.</p>
 
                     <SectionSubheading title="Quantizing a sequence" />
-                    <p>Pressing <b>ALT</b> + <b>RECORD</b> will "snap" all touch events <b>in all</b> active sequences to a grid of 32nd notes.</p>
-                    <p>If you wish quantization to occur automatically, enter <b>SETTINGS</b> and make sure the <b>AQ</b> row is illuminated.</p>
-                    <p>If you want to quantize only a single sequence, press the <b>ALT</b> + <b>RECORD</b> button while touching the <b>SELECT PAD</b> for that channel.</p>
+                    <p>Pressing <Label>ALT</Label> + <Label>RECORD</Label> will "snap" all touch events in all active sequences to a grid of 32nd notes.</p>
+                    <p>If you wish quantization to occur automatically, enter <Label>SETTINGS</Label> and make sure the <Label>AQ</Label> row is illuminated.</p>
+                    <p>If you want to quantize only a single sequence, press the <Label>ALT</Label> + <Label>RECORD</Label> button while touching the <Label>SELECT PAD</Label> for that channel.</p>
                 </Section>
 
 
@@ -486,7 +554,7 @@ const Counterpoint: React.FC = () => {
                         <tbody>
                             <tr className="border-b border-dotted border-black pt-4">
                                 <td>
-                                    SELECT PAD + RECORD
+                                    <Label>SELECT PAD</Label> + <Label>RECORD</Label>
                                 </td>
                                 <td>
                                     Adds one bar to the actively running sequence, or creates a new sequence with a length of one bar.
@@ -494,7 +562,7 @@ const Counterpoint: React.FC = () => {
                             </tr>
                             <tr className="border-b border-dotted border-black pt-4">
                                 <td>
-                                    TRIPLET + OCTAVE PAD
+                                    <Label>TRIPLET</Label> + <Label>OCTAVE PAD</Label>
                                 </td>
                                 <td>
                                     Applies an octave offset to the active sequence of the corrosponding channel. (top octave pad is +1 octave, bottom is -1 octave)
@@ -502,7 +570,7 @@ const Counterpoint: React.FC = () => {
                             </tr>
                             <tr className="border-b border-dotted border-black pt-4">
                                 <td>
-                                    TRIPLET + ARP RATE PAD
+                                    <Label>TRIPLET</Label> + <Label>ARP RATE PAD</Label>
                                 </td>
                                 <td>
                                     Sets the arp rate to a triplet of the corrosponding note value.

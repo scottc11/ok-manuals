@@ -57,8 +57,8 @@ function FirmwareUpdater() {
             
             <p>At this stage, we need to officially connect the module to the Google Chrome browser</p>
                         
-            <p>1. Press this <button className="bg-lava text-white px-4 py-2 rounded-md hover:bg-lava/80" onClick={() => connect()}>Connect</button> button.</p>
-            <p>2. A window should appear containing a list of all the available USB devices on your computer. Select the device named <span className="text-azure">"STM32 BOOTLOADER"</span> from that dropdown.</p>
+            <p>1. Press this <Button onClick={() => connect()}>Connect</Button> button.</p>
+            <p>2. A window should appear containing a list of all the available USB devices on your computer. Select the device named <Code>STM32 BOOTLOADER</Code> from that dropdown.</p>
 
             <div className={`p-4 my-4 rounded-lg border-2 ${connected ? 'bg-green-100 border-green-500 text-green-700' : 'bg-red-100 border-red-500 text-red-700'}`}>
                 <div className="flex items-center gap-2">
@@ -69,7 +69,7 @@ function FirmwareUpdater() {
 
             {/* <button onClick={() => disconnect()}>Disconnect</button> */}
 
-            <p>3. using the file selector, select the <Code>.bin</Code> file you downloaded from GitHub earlier.</p>
+            <p>3. Using the file selector below, select the <Code>.bin</Code> file you wish to upload to the module.</p>
 
             <input
                 type="file"
