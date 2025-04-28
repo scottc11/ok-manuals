@@ -21,7 +21,7 @@ const Label = ({children}: {children: React.ReactNode}) => {
 
 const Highlight = ({children}: {children: React.ReactNode}) => {
     return (
-        <span className="text-black bg-lime/50 font-bold p-1 rounded-sm">
+        <span className="text-black bg-lime font-mono px-1 rounded-sm">
             {children}
         </span>
     )
@@ -54,7 +54,7 @@ const Counterpoint: React.FC = () => {
 
                 <Section>
                     <SectionHeading title="👋 Introduction" />
-                    <div className="bg-white p-4 rounded-lg font-serif my-4">
+                    <div className="bg-white p-4 rounded-lg font-serif my-4 shadow-onyx/30 shadow-md">
                         <p className="mb-2">
                             <span className="text-xl font-bold">coun·ter·point</span>
                             <span className="text-onyx/70 italic ml-2">ˈkoun(t)ərˌpoint'</span>
@@ -84,7 +84,7 @@ const Counterpoint: React.FC = () => {
                     <p>It is very hands on and <b>performative</b>. It features a sequencer that allows you to record and playback sequences of notes played on the touch pads.</p>
                     <p>Counterpoint also features a few extra bells and whistles such as an <Label>arpeggiator</Label>, per channel <Label>CV quantization</Label>, and per channel <Label>pitch bend / portamento</Label> effects.</p>
                     <p>This manual will guide you through the various features and functions of the Counterpoint 🤓.</p>
-                    <p>For more info on the name, check out <a className="text-azure hover:text-azure/80 underline" href="https://en.wikipedia.org/wiki/Counterpoint" target="_blank" rel="noopener noreferrer">this wikipedia page</a>.</p>
+                    <p>For more info on the name, check out <Link external href="https://en.wikipedia.org/wiki/Counterpoint">this wikipedia page</Link>.</p>
                 </Section>
 
                 {/* <Section>
@@ -109,7 +109,7 @@ const Counterpoint: React.FC = () => {
                     
                     <p>The rows of the grid corrospond to the type of input / output jack:</p>
 
-                    <table className="w-full mb-4 border-collapse">
+                    <table className="w-full my-4 border-collapse">
                         <thead>
                             <tr className="border-b-2 border-black">
                                 <th className="text-left w-32">Label</th>
@@ -117,19 +117,19 @@ const Counterpoint: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr className="border-b-2 border-onyx/10 border-dotted">
                                 <td className="font-bold pr-4"><Label>1VO</Label></td>
                                 <td>1 volt per octave output (-1V to 9V range)</td>
                             </tr>
-                            <tr>
+                            <tr className="border-b-2 border-onyx/10 border-dotted">
                                 <td className="font-bold pr-4"><Label>GATE</Label></td>
                                 <td>5V gate signal</td>
                             </tr>
-                            <tr>
+                            <tr className="border-b-2 border-onyx/10 border-dotted">
                                 <td className="font-bold pr-4"><Label>B CV</Label></td>
                                 <td>CV control over channel slew OR "pitch bend" of 1VO output</td>
                             </tr>
-                            <tr>
+                            <tr className="border-b-2 border-onyx/10 border-dotted">
                                 <td className="font-bold pr-4"><Label>Q CV</Label></td>
                                 <td>When a channel is in Quantizer mode, the voltage present on this input will be quantized to the nearest scale degree</td>
                             </tr>
@@ -139,7 +139,7 @@ const Counterpoint: React.FC = () => {
                     <SectionSubheading title="Global in/out" />
                     <p>Additionally, there is an isolated column for "global" CV control:</p>
                     
-                    <table className="w-full mb-4 border-collapse">
+                    <table className="w-full my-4 border-collapse">
                         <thead>
                             <tr className="border-b-2 border-black">
                                 <th className="text-left w-32">Label</th>
@@ -147,19 +147,19 @@ const Counterpoint: React.FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr className="border-b-2 border-onyx/10 border-dotted">
                                 <td className="font-bold pr-4"><Label>CLOCK</Label></td>
                                 <td>A clock signal must be present here in order for time related functions to work. See the <b>Clocking</b> section for more information.</td>
                             </tr>
-                            <tr>
+                            <tr className="border-b-2 border-onyx/10 border-dotted">
                                 <td className="font-bold pr-4"><Label>RESET</Label></td>
                                 <td>Reset any active sequences to beat one. (it will wait till the next quarter note occurs before resetting)</td>
                             </tr>
-                            <tr>
+                            <tr className="border-b-2 border-onyx/10 border-dotted">
                                 <td className="font-bold pr-4"><Label>DIR CV</Label></td>
                                 <td>CV control over the direction of the arpeggiator.</td>
                             </tr>
-                            <tr>
+                            <tr className="border-b-2 border-onyx/10 border-dotted">
                                 <td className="font-bold pr-4"><Label>RATE CV</Label></td>
                                 <td>CV control over the rate of the arpeggiator.</td>
                             </tr>
@@ -171,7 +171,8 @@ const Counterpoint: React.FC = () => {
 
                 <Section>
                     <SectionHeading title="⏰ Clocking" />
-                    <p>"Clocking" is the process of using an external clock signal to synchronize the module with the rest of your system. <Highlight>It is necessary for the module to function properly.</Highlight></p>
+                    <p className="font-bold text-lg">A stable clock signal is necessary for the module to <u>function properly</u>.</p>
+                    <p>"Clocking" is the process of using an external clock signal to synchronize the module with the rest of your system.</p>
                     <p>Presently, the Counterpoint can only be clocked externally via the <Label>CLOCK</Label> input jack.</p>
                     <p>Ideally you will want to use a 1/4 note (quarter note) pulse signal at the <Label>CLOCK</Label> input jack. The onboard microcontroller will divide this signal into a 24 PPQN (pulses per quarter note) grid in order to achieve various time related functions (sequencing, arpeggiation, etc).</p>
                     <Note>
@@ -188,7 +189,7 @@ const Counterpoint: React.FC = () => {
 
                 <Section>
                     <SectionHeading title="🎛️ Channel Modes" />
-                    <p className="text-xl">Each channel can be in one of three modes: <Label>MONOPHONIC</Label> mode, <Label>QUANTIZER</Label> mode, or <Label>ARPEGGIATOR</Label> mode.</p>
+                    <p>Each channel can be in one of three modes: <Label>MONOPHONIC</Label> mode, <Label>QUANTIZER</Label> mode, or <Label>ARPEGGIATOR</Label> mode.</p>
 
                     <SectionSubheading title="Monophonic Mode" />
                     <div className="flex flex-col md:flex-row items-center">
@@ -200,7 +201,7 @@ const Counterpoint: React.FC = () => {
                         </div>
                         <div className="basis-full md:basis-1/3">
                             <div className="flex flex-row justify-center h-48 m-4">
-                                <img className="bg-panel p-4" src={require('../media/counterpoint/channel_mode_symbols.svg')} alt="monophonic mode symbols" />
+                                <img className="bg-panel shadow-onyx/50 shadow-lg p-4" src={require('../media/counterpoint/channel_mode_symbols.svg')} alt="monophonic mode symbols" />
                             </div>
                         </div>
                     </div>
@@ -210,15 +211,15 @@ const Counterpoint: React.FC = () => {
                     <p>You can use the touch pads to activate/deactivate scale degrees and octaves, limiting the range of the <Label>1VO</Label> output.</p>
                     <p>To enter a channel into <Label>QUANTIZER</Label> mode, press the <Label>Q ON</Label> button while touching the <Label>SELECT PAD</Label> for that channel. The <Label>[Q]</Label> symbol for that channel will illuminate.</p>
                     <div className="flex flex-row justify-center m-4 gap-8">
-                        <img className="w-1/3 bg-panel p-4" src={require('../media/counterpoint/bend_mode_toggle.svg')} alt="bend mode toggle" />
-                        <img className="w-1/3 bg-panel p-4" src={require('../media/counterpoint/quant_toggle.svg')} alt="quantizer mode symbols" />
+                        <img className="w-1/3 bg-panel shadow-onyx/50 shadow-lg p-4" src={require('../media/counterpoint/bend_mode_toggle.svg')} alt="bend mode toggle" />
+                        <img className="w-1/3 bg-panel shadow-onyx/50 shadow-lg p-4" src={require('../media/counterpoint/quant_toggle.svg')} alt="quantizer mode symbols" />
                     </div>
                     
                     <SectionSubheading title="Arpeggiator Mode" />
                     <p>In this mode, a channel will arpeggiate all the currently touched scale degrees based on the active rate and direction of the Arpeggiator.</p>
                     <p>A channels <Label>[ARP]</Label> symbol will illuminate when the channel is in <Label>ARPEGGIATOR</Label> mode.</p>
                     <div className="flex flex-row justify-center m-4">
-                        <img className="w-1/3 bg-panel p-4" src={require('../media/counterpoint/arp_toggle.svg')} alt="arpeggiator mode symbols" />
+                        <img className="w-1/3 bg-panel shadow-onyx/50 shadow-lg p-4" src={require('../media/counterpoint/arp_toggle.svg')} alt="arpeggiator mode symbols" />
                     </div>
                     <p>See the <Label>Arpeggiator</Label> section for more information.</p>
                     
@@ -228,11 +229,11 @@ const Counterpoint: React.FC = () => {
                     <SectionHeading title="🎼 Scale Degree Switches" />
                     <div className="flex flex-col md:flex-row">
                         <div className="basis-full md:basis-3/4">
-                            <p>Each channel has 8 <Label>scale degree switches</Label> which can be used to construct a <Highlight>common scale between all 4 channels</Highlight>.</p>
+                            <p><Label>Counterpoint</Label> contains a series of 8 <Label>scale degree</Label> switches which can be used to construct a <Highlight>common scale between all 4 channels</Highlight>.</p>
                             
-                            <p>Each position of a toggle switch represents a single semitone. If you change the position of a switch upwards, all 4 channels horizontally will increase their pitch by one semitone. If you go downwards, then it will decrease their pitch by one semitone.</p>
+                            <p>Each position of a toggle switch represents a single semitone. If you change the position of a switch upwards, all 4 channels across the horizontal axis will increase their pitch by one semitone. If you go downwards, then it will decrease their pitch by one semitone.</p>
                             
-                            <p>For example, when all 8 switches are in their middle position, all 8 scale degrees of each channel will be seperated by a whole tone (two semi-tones). In this state, you get what is called a "whole tone scale".</p>
+                            <p>For example, if all 8 switches are in their middle position, the scale degrees of each channel will be seperated by a whole tone (two semi-tones). In this state, you get what is called a "whole tone scale".</p>
                             
                             <p>You can adjust the position of the switches to create major scales, minor scales, and everything in between.</p>
                             
@@ -596,8 +597,19 @@ const Counterpoint: React.FC = () => {
                                 <td className="pt-2">+12V rail 60mA, -12V rail 10mA, 5V rail n/a</td>
                             </tr>
                             <tr className="border-b border-dotted border-black">
-                                <td className="pt-2">HP</td>
-                                <td className="pt-2">42</td>
+                                <td className="pt-2">Dimensions</td>
+                                <td className="pt-2">
+                                    <p>3U x 42 HP</p>
+                                    <p>10.16cm x 106.68cm</p>
+                                </td>
+                            </tr>
+                            <tr className="border-b border-dotted border-black">
+                                <td className="pt-2">Depth</td>
+                                <td className="pt-2">22mm</td>
+                            </tr>                            
+                            <tr className="border-b border-dotted border-black">
+                                <td className="pt-2">Weight</td>
+                                <td className="pt-2">100g</td>
                             </tr>
                         </tbody>
                     </table>    

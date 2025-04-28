@@ -22,7 +22,7 @@ const Link = ({text, href, external, anchor, children}: LinkProps) => {
     }
 
     return (
-        <a className="hover:text-azure" href={href} onClick={handleScrollTo} target={external ? '_blank' : '_self'}>
+        <a className="text-lavender hover:underline" href={href} onClick={handleScrollTo} target={external ? '_blank' : '_self'}>
             {text && text}
             {children && children}
         </a>

@@ -8,7 +8,7 @@ const Header: React.FC = () => {
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  const highlight = (isActive: boolean) => isActive ? "text-lime underline" : "text-white hover:text-lime";
+  const highlight = (isActive: boolean) => isActive ? "text-lime underline" : "text-white/80 hover:text-lime";
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
