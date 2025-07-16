@@ -10,3 +10,124 @@
         color: $note-font-color;
     }
 }
+
+// Regular size diagonal stripes (medium)
+.bg-striped-diagonal {
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+}
+
+// Small diagonal stripes
+.bg-striped-diagonal-sm {
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 3px,
+        transparent 3px,
+        transparent 6px
+    );
+}
+
+// Medium diagonal stripes
+.bg-striped-diagonal-md {
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 5px,
+        transparent 5px,
+        transparent 10px
+    );
+}
+
+// Large diagonal stripes
+.bg-striped-diagonal-lg {
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 20px,
+        transparent 20px,
+        transparent 40px
+    );
+}
+
+// Extra large diagonal stripes
+.bg-striped-diagonal-xl {
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 30px,
+        transparent 30px,
+        transparent 60px
+    );
+}
+
+// More pronounced stripes (higher opacity)
+.bg-striped-diagonal-dark {
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.25),
+        rgba(255, 255, 255, 0.25) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+}
+
+// Subtle stripes (lower opacity)
+.bg-striped-diagonal-light {
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0.05) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+}
+
+// Steeper angle stripes
+.bg-striped-diagonal-steep {
+    background-image: repeating-linear-gradient(
+        60deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+}
+
+// Flatter angle stripes
+.bg-striped-diagonal-flat {
+    background-image: repeating-linear-gradient(
+        30deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+}
+
+// Reversed direction stripes
+.bg-striped-diagonal-reverse {
+    background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.1) 10px,
+        transparent 10px,
+        transparent 20px
+    );
+}
+
+// Dense pattern (small with higher contrast)
+.bg-striped-diagonal-dense {
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.2),
+        rgba(255, 255, 255, 0.2) 4px,
+        transparent 4px,
+        transparent 8px
+    );
+}
