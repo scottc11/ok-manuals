@@ -418,11 +418,12 @@ const Counterpoint: React.FC = () => {
                             
                             <p>To enable the arpeggiator, touch one of the four <Label>ARP RATE</Label> pads. As long as one of the <Label>ARP RATE</Label> pads is touched, any channel that was previously in <Label>MONOPHONIC</Label> mode will enter in to <Label>ARPEGGIATOR</Label> mode.</p>
 
-                            <p>In this state, interacting with the <Label>TOUCH PADS</Label> of a channel will immediately play back the selected scaled degrees as an arpeggio. The arpeggio will play back at the rate set by the <Label>ARP RATE</Label> pad that is currently being touched, and the arpeggio will progress in the direction set by the <Label>ARP DIR</Label> button.</p>
+                            <p>In this state, interacting with the <Label>TOUCH PADS</Label> of a channel will immediately play back the selected scale degrees as an arpeggio. The arpeggio will play back at the rate set by the <Label>ARP RATE</Label> pad that is currently being touched, and the arpeggio will progress in the direction set by the <Label>ARP DIR</Label> button.</p>
                             
                             <p>As soon as you release the <Label>ARP RATE</Label> pad, all channels will revert back to <Label>MONOPHONIC</Label> mode.</p>
                             
-                            <p>If you wish to have a channel remain in <Label>ARPEGGIATOR</Label> mode even after the <Label>ARP RATE</Label> pad is released, press the <Label>ARP LOCK</Label> button while touching the <Label>SELECT PAD</Label> for that channel <Micro>(perform the same gesture to revert a channel back to its previous mode)</Micro>.</p>
+                            <p>If you wish to have a channel remain in <Label>ARPEGGIATOR</Label> mode without holding the <Label>ARP RATE</Label> pad, press the <Label>ARP LOCK</Label> button while touching the <Label>SELECT PAD</Label> for that channel <Micro>(perform the same gesture to revert a channel back to its previous mode)</Micro>.</p>
+                            
                             <p>You can change the rate and direction of a specific channel while it is in <Label>ARPEGGIATOR</Label> mode by using the channel's <Label>SELECT PAD</Label> and the <Label>ARP RATE / ARP DIR</Label> pads.</p>
                             
                             <p>Additionally, pressing the <Label>ARP LOCK</Label> button <b>without</b> a <Label>SELECT PAD</Label> being touched will keep the arpeggiator engaged for all channels regardless of whether the <Label>ARP RATE</Label> pad is being touched.</p>
@@ -442,7 +443,7 @@ const Counterpoint: React.FC = () => {
                     <SectionSubheading title="Arp Direction" />
                     <p>The arp direction can be set to <Label>UP</Label>, <Label>DOWN</Label>, <Label>UP/DOWN</Label>, or <Label>ORDER</Label>.</p>
                     <p>To set the arp direction, press the <Label>ARP DIR</Label> button and use the <Label>ARP RATE</Label> pads to select the direction.</p>
-                    <p>The arp direction can also be CV controlled via the <Label>DIR CV</Label> input (0V to 10V).</p>
+                    <p>The global arp direction can be CV controlled via the <Label>DIR CV</Label> input (0V to 10V). 0-2.5V is <Label>UP</Label>, 2.5-5V is <Label>DOWN</Label>, 5-7.5V is <Label>UP/DOWN</Label>, and 7.5-10V is <Label>ORDER</Label>.</p>
 
                 </Section>
 
@@ -579,7 +580,39 @@ const Counterpoint: React.FC = () => {
                             </tr>
                         </tbody>
                     </table>
+                </Section>
 
+                <Section>
+                    <SectionHeading title="🔧 VCO Calibration" />
+                    <p>Counterpoint controlls up to 4 oscillators using the 1VO protocol. This is great when your VCOs are in tune / properly calibrated, however, maintaining the 
+                        calibration of 4 oscillators (to be perfectly in tune with each other) can be an absolute pain.</p>
+                    <p>
+                        To remedy this, Counterpoint provides a built-in method for auto-calibrating your VCOs "digitally". Using the <Label>BEND CV</Label> input, Counterpoint 
+                        detects the frequency of the VCO at a variety of voltages provided by the <Label>1VO</Label> output. Counterpoint then uses this data to calculate the 
+                        frequency of the VCO at any given voltage using <Link external href="https://en.wikipedia.org/wiki/Interpolation">exponential interpolation</Link>.
+                    </p>
+
+                    <p>Follow the steps below to calibrate your VCOs.</p>
+
+                    <SectionSubheading title="Step 1: Prepare your VCO" />
+                    <p>In order to calibrate your VCO, you will need to first patch and prepare the VCO within a certain set of parameters.</p>
+                    <p><b>Step 1:</b> Make sure your VCO has been turned on for at least 10 minutes (commonly known as letting it "warm up").</p>
+                    <p><b>Step 2:</b> Patch the <Label>1VO</Label> output of the channel you wish to calibrate to the 1VO input of your VCO.</p>
+                    <p><b>Step 3:</b> Patch the output of the VCO into the <Label>BEND CV</Label> input of <b>the same channel</b>.</p>
+                    <p><b>Step 4:</b> Using your VCOs frequency knob, set the frequency to its lowest possible note (aim for C1, and don't exceed C2). This means any octave switches should be at their lowest setting. The VCO should be oscillating at a frequency between 16.35Hz and 65.41Hz.</p>
+                    <br />
+                    <p>The VCO is now ready to be calibrated. Hold the <Label>SELECT PAD</Label> associated with the channel you wish to calibrate and then press <Label>ALT</Label> + <Label>RESET</Label>.</p>
+                    <p>Counterpoint will now begin to calibrate the VCO. This process will take a few seconds to complete.</p>
+                    <p>Once the calibration is complete, the VCO will be calibrated and ready to use. The calibration data will be stored in the EEPROM of the module and will be availabe between power cycles.</p>
+                    <p>To erase the calibration data, press <Label>ALT</Label> + <Label>ARP LOCK</Label> while holding the <Label>SELECT PAD</Label> associated with the channel you wish to erase the calibration data for.</p>
+
+                    <SectionSubheading title="Calibration Notes" />
+                    <p>Counterpoint will only calibrate a VCO across a range of 8 octaves. This is why it is important to set the initial pitch of the VCO between C0 and C2.</p>
+                    <p>
+                        You will need to align the frequency of all your oscillators prior to calibration so that they are all nearly the same frequency. <b>This is important for the calibration process</b>. 
+                        If one oscillators frequency prior to calibration is significantly higher or lower then the others then the initial pitch after calibration will be a semi-tones 
+                        higher/lower then the other channels.
+                    </p>
                 </Section>
                 
                 <Section>
