@@ -8,6 +8,7 @@ import Counterpoint from "./manuals/Counterpoint";
 import NotFound from "./views/NotFound";
 import Success from "./views/Success";
 import ProductList from "./components/ProductList/ProductList";
+import ProductDetail from "./components/ProductDetail/ProductDetail";
 import Cart from "./components/Cart/Cart";
 import { CartProvider } from "./context/CartContext";
 import logo from "./media/logo-white.svg";
@@ -26,8 +27,11 @@ function App() {
                 <Route exact path="/">
                   <Home />
                 </Route>
-                <Route exact path="/shop">
+                <Route exact path="/modules">
                   <ProductList />
+                </Route>
+                <Route exact path="/modules/:id">
+                  <ProductDetail />
                 </Route>
                 <Route exact path="/cart">
                   <Cart />

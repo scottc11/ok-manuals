@@ -62,7 +62,7 @@ const Header: React.FC = () => {
             <NavLink to="/" exact className={(isActive) => highlight(isActive)}>Manuals</NavLink>
             <NavLink to="/manuals/counterpoint" className={(isActive) => highlight(isActive)}>Counterpoint</NavLink>
             <NavLink to="/manuals/degree" className={(isActive) => highlight(isActive)}>DEGREE</NavLink>
-            <NavLink to="/shop" className={(isActive) => highlight(isActive)}>Shop</NavLink>
+            <NavLink to="/modules" className={(isActive) => highlight(isActive)}>Modules</NavLink>
             <NavLink to="/cart" className={(isActive) => highlight(isActive)} style={{ position: 'relative' }}>
               Cart
               {getItemCount() > 0 && (

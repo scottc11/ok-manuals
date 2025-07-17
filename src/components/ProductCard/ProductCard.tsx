@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Product } from '../../types';
 import { useCart } from '../../context/CartContext';
 import Button from '../Button/Button';
@@ -9,6 +10,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addItem } = useCart();
+  const history = useHistory();
 
   const formatPrice = (price: number, currency: string) => {
     return new Intl.NumberFormat('en-US', {
@@ -21,10 +23,17 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     addItem(product, 1);
   };
 
+  const handleCardClick = () => {
+    history.push(`/modules/${product.id}`);
+  };
+
   const isOutOfStock = product.stock !== undefined && product.stock <= 0;
 
   return (
-    <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105">
+    <div 
+      className="bg-gray-800 rounded-lg overflow-hidden shadow-lg transition-transform hover:scale-105 cursor-pointer"
+      onClick={handleCardClick}
+    >
       {/* Product Image */}
       <div className="aspect-square bg-gray-700 flex items-center justify-center">
         {product.image ? (
@@ -62,7 +71,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           )}
         </div>
 
-        <div className="w-full">
+        <div className="w-full" onClick={(e) => e.stopPropagation()}>
           <Button
             onClick={handleAddToCart}
             disabled={isOutOfStock}
