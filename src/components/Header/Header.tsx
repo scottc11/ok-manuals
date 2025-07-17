@@ -2,11 +2,13 @@ import React, { useState, useRef, useEffect } from "react";
 import "./Header.scss";
 import logo from "../../media/logo-white.svg";
 import { Link, NavLink } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const { getItemCount } = useCart();
 
   const highlight = (isActive: boolean) => isActive ? "text-lime underline" : "text-white/80 hover:text-lime";
 
@@ -60,6 +62,15 @@ const Header: React.FC = () => {
             <NavLink to="/" exact className={(isActive) => highlight(isActive)}>Manuals</NavLink>
             <NavLink to="/manuals/counterpoint" className={(isActive) => highlight(isActive)}>Counterpoint</NavLink>
             <NavLink to="/manuals/degree" className={(isActive) => highlight(isActive)}>DEGREE</NavLink>
+            <NavLink to="/shop" className={(isActive) => highlight(isActive)}>Shop</NavLink>
+            <NavLink to="/cart" className={(isActive) => highlight(isActive)} style={{ position: 'relative' }}>
+              Cart
+              {getItemCount() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {getItemCount()}
+                </span>
+              )}
+            </NavLink>
           </div>
         </div>
       </div>

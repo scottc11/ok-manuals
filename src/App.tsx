@@ -6,38 +6,53 @@ import { HashRouter, Switch, Route } from "react-router-dom";
 import Home from "./views/Home";
 import Counterpoint from "./manuals/Counterpoint";
 import NotFound from "./views/NotFound";
+import Success from "./views/Success";
+import ProductList from "./components/ProductList/ProductList";
+import Cart from "./components/Cart/Cart";
+import { CartProvider } from "./context/CartContext";
 import logo from "./media/logo-white.svg";
 import FontLoadingSpinner from "./components/FontLoadingSpinner";
 
 function App() {  
   return (
-    // basename is set to the GitHub Pages URL
-    <HashRouter basename={process.env.NODE_ENV === 'production' ? '/ok-manuals' : '/'}>
-      <div className="w-screen h-screen overflow-auto bg-black">
-        <Header />
-        <div className="min-h-screen text-white">
-          <FontLoadingSpinner>
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-              <Route exact path="/manuals/degree">
-                <DegreeManual />
-              </Route>
-              <Route exact path="/manuals/counterpoint">
-                <Counterpoint />
-              </Route>
-              <Route path="*">
-                <NotFound />
-              </Route>
-            </Switch>
-          </FontLoadingSpinner>
+    <CartProvider>
+      {/* basename is set to the GitHub Pages URL */}
+      <HashRouter basename={process.env.NODE_ENV === 'production' ? '/ok-manuals' : '/'}>
+        <div className="w-screen h-screen overflow-auto bg-black">
+          <Header />
+          <div className="min-h-screen text-white">
+            <FontLoadingSpinner>
+              <Switch>
+                <Route exact path="/">
+                  <Home />
+                </Route>
+                <Route exact path="/shop">
+                  <ProductList />
+                </Route>
+                <Route exact path="/cart">
+                  <Cart />
+                </Route>
+                <Route exact path="/success">
+                  <Success />
+                </Route>
+                <Route exact path="/manuals/degree">
+                  <DegreeManual />
+                </Route>
+                <Route exact path="/manuals/counterpoint">
+                  <Counterpoint />
+                </Route>
+                <Route path="*">
+                  <NotFound />
+                </Route>
+              </Switch>
+            </FontLoadingSpinner>
+          </div>
+          <div className="flex justify-center items-center py-8">
+            <img className="max-h-12" src={logo} alt="ok200-logo" />
+          </div>
         </div>
-        <div className="flex justify-center items-center py-8">
-          <img className="max-h-12" src={logo} alt="ok200-logo" />
-        </div>
-      </div>
-    </HashRouter>
+      </HashRouter>
+    </CartProvider>
   );
 }
 

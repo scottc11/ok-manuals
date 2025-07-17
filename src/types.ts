@@ -33,3 +33,57 @@ export type EurorackModule = {
     hp: number;
     image: string;
 }
+
+// E-commerce types
+export interface StripeProduct {
+    id: string;
+    name: string;
+    description?: string;
+    images: string[];
+    default_price: string;
+    metadata: Record<string, string>;
+    active: boolean;
+}
+
+export interface StripePrice {
+    id: string;
+    unit_amount: number;
+    currency: string;
+    product: string;
+}
+
+export interface Product {
+    id: string;
+    name: string;
+    description?: string;
+    price: number;
+    currency: string;
+    image?: string;
+    stock?: number;
+    metadata?: Record<string, string>;
+}
+
+export interface CartItem {
+    id: string;
+    productId: string;
+    name: string;
+    price: number;
+    quantity: number;
+    image?: string;
+}
+
+export interface CartContextType {
+    items: CartItem[];
+    addItem: (product: Product, quantity?: number) => void;
+    removeItem: (id: string) => void;
+    updateQuantity: (id: string, quantity: number) => void;
+    clearCart: () => void;
+    getTotal: () => number;
+    getItemCount: () => number;
+}
+
+export interface CheckoutSession {
+    id: string;
+    url: string;
+    payment_status: string;
+}
