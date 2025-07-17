@@ -16,13 +16,6 @@ module.exports = {
     static: "./dist",
     historyApiFallback: true,
     hot: true,
-    proxy: [
-      {
-        context: ['/api'],
-        target: 'http://localhost:3001',
-        changeOrigin: true,
-      }
-    ]
   },
   module: {
     rules: [
