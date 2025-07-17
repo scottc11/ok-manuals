@@ -20,7 +20,7 @@ const Success: React.FC = () => {
       }
 
       try {
-        const response = await fetch(`/api/verify-session?session_id=${sessionId}`);
+        const response = await fetch(`${process.env.API_DOMAIN}/api/verify-session?session_id=${sessionId}`);
         const data = await response.json();
 
         if (data.success) {

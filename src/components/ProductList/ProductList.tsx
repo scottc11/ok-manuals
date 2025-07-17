@@ -11,7 +11,7 @@ const ProductList: React.FC = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/products');
+        const response = await fetch(`${process.env.API_DOMAIN}/api/products`);
         const data = await response.json();
 
         if (data.success) {
