@@ -40,9 +40,29 @@ REACT_APP_STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key_here
 
 **Important**: Never commit your `.env` file to version control!
 
-## Step 3: Deploy API Endpoints
+## Step 3: Choose Your Backend Approach
 
-### Option A: Vercel (Recommended)
+### Option A: Local Express Server (Development)
+
+Perfect for local development and testing:
+
+1. **Create `.env` file** in project root:
+```env
+STRIPE_SECRET_KEY=sk_test_your_stripe_secret_key_here
+STRIPE_WEBHOOK_SECRET=whsec_your_webhook_secret_here
+PORT=3001
+```
+
+2. **Run development server**:
+```bash
+npm run dev  # Runs both frontend (3000) and backend (3001)
+```
+
+3. **Test the setup**:
+   - Health check: http://localhost:3001/health
+   - Products: http://localhost:3001/api/products
+
+### Option B: Vercel Functions (Production)
 
 1. Install Vercel CLI: `npm i -g vercel`
 2. Run `vercel` in your project directory
@@ -51,7 +71,7 @@ REACT_APP_STRIPE_PUBLISHABLE_KEY=pk_test_your_stripe_publishable_key_here
    - Go to your project settings
    - Add `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET`
 
-### Option B: Netlify Functions
+### Option C: Netlify Functions
 
 1. Create `netlify.toml`:
 ```toml
