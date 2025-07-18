@@ -24,7 +24,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   const handleCardClick = () => {
-    history.push(`/modules/${product.id}`);
+    const slug = product.metadata?.slug;
+    if (slug) {
+      history.push(`/modules/${slug}`);
+    } else {
+      // Fallback to id if slug is not available
+      console.warn('Product does not have a slug metadata field, falling back to id');
+      history.push(`/modules/${product.id}`);
+    }
   };
 
   const isOutOfStock = product.stock !== undefined && product.stock <= 0;

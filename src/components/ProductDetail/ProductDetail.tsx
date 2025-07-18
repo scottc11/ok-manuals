@@ -5,11 +5,11 @@ import { useCart } from '../../context/CartContext';
 import Button from '../Button/Button';
 
 interface ProductDetailParams {
-  id: string;
+  slug: string;
 }
 
 const ProductDetail: React.FC = () => {
-  const { id } = useParams<ProductDetailParams>();
+  const { slug } = useParams<ProductDetailParams>();
   const history = useHistory();
   const { addItem } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
@@ -25,7 +25,7 @@ const ProductDetail: React.FC = () => {
         const data = await response.json();
 
         if (data.success) {
-          const foundProduct = data.products.find((p: Product) => p.id === id);
+          const foundProduct = data.products.find((p: Product) => p.metadata?.slug === slug);
           if (foundProduct) {
             setProduct(foundProduct);
           } else {
@@ -43,7 +43,7 @@ const ProductDetail: React.FC = () => {
     };
 
     fetchProduct();
-  }, [id]);
+  }, [slug]);
 
   const formatPrice = (price: number, currency: string) => {
     return new Intl.NumberFormat('en-US', {
