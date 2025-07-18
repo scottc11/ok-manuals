@@ -30,7 +30,7 @@ const Header: React.FC = () => {
   }, [isMenuOpen]);
 
   return (
-    <div className="border-b border-b-slate/20">
+    <div id="header" className="border-b border-b-gray-600">
       <div className="container py-8">
         <div className="flex flex-row justify-between md:justify-center gap-8">
           <div>
