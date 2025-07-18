@@ -73,6 +73,7 @@ const Header: React.FC = () => {
             <NavLink to="/manuals/counterpoint" className={(isActive) => highlight(isActive)}>Counterpoint</NavLink>
             <NavLink to="/manuals/degree" className={(isActive) => highlight(isActive)}>DEGREE</NavLink>
             <NavLink to="/modules" className={(isActive) => highlight(isActive)}>Modules</NavLink>
+            <NavLink to="/contact" className={(isActive) => highlight(isActive)}>Contact</NavLink>
             <NavLink to="/cart" className={(isActive) => highlight(isActive)} style={{ position: 'relative' }}>
               <IoCartOutline className="text-lime" size={30} />
               {getItemCount() > 0 && (

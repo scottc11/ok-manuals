@@ -4,7 +4,7 @@ type ButtonVariant = 'light' | 'dark' | 'auto';
 
 interface ButtonProps {
     children: React.ReactNode;
-    onClick: () => void;
+    onClick?: () => void;
     disabled?: boolean;
     className?: string;
     variant?: ButtonVariant;

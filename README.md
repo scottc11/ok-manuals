@@ -11,20 +11,12 @@ Deployed using [GitHub pages](https://docs.github.com/en/pages/getting-started-w
 - Sass
 - (Tailwind)[https://v3.tailwindcss.com/docs/installation]
 - Webpack
+- Resend (email service)
+- Vercel (cloud functions for simple backend tasks)
+- Stripe checkout (stripe hosted e-commerce)
 
-Based on the following guides
 
-## Reference
-- [Icon Library](https://react-icons.github.io/react-icons)
-- [react-use Hooks library](https://github.com/streamich/react-use)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
-- [React/TypeScript Cheat Sheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/setup)
-- [FlexBox Guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
-- https://reactjs.org/docs/static-type-checking.html#typescript
-- https://webpack.js.org/guides/typescript/
-- https://github.com/openscopeproject/InteractiveHtmlBom
-- https://v5.reactrouter.com/web/guides/quick-start
-- [AWS S3 CLI](https://docs.aws.amazon.com/cli/latest/reference/s3/cp.html)
-
-## SVG to React TypeScript Generator
-- https://react-svgr.com/playground/?expandProps=start&exportType=named&namedExport=PanelSVG&typescript=true
+## Environment Variables
+`STRIPE_SECRET_KEY=`
+`RESEND_API_KEY=`
+`API_DOMAIN=https://ok200.vercel.app`

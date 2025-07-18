@@ -13,6 +13,7 @@ import ProductDetail from "./components/ProductDetail/ProductDetail";
 import Cart from "./components/Cart/Cart";
 import { CartProvider } from "./context/CartContext";
 import FontLoadingSpinner from "./components/FontLoadingSpinner";
+import Contact from "./views/Contact";
 
 function App() {  
   return (
@@ -44,6 +45,9 @@ function App() {
                 </Route>
                 <Route exact path="/manuals/counterpoint">
                   <Counterpoint />
+                </Route>
+                <Route exact path="/contact">
+                  <Contact />
                 </Route>
                 <Route path="*">
                   <NotFound />
