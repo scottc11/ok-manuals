@@ -1,8 +1,36 @@
 import React, { useState } from 'react';
 
-const Button = ({ children, onClick, disabled }: { children: React.ReactNode, onClick: () => void, disabled?: boolean }) => {
-    
+type ButtonVariant = 'light' | 'dark' | 'auto';
+
+interface ButtonProps {
+    children: React.ReactNode;
+    onClick: () => void;
+    disabled?: boolean;
+    className?: string;
+    variant?: ButtonVariant;
+}
+
+const Button = ({ children, onClick, disabled, className, variant = 'dark' }: ButtonProps) => {
     const [buttonClicked, setButtonClicked] = useState(false);
+    
+    // Define color schemes for different backgrounds
+    const getButtonClasses = () => {
+        const baseClasses = 'px-3 py-2 rounded disabled:opacity-50 border-2 transition-colors duration-200';
+        
+        switch (variant) {
+            case 'light':
+                // For light backgrounds - dark button
+                return `${baseClasses} border-black text-black hover:bg-black hover:text-white`;
+            case 'dark':
+                // For dark backgrounds - light button  
+                return `${baseClasses} border-white text-white hover:bg-white hover:text-black`;
+            case 'auto':
+                // Uses CSS mix-blend-mode for automatic contrast
+                return `${baseClasses} border-current text-current mix-blend-difference`;
+            default:
+                return `${baseClasses} border-white text-white`;
+        }
+    };
     
     return (
         <button 
@@ -10,7 +38,7 @@ const Button = ({ children, onClick, disabled }: { children: React.ReactNode, on
             disabled={disabled}
             onMouseDown={() => setButtonClicked(true)}
             onMouseUp={() => setButtonClicked(false)}
-            className={`inline-block border-2 border-slate-500 bg-slate-900 text-lavender rounded-md p-2 ${buttonClicked ? 'border-b-2' : 'border-b-4'}`}>
+            className={`${getButtonClasses()} ${className || ''}`}>
             {children}
         </button>
     )

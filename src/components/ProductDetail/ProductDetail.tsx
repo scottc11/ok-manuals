@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { Product } from '../../types';
 import { useCart } from '../../context/CartContext';
 import Button from '../Button/Button';
@@ -90,14 +90,12 @@ const ProductDetail: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <Button onClick={handleBackToProducts}>
-          ← Back to Products
-        </Button>
+        <p className="text-white text-lg mb-4"><Link to="/modules" className="hover:text-lime/80">← Back to Products</Link></p>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Product Image - Left Side */}
-        <div className="lg:w-1/2">
+        <div className="lg:w-2/3">
           <div className="aspect-square bg-gray-700 rounded-lg overflow-hidden flex items-center justify-center">
             {product.image ? (
               <img
@@ -113,7 +111,7 @@ const ProductDetail: React.FC = () => {
 
         {/* Product Details - Right Side */}
         <div className="lg:w-1/2">
-          <h1 className="text-3xl font-bold text-white mb-4">{product.name}</h1>
+          <h1 className="text-6xl font-bold text-white mb-4">{product.name}</h1>
           
           {product.description && (
             <p className="text-gray-300 text-lg mb-6 leading-relaxed">
@@ -122,7 +120,7 @@ const ProductDetail: React.FC = () => {
           )}
 
           <div className="mb-6">
-            <span className="text-4xl font-bold text-green-400">
+            <span className="text-4xl font-sans text-white">
               {formatPrice(product.price, product.currency)}
             </span>
           </div>
@@ -160,12 +158,9 @@ const ProductDetail: React.FC = () => {
           </div>
 
           {/* Add to Cart Button */}
-          <div className="mb-6">
-            <Button
-              onClick={handleAddToCart}
-              disabled={isOutOfStock}
-            >
-              {isOutOfStock ? 'Out of Stock' : `Add ${quantity} to Cart`}
+          <div className="mb-6 w-full">
+            <Button onClick={handleAddToCart} disabled={isOutOfStock} className="w-full">
+              {isOutOfStock ? 'Out of Stock' : `Add to Cart`}
             </Button>
           </div>
 

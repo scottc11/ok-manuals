@@ -32,6 +32,7 @@ module.exports = {
             },
             fontFamily: {
                 body: ['Helvetica'],
+                numbers: ['Helvetica Neue'],
                 mono: ['Inconsolata'],
                 unica: ['"Unica One"'],
                 bungee: ['Bungee'],

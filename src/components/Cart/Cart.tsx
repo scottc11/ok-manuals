@@ -58,7 +58,7 @@ const Cart: React.FC = () => {
           <div className="text-gray-400 text-6xl mb-4">🛒</div>
           <h2 className="text-xl text-white mb-2">Your cart is empty</h2>
           <p className="text-gray-400 mb-8">Add some products to get started!</p>
-          <Button onClick={() => window.location.href = '/#/shop'}>
+          <Button onClick={() => window.location.href = '/#/modules'}>
             Continue Shopping
           </Button>
         </div>

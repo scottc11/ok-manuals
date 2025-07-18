@@ -57,7 +57,7 @@ function FirmwareUpdater() {
             
             <p>At this stage, we need to officially connect the module to the Google Chrome browser</p>
                         
-            <p>1. Press this <Button onClick={() => connect()}>Connect</Button> button.</p>
+            <p>1. Press this <Button variant="light" onClick={() => connect()}>Connect</Button> button.</p>
             <p>2. A window should appear containing a list of all the available USB devices on your computer. Select the device named <Code>STM32 BOOTLOADER</Code> from that dropdown.</p>
 
             <div className={`p-4 my-4 rounded-lg border-2 ${connected ? 'bg-green-100 border-green-500 text-green-700' : 'bg-red-100 border-red-500 text-red-700'}`}>
@@ -79,12 +79,13 @@ function FirmwareUpdater() {
                 onChange={(e) => chooseFile(e)}
             />
 
-            <p>4. Now press this <Button disabled={dfu && file ? false : true} onClick={() => dfu.upload(file)}>Upload</Button> button.</p>
+            <p>4. Now press this <Button variant="light" disabled={dfu && file ? false : true} onClick={() => dfu.upload(file)}>Upload</Button> button.</p>
             <br></br>
             
             {
                 process.env.NODE_ENV !== 'production' && (
                     <Button
+                        variant="light"
                         onClick={() => {
                             // Simulate upload progress
                             setUploadStatus('Simulating upload');
