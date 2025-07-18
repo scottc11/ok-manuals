@@ -24,29 +24,14 @@ const ProductSplitScreen = ({
     className = '',
     ctaVariant = 'dark'
 }: ProductSplitScreenProps) => {
-    const contentSection = (
-        <div className="flex flex-col gap-6 w-full md:w-[45%]">
-            <div className="w-full rounded-lg overflow-hidden">
-                <img src={bannerImage} alt="Product Banner" className="w-full h-auto block" />
-            </div>
-            <div className="flex flex-col gap-4 py-4">
-                <div className="text-3xl font-numbers border-b-2 border-gray-400 pb-2">{price}</div>
-                <div className="text-lg leading-relaxed text-gray-300">{bodyText}</div>
-                <div className="mt-4">
-                    <Button 
-                        onClick={ctaAction}
-                        variant={ctaVariant}
-                        className="text-lg px-8 py-3"
-                    >
-                        {ctaText}
-                    </Button>
-                </div>
-            </div>
+    const bannerSection = (
+        <div className="w-full rounded-lg overflow-hidden order-1">
+            <img src={bannerImage} alt="Product Banner" className="w-full h-auto block" />
         </div>
     );
     
     const imageSection = (
-        <div className="flex w-full md:w-[55%] items-center justify-center">
+        <div className="flex w-full items-center justify-center order-2 md:w-[55%] md:items-center md:justify-center">
             <div className="w-full max-w-full text-center">
                 <img 
                     src={rightImage} 
@@ -57,19 +42,39 @@ const ProductSplitScreen = ({
         </div>
     );
     
+    const contentSection = (
+        <div className="flex flex-col gap-4 py-4 w-full order-3">
+            <div className="text-3xl font-numbers border-b-2 border-gray-400 pb-2">{price}</div>
+            <div className="text-lg leading-relaxed text-gray-300">{bodyText}</div>
+            <div className="mt-4">
+                <Button 
+                    onClick={ctaAction}
+                    variant={ctaVariant}
+                    className="text-lg px-8 py-3"
+                >
+                    {ctaText}
+                </Button>
+            </div>
+        </div>
+    );
+    
     return (
-        <div className={`flex gap-8 min-h-[60vh] md:flex-row flex-col ${className}`}>
-            {reversed ? (
-                <>
-                    {imageSection}
+        <div className={`flex gap-6 min-h-[60vh] flex-col md:flex-row ${className}`}>
+            {/* Mobile: Banner -> Image -> Content */}
+            <div className="md:hidden flex flex-col gap-6">
+                {bannerSection}
+                {imageSection}
+                {contentSection}
+            </div>
+            
+            {/* Desktop: Grouped layout with reverse option */}
+            <div className={`hidden md:flex gap-6 w-full ${reversed ? 'flex-row-reverse' : 'flex-row'}`}>
+                <div className="flex flex-col gap-6 w-[45%]">
+                    {bannerSection}
                     {contentSection}
-                </>
-            ) : (
-                <>
-                    {contentSection}
-                    {imageSection}
-                </>
-            )}
+                </div>
+                {imageSection}
+            </div>
         </div>
     );
 };
