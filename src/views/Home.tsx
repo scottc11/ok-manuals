@@ -3,6 +3,7 @@ import Rack from "../components/Rack/Rack";
 import RackModule from "../components/RackModule/RackModule";
 import Section from "../components/Section/Section";
 import Button from "../components/Button/Button";
+import ProductSplitScreen from "../components/ProductSplitScreen/ProductSplitScreen";
 
 const Home = () => {
     return (
@@ -14,6 +15,27 @@ const Home = () => {
                 </div>
             </Rack>
             
+            <ProductSplitScreen
+                bannerImage={require('../media/counterpoint/counterpoint-banner.png')}
+                price="$899"
+                bodyText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
+                ctaText="Order →"
+                ctaAction={() => window.location.assign('#/modules/counterpoint')}
+                rightImage={require('../media/counterpoint/panel.svg')}
+                className="mt-16"
+            />
+
+            <ProductSplitScreen
+                reversed
+                bannerImage={require('../media/DEGREE/degree-banner.png')}
+                price="$1,299"
+                bodyText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
+                ctaText="Order →"
+                ctaAction={() => window.location.assign('#/modules/degree')}
+                rightImage={require('../media/DEGREE/DEGREE.png')}
+                className="mt-16"
+            />
+
             {/* E-commerce Section */}
             <div className="mt-16 text-center">
                 <h2 className="text-2xl font-bold text-white mb-4">Shop Products</h2>
