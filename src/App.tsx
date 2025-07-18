@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.scss";
 import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 import DegreeManual from "./manuals/DegreeManual";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import Home from "./views/Home";
@@ -11,7 +12,6 @@ import ProductList from "./components/ProductList/ProductList";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import Cart from "./components/Cart/Cart";
 import { CartProvider } from "./context/CartContext";
-import logo from "./media/logo-white.svg";
 import FontLoadingSpinner from "./components/FontLoadingSpinner";
 
 function App() {  
@@ -51,9 +51,7 @@ function App() {
               </Switch>
             </FontLoadingSpinner>
           </div>
-          <div className="flex justify-center items-center py-8">
-            <img className="max-h-12" src={logo} alt="ok200-logo" />
-          </div>
+          <Footer />
         </div>
       </HashRouter>
     </CartProvider>
