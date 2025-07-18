@@ -24,6 +24,7 @@ const Home = () => {
                     ctaText="Details →"
                     ctaAction={() => window.location.assign('#/modules/counterpoint')}
                     rightImage={require('../media/counterpoint/panel.svg')}
+                    className="pt-8"
                 />
 
                 <ProductSplitScreen
@@ -34,6 +35,7 @@ const Home = () => {
                     ctaText="Details →"
                     ctaAction={() => window.location.assign('#/modules/degree')}
                     rightImage={require('../media/DEGREE/DEGREE.png')}
+                    className="pt-8"
                 />
             </Section>
             

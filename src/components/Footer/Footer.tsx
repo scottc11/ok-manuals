@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
 
           {/* Text section - Right side */}
           <div className="text-xs text-gray-300 text-left md:text-right">
-            <div className="mb-1">Website built by Scott Campbell</div>
+            <div className="mb-1">Website development by Scott Campbell</div>
             <div>
               Website design by{" "}
               <a
