@@ -8,18 +8,11 @@ import ProductSplitScreen from "../components/ProductSplitScreen/ProductSplitScr
 const Home = () => {
     return (
         <Section>
-            <Rack>
-                <div className="flex flex-col gap-8">
-                    <RackModule name="Counterpoint" image={require('../media/counterpoint/panel.svg')} path="/manuals/counterpoint" />
-                    <RackModule name="DEGREE" image={require('../media/DEGREE/DEGREE.svg')} path="/manuals/degree" />
-                </div>
-            </Rack>
-            
             <ProductSplitScreen
                 bannerImage={require('../media/counterpoint/counterpoint-banner.png')}
                 price="$899"
                 bodyText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
-                ctaText="Order →"
+                ctaText="Details →"
                 ctaAction={() => window.location.assign('#/modules/counterpoint')}
                 rightImage={require('../media/counterpoint/panel.svg')}
                 className="mt-16"
@@ -30,11 +23,18 @@ const Home = () => {
                 bannerImage={require('../media/DEGREE/degree-banner.png')}
                 price="$1,299"
                 bodyText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
-                ctaText="Order →"
+                ctaText="Details →"
                 ctaAction={() => window.location.assign('#/modules/degree')}
                 rightImage={require('../media/DEGREE/DEGREE.png')}
                 className="mt-16"
             />
+
+            <Rack>
+                <div className="flex flex-col gap-8">
+                    <RackModule name="Counterpoint" image={require('../media/counterpoint/panel.svg')} path="/manuals/counterpoint" />
+                    <RackModule name="DEGREE" image={require('../media/DEGREE/DEGREE.svg')} path="/manuals/degree" />
+                </div>
+            </Rack>
 
             {/* E-commerce Section */}
             <div className="mt-16 text-center">
