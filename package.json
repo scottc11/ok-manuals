@@ -10,6 +10,7 @@
     "watch": "webpack --config webpack.config.js --watch",
     "start": "node --max-old-space-size=4096 ./node_modules/.bin/webpack serve --open",
     "server": "node server.js",
+    "server:dev": "nodemon server.js",
     "deploy-backend": "vercel --prod"
   },
   "author": "",
@@ -27,6 +28,7 @@
     "express": "^4.21.2",
     "gh-pages": "^6.3.0",
     "morgan": "^1.10.0",
+    "nodemon": "^3.0.2",
     "html-webpack-plugin": "^5.5.0",
     "postcss": "^8.4.38",
     "postcss-loader": "^8.1.1",
