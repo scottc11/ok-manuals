@@ -1,9 +1,9 @@
 import React from "react";
 import Section from "../components/Section/Section";
-import Button from "../components/Button/Button";
 import ProductSplitScreen from "../components/ProductSplitScreen/ProductSplitScreen";
 import NewsletterSignup from "../components/NewsletterSignup/NewsletterSignup";
 import HeroBanner from "../components/HeroBanner/HeroBanner";
+import InstagramPostEmbedded from "../components/InstagramPostEmbedded/InstagramPostEmbedded";
 
 const Home = () => {
     return (
@@ -38,12 +38,19 @@ const Home = () => {
                     className="pt-8"
                 />
             </Section>
-            
+                        
             {/* Newsletter Signup */}
             <div className="bg-lavender">
                 <Section>
                     <NewsletterSignup />
                 </Section>
+            </div>
+
+            <div className="bg-offwhite">
+                <InstagramPostEmbedded
+                    permalink="https://www.instagram.com/p/ChkVwHouHEZ/"
+                    className="flex justify-center py-8"
+                />
             </div>
         </>
     );
