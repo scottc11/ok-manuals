@@ -61,93 +61,95 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
-      <h1 className="text-4xl font-bungee mb-8 text-left">Contact</h1>
+    <div className="bg-white text-black">
+      <div className="container mx-auto px-4 py-8 max-w-2xl">
+        <h1 className="text-4xl font-bungee mb-8 text-left">Contact</h1>
 
-      <form onSubmit={handleSubmit} className="space-y-6 bg-lime p-4 rounded-lg text-white">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium mb-2">
-            Name *
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
-            placeholder="Your name"
-          />
-        </div>
+        <form onSubmit={handleSubmit} className="space-y-6 rounded-lg">
+          <div>
+            <label htmlFor="name" className="block text-sm font-medium mb-2">
+              Name *
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+              placeholder="Your name"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium mb-2">
-            Email *
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
-            placeholder="your.email@example.com"
-          />
-        </div>
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium mb-2">
+              Email *
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+              placeholder="your.email@example.com"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="subject" className="block text-sm font-medium mb-2">
-            Subject
-          </label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            value={formData.subject}
-            onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
-            placeholder="What's this about?"
-          />
-        </div>
+          <div>
+            <label htmlFor="subject" className="block text-sm font-medium mb-2">
+              Subject
+            </label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              value={formData.subject}
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+              placeholder="What's this about?"
+            />
+          </div>
 
-        <div>
-          <label htmlFor="message" className="block text-sm font-medium mb-2">
-            Message *
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleInputChange}
-            required
-            rows={6}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black resize-vertical"
-            placeholder="Your message..."
-          />
-        </div>
+          <div>
+            <label htmlFor="message" className="block text-sm font-medium mb-2">
+              Message *
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleInputChange}
+              required
+              rows={6}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black resize-vertical"
+              placeholder="Your message..."
+            />
+          </div>
 
-        <Button
-          disabled={isSubmitting}
-          className="w-full"
-        >
-          {isSubmitting ? 'Sending...' : 'Send'}
-        </Button>
+          <Button
+            disabled={isSubmitting}
+            className="w-full"
+          >
+            {isSubmitting ? 'Sending...' : 'Send'}
+          </Button>
 
-        {submitStatus === 'success' && (
+          {submitStatus === 'success' && (
             <div className="text-lime text-sm">
-                <p className="font-medium">Message sent successfully!</p>
+              <p className="font-medium">Message sent successfully!</p>
             </div>
-        )}
+          )}
 
-        {submitStatus === 'error' && (
+          {submitStatus === 'error' && (
             <div className="text-red text-sm">
-                <p className="font-medium">Error sending message 😕</p>
-                <p>{errorMessage}</p>
+              <p className="font-medium">Error sending message 😕</p>
+              <p>{errorMessage}</p>
             </div>
-        )}
-      </form>
+          )}
+        </form>
+      </div>
     </div>
   );
 };
