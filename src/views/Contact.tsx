@@ -61,11 +61,11 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="bg-white text-black">
+    <div className="bg-offwhite text-black">
       <div className="container mx-auto px-4 py-8 max-w-2xl">
         <h1 className="text-4xl font-bungee mb-8 text-left">Contact</h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6 rounded-lg">
+        <form onSubmit={handleSubmit} className="space-y-6 rounded-lg bg-white p-4 shadow-lg">
           <div>
             <label htmlFor="name" className="block text-sm font-medium mb-2">
               Name *
@@ -131,19 +131,21 @@ const Contact: React.FC = () => {
 
           <Button
             disabled={isSubmitting}
+            type="submit"
+            variant="light"
             className="w-full"
           >
             {isSubmitting ? 'Sending...' : 'Send'}
           </Button>
 
           {submitStatus === 'success' && (
-            <div className="text-lime text-sm">
+            <div className="text-center text-gray-500 text-sm">
               <p className="font-medium">Message sent successfully!</p>
             </div>
           )}
 
           {submitStatus === 'error' && (
-            <div className="text-red text-sm">
+            <div className="text-center text-red-700 text-sm">
               <p className="font-medium">Error sending message 😕</p>
               <p>{errorMessage}</p>
             </div>
