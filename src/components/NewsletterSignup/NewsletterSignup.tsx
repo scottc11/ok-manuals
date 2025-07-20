@@ -73,6 +73,16 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ className = '' }) =
                         placeholder="Email"
                     />
                 </div>
+
+                <div>
+                    <input
+                        type="text"
+                        name="website"
+                        style={{ display: 'none'}}
+                        tabIndex={-1}
+                        autoComplete="off"
+                    />
+                </div>
                 
                 <Button
                     type="submit"
@@ -86,8 +96,8 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ className = '' }) =
                 {message && (
                     <div className={`text-center mt-4 p-3 rounded-md ${
                         message.includes('Thank you') 
-                            ? 'bg-lime text-black border border-black'
-                            : 'bg-red-100 text-red-700 border border-red-300'
+                            ? 'text-lime text-opacity-80'
+                            : 'text-red-700'
                     }`}>
                         {message}
                     </div>

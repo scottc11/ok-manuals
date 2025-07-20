@@ -21,16 +21,76 @@ async function handler(req, res) {
     }
 
     try {
+        // ==========================================
+        // 1. GOOGLE SHEETS-BASED RATE LIMITING
+        // ==========================================
+        // Purpose: Prevent spam using the Google Sheet itself to track IP submissions
+        // How: Check recent submissions from same IP in the spreadsheet data
+        
+        const clientIP = req.headers['x-forwarded-for']?.split(',')[0] || 
+                        req.headers['x-real-ip'] || 
+                        req.connection.remoteAddress || 
+                        'unknown';
+
+        // ==========================================
+        // 4. HONEYPOT FIELD VALIDATION
+        // ==========================================
+        // Purpose: Catch bots that auto-fill all form fields
+        // How: Check if hidden 'website' field was filled (humans won't see/fill it)
+        
+        if (req.body.website && req.body.website.trim() !== '') {
+            // Log the attempt for monitoring (don't return specific error to avoid teaching bots)
+            console.log(`Honeypot triggered from IP: ${clientIP} at ${new Date().toISOString()}`);
+            return res.status(400).json({ 
+                error: 'Invalid submission',
+                message: 'Please try again' 
+            });
+        }
+
         const { name, email } = req.body;
 
-        // Validate required fields
+        // ==========================================
+        // 3. INPUT SANITIZATION & LENGTH LIMITS
+        // ==========================================
+        // Purpose: Prevent malicious input and ensure data quality
+        // How: Validate field lengths, sanitize content, check for valid formats
+
+        // Check if required fields exist
         if (!name || !email) {
             return res.status(400).json({ error: 'Name and email are required' });
         }
 
-        // Validate email format
+        // Length validation - prevent extremely long inputs that could cause issues
+        // Name: reasonable human name length (2-100 characters)
+        // Email: RFC 5321 specifies max 254 characters for email addresses
+        if (name.length < 2 || name.length > 100) {
+            return res.status(400).json({ 
+                error: 'Invalid name length',
+                message: 'Name must be between 2 and 100 characters' 
+            });
+        }
+
+        if (email.length > 254) {
+            return res.status(400).json({ 
+                error: 'Email too long',
+                message: 'Email address is too long' 
+            });
+        }
+
+        // Sanitize inputs to remove potentially harmful characters
+        // Remove HTML/script injection attempts and normalize whitespace
+        const sanitizedName = name
+            .trim() // Remove leading/trailing whitespace
+            .replace(/[<>"\'\&]/g, '') // Remove HTML special characters
+            .replace(/\s+/g, ' '); // Normalize multiple spaces to single space
+
+        const sanitizedEmail = email
+            .trim() // Remove whitespace
+            .toLowerCase(); // Normalize to lowercase for consistency
+
+        // Validate email format using regex
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
+        if (!emailRegex.test(sanitizedEmail)) {
             return res.status(400).json({ error: 'Invalid email format' });
         }
 
@@ -59,15 +119,21 @@ async function handler(req, res) {
         const sheets = google.sheets({ version: 'v4', auth });
         const spreadsheetId = process.env.GOOGLE_SHEET_ID;
 
-        // Check for duplicate email by reading existing data
+        // ==========================================
+        // READ EXISTING DATA FOR DUPLICATE AND RATE LIMIT CHECKS
+        // ==========================================
+        // Get all existing data to check for duplicates AND rate limiting
+        // Updated range to include IP column: A=timestamp, B=name, C=email, D=subscribed, E=IP
         const existingData = await sheets.spreadsheets.values.get({
             spreadsheetId,
-            range: 'Sheet1!C:C', // Column C contains emails
+            range: 'Sheet1!A:E', // Extended range to include IP column
         });
 
-        const existingEmails = existingData.data.values || [];
-        const emailAlreadyExists = existingEmails.some(row => 
-            row[0] && row[0].toLowerCase() === email.toLowerCase()
+        const existingRows = existingData.data.values || [];
+        
+        // Check for duplicate email (column C = email)
+        const emailAlreadyExists = existingRows.some(row => 
+            row[2] && row[2].toLowerCase() === sanitizedEmail.toLowerCase()
         );
 
         if (emailAlreadyExists) {
@@ -77,11 +143,46 @@ async function handler(req, res) {
             });
         }
 
-        // Add data to the spreadsheet
-        const range = 'Sheet1!A:D'; // Columns A, B, C, D for timestamp, name, email, subscribed
+        // ==========================================
+        // RATE LIMITING CHECK USING GOOGLE SHEETS DATA
+        // ==========================================
+        // Purpose: Check recent submissions from the same IP using existing sheet data
+        // How: Filter sheet rows by IP and timestamp to count recent submissions
+        
+        const now = Date.now();
+        const oneHour = 60 * 60 * 1000; // 1 hour in milliseconds
+        const maxSubmissionsPerHour = 3;
+        
+        // Filter submissions from same IP in the last hour
+        // Column layout: A=timestamp, B=name, C=email, D=subscribed, E=IP
+        const recentSubmissionsFromIP = existingRows.filter(row => {
+            if (!row[0] || !row[4]) return false; // Skip if no timestamp or IP
+            
+            const submissionTime = new Date(row[0]).getTime();
+            const submissionIP = row[4];
+            
+            return submissionIP === clientIP && 
+                   submissionTime > (now - oneHour) && 
+                   !isNaN(submissionTime); // Valid timestamp
+        });
+
+        if (recentSubmissionsFromIP.length >= maxSubmissionsPerHour) {
+            console.log(`Rate limit exceeded for IP: ${clientIP}. Recent submissions: ${recentSubmissionsFromIP.length}`);
+            return res.status(429).json({ 
+                error: 'Too many requests',
+                message: 'Please wait before submitting again. Maximum 3 submissions per hour allowed.' 
+            });
+        }
+
+        // ==========================================
+        // ADD DATA TO SPREADSHEET WITH IP TRACKING
+        // ==========================================
+        // Add data to the spreadsheet using sanitized inputs + IP address
+        // Updated range to include IP: A=timestamp, B=name, C=email, D=subscribed, E=IP
+        const range = 'Sheet1!A:E'; 
 
         const timestamp = new Date().toISOString();
-        const values = [[timestamp, name, email, true]]; // Added boolean true for "Subscribed" column
+        const values = [[timestamp, sanitizedName, sanitizedEmail, true, clientIP]]; // Added IP to the data
 
         await sheets.spreadsheets.values.append({
             spreadsheetId,
@@ -92,6 +193,9 @@ async function handler(req, res) {
                 values,
             },
         });
+
+        // Log successful signup for monitoring
+        console.log(`Newsletter signup: ${sanitizedEmail} from IP: ${clientIP} at ${timestamp}`);
 
         res.status(200).json({ 
             success: true, 
