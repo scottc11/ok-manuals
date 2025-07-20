@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const morgan = require('morgan');
 
 // Load environment variables
 require('dotenv').config();
@@ -19,6 +20,9 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Request logging middleware
+app.use(morgan('dev'));
 
 // Wrapper function to make Vercel functions work with Express
 function wrapVercelFunction(vercelHandler) {
