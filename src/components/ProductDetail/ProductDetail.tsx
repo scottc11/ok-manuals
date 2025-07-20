@@ -96,12 +96,12 @@ const ProductDetail: React.FC = () => {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Product Image - Left Side */}
         <div className="lg:w-2/3">
-          <div className="aspect-square bg-gray-700 rounded-lg overflow-hidden flex items-center justify-center">
+          <div className="aspect-square rounded-lg overflow-hidden flex items-center justify-center">
             {product.image ? (
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
               />
             ) : (
               <div className="text-gray-400 text-6xl">📦</div>

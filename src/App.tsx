@@ -8,13 +8,13 @@ import Home from "./views/Home";
 import Counterpoint from "./manuals/Counterpoint";
 import NotFound from "./views/NotFound";
 import Success from "./views/Success";
-import ProductList from "./components/ProductList/ProductList";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import Cart from "./components/Cart/Cart";
 import { CartProvider } from "./context/CartContext";
 import FontLoadingSpinner from "./components/FontLoadingSpinner";
 import Contact from "./views/Contact";
 import NewsletterUnsubscribe from "./views/NewsletterUnsubscribe";
+import Modules from "./views/Modules";
 
 function App() {  
   return (
@@ -30,7 +30,7 @@ function App() {
                   <Home />
                 </Route>
                 <Route exact path="/modules">
-                  <ProductList />
+                  <Modules />
                 </Route>
                 <Route exact path="/modules/:slug">
                   <ProductDetail />
