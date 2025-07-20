@@ -69,7 +69,7 @@ const Header: React.FC = () => {
               before:md:content-[''] before:md:absolute before:md:inset-0 before:md:rounded-2xl 
               before:md:bg-gradient-to-b before:md:from-gray-700/20 before:md:to-gray-900/20 before:md:pointer-events-none`}
           >
-            <NavLink to="/" exact className={(isActive) => highlight(isActive)}>Manuals</NavLink>
+            <NavLink to="/" exact className={(isActive) => highlight(isActive)}>Home</NavLink>
             <NavLink to="/manuals/counterpoint" className={(isActive) => highlight(isActive)}>Counterpoint</NavLink>
             <NavLink to="/manuals/degree" className={(isActive) => highlight(isActive)}>DEGREE</NavLink>
             <NavLink to="/modules" className={(isActive) => highlight(isActive)}>Modules</NavLink>

@@ -28,7 +28,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ className = '' }) =
             const data = await response.json();
 
             if (response.ok) {
-                setMessage('Thank you for subscribing! You\'ve been added to our mailing list.');
+                setMessage('Thank you for subscribing! 🤘');
                 setName('');
                 setEmail('');
             } else {
@@ -86,7 +86,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ className = '' }) =
                 {message && (
                     <div className={`text-center mt-4 p-3 rounded-md ${
                         message.includes('Thank you') 
-                            ? 'bg-green-100 text-green-700 border border-green-300'
+                            ? 'bg-lime text-black border border-black'
                             : 'bg-red-100 text-red-700 border border-red-300'
                     }`}>
                         {message}

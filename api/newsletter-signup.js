@@ -57,9 +57,27 @@ async function handler(req, res) {
         });
 
         const sheets = google.sheets({ version: 'v4', auth });
+        const spreadsheetId = process.env.GOOGLE_SHEET_ID;
+
+        // Check for duplicate email by reading existing data
+        const existingData = await sheets.spreadsheets.values.get({
+            spreadsheetId,
+            range: 'Sheet1!C:C', // Column C contains emails
+        });
+
+        const existingEmails = existingData.data.values || [];
+        const emailAlreadyExists = existingEmails.some(row => 
+            row[0] && row[0].toLowerCase() === email.toLowerCase()
+        );
+
+        if (emailAlreadyExists) {
+            return res.status(409).json({ 
+                error: 'Email already subscribed',
+                message: 'This email address is already subscribed.' 
+            });
+        }
 
         // Add data to the spreadsheet
-        const spreadsheetId = process.env.GOOGLE_SHEET_ID;
         const range = 'Sheet1!A:D'; // Columns A, B, C, D for timestamp, name, email, subscribed
 
         const timestamp = new Date().toISOString();
