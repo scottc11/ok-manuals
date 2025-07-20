@@ -6,19 +6,30 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 require('dotenv').config();
 
 module.exports = {
-  mode: "none",
+  mode: "development", // Changed from "none"
   entry: "./src/index.tsx",
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
     publicPath: process.env.NODE_ENV === 'production' ? '/ok-manuals/' : '/',
   },
-  devtool: "inline-source-map",
+  devtool: "eval-cheap-module-source-map", // Changed from "inline-source-map"
   devServer: {
     port: 3000,
     static: "./dist",
     historyApiFallback: true,
     hot: true,
+    watchFiles: {
+      paths: ['src/**/*'],
+      options: {
+        usePolling: false,
+      },
+    },
+  },
+  optimization: {
+    removeAvailableModules: false,
+    removeEmptyChunks: false,
+    splitChunks: false,
   },
   module: {
     rules: [

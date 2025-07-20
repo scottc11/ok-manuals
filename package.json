@@ -8,7 +8,7 @@
     "deploy": "NODE_ENV=production npm run build && gh-pages -d dist",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch",
-    "start": "webpack serve --open",
+    "start": "node --max-old-space-size=4096 ./node_modules/.bin/webpack serve --open",
     "server": "node server.js",
     "deploy-backend": "vercel --prod"
   },
