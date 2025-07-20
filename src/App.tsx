@@ -14,6 +14,7 @@ import Cart from "./components/Cart/Cart";
 import { CartProvider } from "./context/CartContext";
 import FontLoadingSpinner from "./components/FontLoadingSpinner";
 import Contact from "./views/Contact";
+import NewsletterUnsubscribe from "./views/NewsletterUnsubscribe";
 
 function App() {  
   return (
@@ -48,6 +49,9 @@ function App() {
                 </Route>
                 <Route exact path="/contact">
                   <Contact />
+                </Route>
+                <Route exact path="/unsubscribe">
+                  <NewsletterUnsubscribe />
                 </Route>
                 <Route path="*">
                   <NotFound />

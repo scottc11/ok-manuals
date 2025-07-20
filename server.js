@@ -8,6 +8,7 @@ require('dotenv').config();
 
 // Import your API functions (we'll need to convert them to CommonJS)
 const newsletterSignup = require('./api/newsletter-signup.js');
+const newsletterUnsubscribe = require('./api/newsletter-unsubscribe.js');
 const contact = require('./api/contact.js');
 const products = require('./api/products.js');
 const verifySession = require('./api/verify-session.js');
@@ -40,6 +41,7 @@ function wrapVercelFunction(vercelHandler) {
 
 // API routes - these match your Vercel function structure
 app.use('/api/newsletter-signup', wrapVercelFunction(newsletterSignup.default));
+app.use('/api/newsletter-unsubscribe', wrapVercelFunction(newsletterUnsubscribe.default));
 app.use('/api/contact', wrapVercelFunction(contact.default));
 app.use('/api/products', wrapVercelFunction(products.default));
 app.use('/api/verify-session', wrapVercelFunction(verifySession.default));
