@@ -3,6 +3,38 @@ const { google } = require('googleapis');
 // Export for both Vercel and local development
 module.exports = { default: handler };
 
+// Function to get country from IP address using free API
+async function getCountryFromIP(ip) {
+    // Purpose: Convert IP address to country for analytics and compliance
+    // How: Use free ip-api.com service (15 requests/minute limit)
+    
+    try {
+        // Skip for local/private IPs
+        if (ip === 'unknown' || ip.startsWith('127.') || ip.startsWith('192.168.') || ip.startsWith('10.')) {
+            return 'Local';
+        }
+
+        // Use ip-api.com - free service with good reliability
+        // Alternative: fetch(`https://ipapi.co/${ip}/country_name/`) 
+        const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,country`);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data.status === 'success' && data.country) {
+            return data.country;
+        } else {
+            return 'Unknown';
+        }
+    } catch (error) {
+        console.warn(`Failed to get country for IP ${ip}:`, error.message);
+        return 'Unknown'; // Graceful fallback
+    }
+}
+
 async function handler(req, res) {
     // Set CORS headers (following your existing pattern)
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -94,6 +126,14 @@ async function handler(req, res) {
             return res.status(400).json({ error: 'Invalid email format' });
         }
 
+        // ==========================================
+        // IP GEOLOCATION - GET COUNTRY
+        // ==========================================
+        // Purpose: Add geographic context for analytics and compliance
+        // How: Use free API to convert IP to country, with fallback handling
+        
+        const country = await getCountryFromIP(clientIP);
+
         // Set up Google Sheets authentication
         let privateKey;
         
@@ -123,10 +163,10 @@ async function handler(req, res) {
         // READ EXISTING DATA FOR DUPLICATE AND RATE LIMIT CHECKS
         // ==========================================
         // Get all existing data to check for duplicates AND rate limiting
-        // Updated range to include IP column: A=timestamp, B=name, C=email, D=subscribed, E=IP
+        // Updated range to include country column: A=timestamp, B=name, C=email, D=subscribed, E=IP, F=country
         const existingData = await sheets.spreadsheets.values.get({
             spreadsheetId,
-            range: 'Sheet1!A:E', // Extended range to include IP column
+            range: 'Sheet1!A:F', // Extended range to include country column
         });
 
         const existingRows = existingData.data.values || [];
@@ -154,7 +194,7 @@ async function handler(req, res) {
         const maxSubmissionsPerHour = 3;
         
         // Filter submissions from same IP in the last hour
-        // Column layout: A=timestamp, B=name, C=email, D=subscribed, E=IP
+        // Column layout: A=timestamp, B=name, C=email, D=subscribed, E=IP, F=country
         const recentSubmissionsFromIP = existingRows.filter(row => {
             if (!row[0] || !row[4]) return false; // Skip if no timestamp or IP
             
@@ -175,14 +215,14 @@ async function handler(req, res) {
         }
 
         // ==========================================
-        // ADD DATA TO SPREADSHEET WITH IP TRACKING
+        // ADD DATA TO SPREADSHEET WITH IP AND COUNTRY TRACKING
         // ==========================================
-        // Add data to the spreadsheet using sanitized inputs + IP address
-        // Updated range to include IP: A=timestamp, B=name, C=email, D=subscribed, E=IP
-        const range = 'Sheet1!A:E'; 
+        // Add data to the spreadsheet using sanitized inputs + IP address + country
+        // Updated range to include country: A=timestamp, B=name, C=email, D=subscribed, E=IP, F=country
+        const range = 'Sheet1!A:F'; 
 
         const timestamp = new Date().toISOString();
-        const values = [[timestamp, sanitizedName, sanitizedEmail, true, clientIP]]; // Added IP to the data
+        const values = [[timestamp, sanitizedName, sanitizedEmail, true, clientIP, country]]; // Added country to the data
 
         await sheets.spreadsheets.values.append({
             spreadsheetId,
@@ -195,7 +235,7 @@ async function handler(req, res) {
         });
 
         // Log successful signup for monitoring
-        console.log(`Newsletter signup: ${sanitizedEmail} from IP: ${clientIP} at ${timestamp}`);
+        console.log(`Newsletter signup: ${sanitizedEmail} from IP: ${clientIP} (${country}) at ${timestamp}`);
 
         res.status(200).json({ 
             success: true, 
