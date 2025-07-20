@@ -3,7 +3,10 @@ const { Resend } = require('resend');
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export default async function handler(req, res) {
+// Export for both Vercel and local development
+module.exports = { default: handler };
+
+async function handler(req, res) {
   // Set CORS headers (following your existing pattern)
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS, POST');
@@ -66,4 +69,4 @@ export default async function handler(req, res) {
       details: error.message,
     });
   }
-} 
+}

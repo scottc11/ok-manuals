@@ -8,9 +8,10 @@ interface ButtonProps {
     disabled?: boolean;
     className?: string;
     variant?: ButtonVariant;
+    type?: 'button' | 'submit' | 'reset';
 }
 
-const Button = ({ children, onClick, disabled, className, variant = 'dark' }: ButtonProps) => {
+const Button = ({ children, onClick, disabled, className, variant = 'dark', type = 'button' }: ButtonProps) => {
     const [buttonClicked, setButtonClicked] = useState(false);
     
     // Define color schemes for different backgrounds
@@ -34,6 +35,7 @@ const Button = ({ children, onClick, disabled, className, variant = 'dark' }: Bu
     
     return (
         <button 
+            type={type}
             onClick={onClick}
             disabled={disabled}
             onMouseDown={() => setButtonClicked(true)}

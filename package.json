@@ -8,7 +8,9 @@
     "deploy": "NODE_ENV=production npm run build && gh-pages -d dist",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch",
-    "start": "webpack serve --open"
+    "start": "webpack serve --open",
+    "server": "node server.js",
+    "deploy-backend": "vercel --prod"
   },
   "author": "",
   "license": "ISC",
@@ -19,8 +21,10 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/w3c-web-usb": "^1.0.6",
     "autoprefixer": "^10.4.19",
+    "cors": "^2.8.5",
     "css-loader": "^6.7.1",
     "dotenv": "^17.2.0",
+    "express": "^4.21.2",
     "gh-pages": "^6.3.0",
     "html-webpack-plugin": "^5.5.0",
     "postcss": "^8.4.38",
@@ -37,6 +41,7 @@
   "dependencies": {
     "@stripe/react-stripe-js": "^3.7.0",
     "@stripe/stripe-js": "^7.5.0",
+    "googleapis": "^153.0.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-icons": "^4.8.0",

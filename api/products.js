@@ -1,6 +1,9 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-export default async function handler(req, res) {
+// Export for both Vercel and local development
+module.exports = { default: handler };
+
+async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS, POST');
@@ -53,4 +56,4 @@ export default async function handler(req, res) {
       details: error.message,
     });
   }
-} 
+}
