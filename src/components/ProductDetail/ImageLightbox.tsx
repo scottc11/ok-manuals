@@ -142,30 +142,27 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
           />
         </div>
 
-        {/* Additional Images Grid */}
-        {additionalImages.length > 0 && (
-          <div className="grid grid-cols-2 gap-2 sm:gap-4">
-            {additionalImages.map((image, index) => {
-              const actualIndex = index + 1; // Since we sliced off the first image
-              return (
-                <div
-                  key={index}
-                  className="aspect-square rounded-lg overflow-hidden flex items-center justify-center bg-gray-800 cursor-pointer hover:bg-gray-700 transition-colors"
-                  onClick={() => {
-                    setSelectedImageIndex(actualIndex);
-                    openLightbox(actualIndex);
-                  }}
-                >
-                  <img
-                    src={image}
-                    alt={`${productName} - Image ${index + 2}`}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              );
-            })}
-          </div>
-        )}
+                 {/* Additional Images Grid */}
+         {additionalImages.length > 0 && (
+           <div className="grid grid-cols-2 gap-2 sm:gap-4">
+             {additionalImages.map((image, index) => {
+               const actualIndex = index + 1; // Since we sliced off the first image
+               return (
+                 <div
+                   key={index}
+                   className="aspect-square rounded-lg overflow-hidden flex items-center justify-center bg-gray-800 cursor-pointer hover:bg-gray-700 transition-colors"
+                   onClick={() => setSelectedImageIndex(actualIndex)}
+                 >
+                   <img
+                     src={image}
+                     alt={`${productName} - Image ${index + 2}`}
+                     className="w-full h-full object-contain"
+                   />
+                 </div>
+               );
+             })}
+           </div>
+         )}
 
         {/* Thumbnail indicators for main image selection */}
         {displayImages.length > 1 && (
@@ -266,11 +263,21 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
           )}
 
           {/* Main Lightbox Image */}
-          <div className="max-w-[90vw] max-h-[90vh] flex items-center justify-center p-4">
+          <div 
+            className="absolute inset-0 flex items-center justify-center p-4 sm:p-8"
+            style={{ 
+              width: '100vw',
+              height: '100vh'
+            }}
+          >
             <img
               src={displayImages[lightboxImageIndex]}
               alt={`${productName} - Image ${lightboxImageIndex + 1}`}
-              className="max-w-full max-h-full object-contain"
+              className="object-contain"
+              style={{ 
+                maxWidth: 'calc(100vw - 2rem)',
+                maxHeight: 'calc(100vh - 2rem)'
+              }}
             />
           </div>
 
