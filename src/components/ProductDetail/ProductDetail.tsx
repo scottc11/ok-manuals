@@ -3,6 +3,7 @@ import { useParams, useHistory, Link } from 'react-router-dom';
 import { Product } from '../../types';
 import { useCart } from '../../context/CartContext';
 import Button from '../Button/Button';
+import ImageLightbox from './ImageLightbox';
 
 interface ProductDetailParams {
   slug: string;
@@ -20,7 +21,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ images = [] }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -33,12 +33,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ images = [] }) => {
           const foundProduct = data.products.find((p: Product) => p.metadata?.slug === slug);
           if (foundProduct) {
             setProduct(foundProduct);
-            // Set the main image as selected by default
-            if (images.length > 0) {
-              setSelectedImage(images[0]);
-            } else if (foundProduct.image) {
-              setSelectedImage(foundProduct.image);
-            }
           } else {
             setError('Product not found');
           }
@@ -98,8 +92,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ images = [] }) => {
 
   const isOutOfStock = product.stock !== undefined && product.stock <= 0;
   const displayImages = images.length > 0 ? images : (product.image ? [product.image] : []);
-  const mainImage = selectedImage || displayImages[0];
-  const additionalImages = displayImages.slice(1);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -110,38 +102,11 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ images = [] }) => {
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Product Images - Left Side */}
         <div className="lg:w-2/3">
-          {/* Main Image */}
-          <div className="aspect-square rounded-lg overflow-hidden flex items-center justify-center mb-4">
-            {mainImage ? (
-              <img
-                src={mainImage}
-                alt={product.name}
-                className="w-full h-full object-contain cursor-pointer"
-                onClick={() => setSelectedImage(mainImage)}
-              />
-            ) : (
-              <div className="text-gray-400 text-6xl">📦</div>
-            )}
-          </div>
-
-          {/* Additional Images Grid */}
-          {additionalImages.length > 0 && (
-            <div className="grid grid-cols-2 gap-2 sm:gap-4">
-              {additionalImages.map((image, index) => (
-                <div
-                  key={index}
-                  className="aspect-square rounded-lg overflow-hidden flex items-center justify-center bg-gray-800 cursor-pointer hover:bg-gray-700 transition-colors"
-                  onClick={() => setSelectedImage(image)}
-                >
-                  <img
-                    src={image}
-                    alt={`${product.name} - Image ${index + 2}`}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-              ))}
-            </div>
-          )}
+          <ImageLightbox 
+            images={displayImages}
+            productName={product.name}
+            className="w-full"
+          />
         </div>
 
         {/* Product Details - Right Side */}
