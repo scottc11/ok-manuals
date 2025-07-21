@@ -32,20 +32,10 @@ const NotFound: React.FC = () => {
       "color: #ff00aa; font-size: 12px;");
   }, []);
 
-
-  const [buttonClicked, setButtonClicked] = useState(false);
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-black to-gray-900 p-4">
       <div className="bg-panel rounded-lg shadow-lg p-8 max-w-2xl w-full text-center border-2 border-azure">
         <h1 className="text-lime text-6xl font-bungee mb-4">404</h1>
-        
-        <div
-          onMouseDown={() => setButtonClicked(true)}
-          onMouseUp={() => setButtonClicked(false)}
-          className={`inline-block border-2 border-white rounded-md p-2 ${buttonClicked ? 'border-b-2' : 'border-b-4'}`}>
-          <span className="text-white">button</span>
-        </div>
 
         <pre 
           className="font-mono text-white bg-black p-4 rounded-md cursor-pointer text-xs sm:text-sm my-4 overflow-x-auto"
