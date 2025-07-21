@@ -46,7 +46,7 @@ const Home = () => {
                 </Section>
             </div>
 
-            <div className="bg-offwhite">
+            <div className="container mx-auto">
                 <InstagramPostEmbedded
                     permalink="https://www.instagram.com/p/ChkVwHouHEZ/"
                     className="flex justify-center py-8"

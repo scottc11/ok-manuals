@@ -58,11 +58,7 @@ const Modules: React.FC = () => {
 
     return (
         <div className="">
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="text-4xl font-bold mb-16 text-center font-bungee">
-                    Modules
-                </h1>
-
+            <div className="container mx-auto py-16">
                 <div className="flex flex-col gap-12">
                     <ProductCard
                         title="Counterpoint"

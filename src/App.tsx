@@ -6,7 +6,7 @@ import DegreeManual from "./manuals/DegreeManual";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import Home from "./views/Home";
 import Counterpoint from "./manuals/Counterpoint";
-import NotFound from "./views/NotFound";
+import PageNotFound404 from "./views/PageNotFound404";
 import Success from "./views/Success";
 import ProductDetail from "./components/ProductDetail/ProductDetail";
 import Cart from "./components/Cart/Cart";
@@ -15,6 +15,7 @@ import FontLoadingSpinner from "./components/FontLoadingSpinner";
 import Contact from "./views/Contact";
 import NewsletterUnsubscribe from "./views/NewsletterUnsubscribe";
 import Modules from "./views/Modules";
+import ProductRouter from "./components/ProductRouter/ProductRouter";
 
 function App() {  
   return (
@@ -33,7 +34,7 @@ function App() {
                   <Modules />
                 </Route>
                 <Route exact path="/modules/:slug">
-                  <ProductDetail />
+                  <ProductRouter />
                 </Route>
                 <Route exact path="/cart">
                   <Cart />
@@ -54,7 +55,7 @@ function App() {
                   <NewsletterUnsubscribe />
                 </Route>
                 <Route path="*">
-                  <NotFound />
+                  <PageNotFound404 />
                 </Route>
               </Switch>
             </FontLoadingSpinner>

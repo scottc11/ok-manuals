@@ -29,7 +29,7 @@ const ProductCard = ({
       
       {/* Content Section */}
       <div className="flex flex-col gap-4 py-4 w-full md:w-1/2">
-        <h3 className="text-3xl font-bold text-white font-bungee">{title}</h3>
+        <h3 className="text-3xl font-bold text-white font-unica">{title}</h3>
         <div className="text-3xl font-numbers border-b-2 border-gray-400 pb-2">{price}</div>
         <div className="text-lg leading-relaxed text-gray-300">{bodyText}</div>
         <div className="mt-4">

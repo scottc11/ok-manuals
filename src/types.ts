@@ -29,9 +29,14 @@ export enum Breakpoint {
 
 export type EurorackModule = {
     name: string;
-    path: string;
+    slug: string;
+    paths: {
+        detail: string;
+        manual: string;
+    };
     hp: number;
     image: string;
+    video?: string;
 }
 
 // E-commerce types

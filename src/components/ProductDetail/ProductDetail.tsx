@@ -90,7 +90,7 @@ const ProductDetail: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
-        <p className="text-white text-lg mb-4"><Link to="/modules" className="hover:text-lime/80">← Back to Products</Link></p>
+        <p className="text-white text-lg mb-4"><Link to="/modules" className="hover:text-lime/80">← Back</Link></p>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
@@ -111,7 +111,7 @@ const ProductDetail: React.FC = () => {
 
         {/* Product Details - Right Side */}
         <div className="lg:w-1/2">
-          <h1 className="text-6xl font-bold text-white mb-4">{product.name}</h1>
+          <h1 className="text-6xl font-unica font-bold text-white mb-4">{product.name}</h1>
           
           {product.description && (
             <p className="text-gray-300 text-lg mb-6 leading-relaxed">
@@ -163,21 +163,6 @@ const ProductDetail: React.FC = () => {
               {isOutOfStock ? 'Out of Stock' : `Add to Cart`}
             </Button>
           </div>
-
-          {/* Product Metadata */}
-          {product.metadata && Object.keys(product.metadata).length > 0 && (
-            <div className="border-t border-gray-700 pt-6">
-              <h3 className="text-white text-lg font-medium mb-3">Product Details</h3>
-              <div className="space-y-2">
-                {Object.entries(product.metadata).map(([key, value]) => (
-                  <div key={key} className="flex justify-between">
-                    <span className="text-gray-400 capitalize">{key.replace('_', ' ')}:</span>
-                    <span className="text-white">{value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>

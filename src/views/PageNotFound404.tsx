@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const NotFound: React.FC = () => {
+const PageNotFound404: React.FC = () => {
   const [counter, setCounter] = useState(0);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
   
@@ -33,7 +33,7 @@ const NotFound: React.FC = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-black to-gray-900 p-4">
+    <div className="min-h-screen flex flex-col items-center bg-gradient-to-b from-black to-gray-900 py-16">
       <div className="bg-panel rounded-lg shadow-lg p-8 max-w-2xl w-full text-center border-2 border-azure">
         <h1 className="text-lime text-6xl font-bungee mb-4">404</h1>
 
@@ -64,4 +64,4 @@ const NotFound: React.FC = () => {
   );
 };
 
-export default NotFound; 
+export default PageNotFound404; 

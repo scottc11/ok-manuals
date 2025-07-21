@@ -1,29 +1,25 @@
 import { EurorackModule } from "../types";
 
-export const SuperSeq: EurorackModule = {
-    name: "SuperSeq",
-    path: "/modules/super-seq",
-    hp: 42,
-    image: 'Super_Seq.png'
-}
 
-export const BendAndRatch: EurorackModule = {
-    name: "Bend N' Ratch",
-    path: "modules/bend-n-ratch",
-    hp: 16,
-    image: 'Bender_v2.png'
-}
-
-export const QuadDCO: EurorackModule = {
-    name: "Quad DCO",
-    path: "modules/quad-dco",
+export const Degree: EurorackModule = {
+    name: 'DEGREE',
+    slug: 'degree',
+    paths: {
+        detail: '/modules/degree',
+        manual: '/manuals/degree'
+    },
     hp: 42,
-    image: 'Quad_DCO.png'
+    image: 'DEGREE.png',
+    video: 'Uh_s-r6_d4g?si=pcOLuslAvlDnpjxS'
 }
 
 export const Counterpoint: EurorackModule = {
-    name: "Counterpoint",
-    path: "modules/counterpoint",
-    hp: 38,
-    image: 'Counterpoint.png'
+    name: 'Counterpoint',
+    slug: 'counterpoint',
+    paths: {
+        detail: '/modules/counterpoint',
+        manual: '/manuals/counterpoint'
+    },
+    hp: 42,
+    image: 'Counterpoint.png',
 }
