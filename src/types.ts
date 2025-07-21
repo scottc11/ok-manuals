@@ -36,6 +36,7 @@ export type EurorackModule = {
     };
     hp: number;
     image: string;
+    images?: string[];
     video?: string;
 }
 

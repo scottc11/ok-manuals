@@ -4,6 +4,7 @@ import logo from "../../media/logo-white.svg";
 import { Link, NavLink } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import { IoCartOutline } from "react-icons/io5";
+import { Counterpoint, Degree } from "../../content/modules";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -70,9 +71,9 @@ const Header: React.FC = () => {
               before:md:bg-gradient-to-b before:md:from-gray-700/20 before:md:to-gray-900/20 before:md:pointer-events-none`}
           >
             <NavLink to="/" exact className={(isActive) => highlight(isActive)}>Home</NavLink>
-            <NavLink to="/manuals/counterpoint" className={(isActive) => highlight(isActive)}>Counterpoint</NavLink>
-            <NavLink to="/manuals/degree" className={(isActive) => highlight(isActive)}>DEGREE</NavLink>
-            <NavLink to="/modules" className={(isActive) => highlight(isActive)}>Modules</NavLink>
+            <NavLink to={Counterpoint.paths.detail} className={(isActive) => highlight(isActive)}>Counterpoint</NavLink>
+            <NavLink to={Degree.paths.detail} className={(isActive) => highlight(isActive)}>DEGREE</NavLink>
+            {/* <NavLink to="/modules" className={(isActive) => highlight(isActive)}>Modules</NavLink> */}
             <NavLink to="/contact" className={(isActive) => highlight(isActive)}>Contact</NavLink>
             <NavLink to="/cart" className={(isActive) => highlight(isActive)} style={{ position: 'relative' }}>
               <IoCartOutline className="text-lime" size={30} />
