@@ -50,6 +50,7 @@ async function handler(req, res) {
       mode: 'payment',
       success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${req.headers.origin}/cart`,
+      allow_promotion_codes: true,
       metadata: {
         // Store cart items in metadata for webhook processing
         cart_items: JSON.stringify(items.map(item => ({
