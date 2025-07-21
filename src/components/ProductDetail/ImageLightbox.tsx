@@ -142,30 +142,33 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
           />
         </div>
 
-                 {/* Additional Images Grid */}
-         {additionalImages.length > 0 && (
-           <div className="grid grid-cols-2 gap-2 sm:gap-4">
-             {additionalImages.map((image, index) => {
-               const actualIndex = index + 1; // Since we sliced off the first image
-               return (
-                 <div
-                   key={index}
-                   className="aspect-square rounded-lg overflow-hidden flex items-center justify-center bg-gray-800 cursor-pointer hover:bg-gray-700 transition-colors"
-                   onClick={() => setSelectedImageIndex(actualIndex)}
-                 >
-                   <img
-                     src={image}
-                     alt={`${productName} - Image ${index + 2}`}
-                     className="w-full h-full object-contain"
-                   />
-                 </div>
-               );
-             })}
-           </div>
-         )}
+        {/* All Images Grid */}
+        {displayImages.length > 1 && (
+            <div className="grid grid-cols-4 gap-2 sm:gap-4">
+                {displayImages.map((image, index) => {
+                return (
+                    <div
+                    key={index}
+                    className={`aspect-square rounded-lg overflow-hidden flex items-center justify-center cursor-pointer transition-colors border-2 ${
+                        selectedImageIndex === index 
+                            ? 'border-white bg-gray-700' 
+                            : 'border-gray-800 bg-gray-800 hover:bg-gray-700 hover:border-gray-600'
+                    }`}
+                    onClick={() => setSelectedImageIndex(index)}
+                    >
+                        <img
+                            src={image}
+                            alt={`${productName} - Image ${index + 1}`}
+                            className="w-full h-full object-contain"
+                        />
+                    </div>
+                );
+                })}
+            </div>
+        )}
 
         {/* Thumbnail indicators for main image selection */}
-        {displayImages.length > 1 && (
+        {/* {displayImages.length > 1 && (
           <div className="flex justify-center mt-4 gap-2">
             {displayImages.map((_, index) => (
               <button
@@ -179,7 +182,7 @@ const ImageLightbox: React.FC<ImageLightboxProps> = ({
               />
             ))}
           </div>
-        )}
+        )} */}
       </div>
 
       {/* Lightbox Modal */}
