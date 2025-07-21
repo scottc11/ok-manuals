@@ -11,9 +11,11 @@ interface ProductDetailParams {
 
 interface ProductDetailProps {
   images?: string[];
+  description?: string;
+  discontinued?: boolean;
 }
 
-const ProductDetail: React.FC<ProductDetailProps> = ({ images = [] }) => {
+const ProductDetail: React.FC<ProductDetailProps> = ({ images = [], description = '', discontinued = false }) => {
   const { slug } = useParams<ProductDetailParams>();
   const history = useHistory();
   const { addItem } = useCart();
@@ -91,6 +93,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ images = [] }) => {
   }
 
   const isOutOfStock = product.stock !== undefined && product.stock <= 0;
+  const isDisabled = discontinued || isOutOfStock;
   const displayImages = images.length > 0 ? images : (product.image ? [product.image] : []);
 
   return (
@@ -113,9 +116,17 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ images = [] }) => {
         <div className="lg:w-1/2">
           <h1 className="text-6xl font-unica font-bold text-white mb-4">{product.name}</h1>
           
-          {product.description && (
+          {discontinued && (
+            <div className="mb-4">
+              <span className="inline-block bg-red-600 text-white text-sm font-medium px-3 py-1 rounded-full">
+                Discontinued
+              </span>
+            </div>
+          )}
+          
+          {description && (
             <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-              {product.description}
+              {description}
             </p>
           )}
 
@@ -141,7 +152,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ images = [] }) => {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                disabled={quantity <= 1}
+                disabled={quantity <= 1 || isDisabled}
                 className="bg-gray-700 text-white px-3 py-1 rounded disabled:opacity-50"
               >
                 -
@@ -149,7 +160,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ images = [] }) => {
               <span className="text-white text-lg min-w-[3rem] text-center">{quantity}</span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
-                disabled={isOutOfStock}
+                disabled={isDisabled}
                 className="bg-gray-700 text-white px-3 py-1 rounded disabled:opacity-50"
               >
                 +
@@ -159,8 +170,8 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ images = [] }) => {
 
           {/* Add to Cart Button */}
           <div className="mb-6 w-full">
-            <Button onClick={handleAddToCart} disabled={isOutOfStock} className="w-full">
-              {isOutOfStock ? 'Out of Stock' : `Add to Cart`}
+            <Button onClick={handleAddToCart} disabled={isDisabled} className="w-full">
+              {discontinued ? 'Discontinued' : isOutOfStock ? 'Out of Stock' : `Add to Cart`}
             </Button>
           </div>
         </div>

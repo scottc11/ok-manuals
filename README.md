@@ -11,8 +11,8 @@ Deployed using [GitHub pages](https://docs.github.com/en/pages/getting-started-w
 - Sass
 - (Tailwind)[https://v3.tailwindcss.com/docs/installation]
 - Webpack
-- Resend (email service)
-- Vercel (cloud functions for simple backend tasks)
+- (Resend email service)[https://resend.com/emails] (account: business email)
+- Vercel (cloud functions for simple backend tasks) (account: business email)
 - Stripe checkout (stripe hosted e-commerce)
 - Google Sheets
 - Google cloud console (Sheets API)

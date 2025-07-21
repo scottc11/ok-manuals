@@ -38,6 +38,7 @@ export type EurorackModule = {
     image: string;
     images?: string[];
     video?: string;
+    description?: string;
 }
 
 // E-commerce types

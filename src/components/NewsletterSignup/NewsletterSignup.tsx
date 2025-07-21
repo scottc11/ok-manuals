@@ -44,7 +44,7 @@ const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ className = '' }) =
     return (
         <div className={`p-8 ${className}`}>
             <h3 className="text-4xl font-bold text-gray-800 mb-2 text-center">Mailing List</h3>
-            <p className="text-gray-600 mb-6 text-center">Subscribe to my mailing list for the latest updates and announcements</p>
+            <p className="text-gray-600 mb-6 text-center">This is the most immediate way to be informed when a module becomes available.</p>
             
             <form onSubmit={handleSubmit} className="text-black w-full md:w-1/2 mx-auto space-y-4">
                 

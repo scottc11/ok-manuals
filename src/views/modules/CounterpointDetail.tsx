@@ -8,7 +8,7 @@ import { Counterpoint } from '../../content/modules';
 const CounterpointDetail: React.FC = () => {
   return (
     <div className="container mx-auto py-8">
-        <ProductDetail images={Counterpoint.images} />
+        <ProductDetail images={Counterpoint.images} description={Counterpoint.description} />
         <div className="flex flex-col gap-4">
             <NavLink to={Counterpoint.paths.manual} className="block">
                 <Button className="w-full" variant="dark">
