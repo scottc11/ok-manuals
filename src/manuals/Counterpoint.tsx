@@ -279,7 +279,7 @@ const Counterpoint: React.FC = () => {
                                     <tr>
                                         <td>3</td>
                                         <td>CENTER</td>
-                                        <td>Minor 3rd</td>
+                                        <td>Major 3rd</td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
