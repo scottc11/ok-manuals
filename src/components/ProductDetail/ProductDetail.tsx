@@ -98,10 +98,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ images = [], description 
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <p className="text-white text-lg mb-4"><Link to="/modules" className="hover:text-lime/80">← Back</Link></p>
-      </div>
-
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Product Images - Left Side */}
         <div className="lg:w-2/3">
