@@ -567,7 +567,15 @@ const Counterpoint: React.FC = () => {
                                     <Label>TRIPLET</Label> + <Label>OCTAVE PAD</Label>
                                 </td>
                                 <td>
-                                    Applies an octave offset to the active sequence of the corrosponding channel. (top octave pad is +1 octave, bottom is -1 octave)
+                                    If a sequence is playing back, Applies an <b>octave offset</b> to the active sequence of the corrosponding channel. (top octave pad +1 octave, bottom octave pad -1 octave).
+                                </td>
+                            </tr>
+                            <tr className="border-b border-dotted border-black pt-4">
+                                <td>
+                                    <Label>TRIPLET</Label> + <Label>OCTAVE PAD</Label>
+                                </td>
+                                <td>
+                                    If no sequence is playing back, sets the octave of a channel without triggering a new note. Only when a degree pad is touched will the target octave be reflected on the channels output.
                                 </td>
                             </tr>
                             <tr className="border-b border-dotted border-black pt-4">
@@ -580,6 +588,16 @@ const Counterpoint: React.FC = () => {
                             </tr>
                         </tbody>
                     </table>
+                </Section>
+
+                <Section>
+                    <SectionHeading title="🔧 Settings" />
+                    <p>Counterpoint has a number of settings which can be adjusted to alter the behavior of the module.</p>
+                    <p>To access the settings, press <Label>ALT</Label> + <Label>RESET</Label>.</p>
+
+                    <SectionSubheading title="Gate Link" />
+                    <p>Gate linking is a feature that allows you to link the gate output of one channel to the gate output of another channel.</p>
+                    
                 </Section>
 
                 <Section>
