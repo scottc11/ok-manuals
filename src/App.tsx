@@ -16,6 +16,8 @@ import Contact from "./views/Contact";
 import NewsletterUnsubscribe from "./views/NewsletterUnsubscribe";
 import Modules from "./views/Modules";
 import ProductRouter from "./components/ProductRouter/ProductRouter";
+import News from "./views/News";
+import NewsRouter from "./views/NewsRouter";
 
 function App() {  
   return (
@@ -35,6 +37,12 @@ function App() {
                 </Route>
                 <Route exact path="/modules/:slug">
                   <ProductRouter />
+                </Route>
+                <Route exact path="/news">
+                  <News />
+                </Route>
+                <Route exact path="/news/:slug">
+                  <NewsRouter />
                 </Route>
                 <Route exact path="/cart">
                   <Cart />
