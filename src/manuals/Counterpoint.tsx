@@ -44,7 +44,7 @@ const Counterpoint: React.FC = () => {
                     <h1 className="text-4xl md:text-6xl pt-12 pb-6 font-bold font-bungee">Counterpoint</h1>
                     <h2 className="text-2xl">Eurorack performance sequencer.</h2>
                     <div className="flex flex-row my-4 justify-center">
-                        <img className="p-4" src={require('../media/counterpoint/panel.svg')} alt="Counterpoint panel" />
+                        <img className="p-4" src={require('../media/counterpoint/panel.png')} alt="Counterpoint panel" />
                     </div>
                 </Section>
 
