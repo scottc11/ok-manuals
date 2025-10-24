@@ -32,3 +32,9 @@ Google Cloud Project: "charming-scarab-466410-p8",
 `GOOGLE_SHEET_ID=11ln697Gu7Y8_WvB9SXXQZOjfBUlgZD29W00LhFAxUIY`
 `GOOGLE_CLIENT_EMAIL=your_service_account_email_here`
 `GOOGLE_PRIVATE_KEY_BASE64=base64_encode_your_google_private_key` (no quotations needed)
+
+
+### Stripe Checkout
+
+Shipping rate: https://dashboard.stripe.com/acct_1GiKgAKOFOq2EOfO/test/shipping-rates
+Return URL
