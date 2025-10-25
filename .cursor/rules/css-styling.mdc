@@ -12,6 +12,9 @@ Consistent Design System:
 Create a design system with consistent colors, typography, spacing, and component styles.
 Utilize Tailwind's configuration file (tailwind.config.js) to define your custom design tokens.
 
+List styling:
+Always use the "list-outside" class for all html lists
+
 Performance Optimization:
 Use React.lazy() and Suspense for code-splitting and lazy-loading components.
 Implement virtualization for long lists using libraries like react-window.

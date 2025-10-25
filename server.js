@@ -13,6 +13,7 @@ const contact = require('./api/contact.js');
 const products = require('./api/products.js');
 const verifySession = require('./api/verify-session.js');
 const createCheckoutSession = require('./api/create-checkout-session.js');
+const contentRoutes = require('./server/contentRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -46,6 +47,8 @@ app.use('/api/contact', wrapVercelFunction(contact.default));
 app.use('/api/products', wrapVercelFunction(products.default));
 app.use('/api/verify-session', wrapVercelFunction(verifySession.default));
 app.use('/api/create-checkout-session', wrapVercelFunction(createCheckoutSession.default));
+// Local content API (no vercel wrapper)
+app.use('/api', contentRoutes);
 
 // Serve your frontend (if you want to serve the built frontend too)
 app.use(express.static('dist'));
