@@ -1,20 +1,10 @@
 import React, { useMemo } from 'react';
 import { useContentStore } from '../../hooks/useContentStore';
 import EditableText from '../../components/Editable/EditableText';
+import useIsEditMode from '../../hooks/useIsEditMode';
 
 const EditableContentTest = () => {
-	const isEdit = useMemo(() => {
-		try {
-			// Support both search (?edit=1) and hash-bang (#/path?edit=1)
-			const raw = window.location.search && window.location.search.length > 1
-				? window.location.search.slice(1)
-				: (window.location.hash.split('?')[1] || '');
-			const params = new URLSearchParams(raw);
-			return params.get('edit') === '1';
-		} catch {
-			return false;
-		}
-	}, []);
+    const isEdit = useIsEditMode();
 
 	const store = useContentStore({ type: 'news', slug: 'editable-content-test' });
 
