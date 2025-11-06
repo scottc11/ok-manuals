@@ -10,7 +10,7 @@ type DefinitionProps = {
 
 const Definition = ({ item, plural, owner, e }: DefinitionProps) => {
     return (
-        <span className="font-bold">
+        <span className="text-azure font-unica p-1 rounded-sm">
             {item.label}
             {plural ? owner ? `'s` : e ? `es` : `s` : null}
         </span>
