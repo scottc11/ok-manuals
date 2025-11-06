@@ -18,8 +18,8 @@ const News: React.FC = () => {
     ))
     
     return (
-        <div>
-            <div className="container">
+        <div className="bg-white text-black">
+            <div className="container mx-auto px-4 py-8 max-w-3xl">
                 <h1 className="text-4xl font-bungee mb-8 text-left">News</h1>
                 {newsItems}
             </div>

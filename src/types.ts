@@ -94,3 +94,10 @@ export interface CheckoutSession {
     url: string;
     payment_status: string;
 }
+
+// News types
+export type NewsEntry = {
+    title: string;
+    slug: string;
+    date: string;
+};
