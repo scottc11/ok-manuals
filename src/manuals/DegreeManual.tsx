@@ -199,12 +199,6 @@ const DegreeManual = () => {
                     </Col>
                     
                     <Col>
-                        <p>There are 8 3-stage toggle switches (<Definition item={DEGREE_SWITCH} />) which, based on their position, determine the musical scale for all 4 channels.</p>
-                        <p>If you toggle any of these switches, all channels will immediately update and output the newly desired scale degree.</p>
-                        <p>They are not recordable, nor modifiable via CV.</p>
-                    </Col>
-
-                    <Col>
                         <SectionSubheading title={'Logic and Theory'} />
                         <p>The DEGREE is very muched centered around the <Link href="https://en.wikipedia.org/wiki/Chromatic_scale" external>12 notes of western music</Link>.</p>
                         <p>In western music, a scale usually consists of a total of 7 notes, but if you were to include the upper octave you would get 8 notes (ex. <b>C</b>, D, E, F, G, A, B, <b>C</b>).</p>
@@ -213,40 +207,131 @@ const DegreeManual = () => {
 
                     <Col md={12} xl={8}>
                         <SectionSubheading title={'Building a scale'} />
-                        <p>If you want to start from a clean slate when building a <Link href="https://en.wikipedia.org/wiki/Scale_(music)" external>scale</Link>, switch all the <Definition item={DEGREE_SWITCH} plural e /> to their middle position.</p>
-                        <p>When all 8 switches are in their middle position, they are each seperated by a whole tone (two semi-tones). In this state, you get what is called a <Link href="https://en.wikipedia.org/wiki/Whole-tone_scale" external>"whole tone scale"</Link>.</p>
-                        <p>Each position of a toggle switch represents a single semitone. If you change the position of the switch upwards, all 4 channels horizontally will increase their pitch by one semitone. If you go downwards, then it will decrease their pitch by one semitone.</p>
-                    </Col>
-                    <Col md={12} xl={4}>
-                        <Image source={degree_switch_legend} />
-                    </Col>
-                    <Col>
-                        <p>If musical theory isn't your thing and you just want to set-and-forget the configuration of these switches, use the following switch configurations for reference:</p>
-                        <h4 className="font-bold py-2">Minor Scale:</h4>
-                        <ul className="list-disc list-inside">
-                            <li>Switch 8 :: UP or MIDDLE :: (either a Major 2nd or a minor 3rd)</li>
-                            <li>Switch 7 :: MIDDLE :: (Tonic octave)</li>
-                            <li>Switch 6 :: MIDDLE :: (minor 7)</li>
-                            <li>Switch 5 :: DOWN :: (perfect 5th)</li>
-                            <li>Switch 4 :: DOWN :: (perfect 4th)</li>
-                            <li>Switch 3 :: DOWN :: (Minor 3rd)</li>
-                            <li>Switch 2 :: MIDDLE :: (Major 2nd)</li>
-                            <li>Switch 1 :: MIDDLE :: (Tonic)</li>
-                        </ul>
-                        <h4 className="font-bold py-2">Major Scale:</h4>
-                        <ul className="list-disc list-inside">
-                            <li>Switch 8 :: MIDDLE :: (major 2nd)</li>
-                            <li>Switch 7 :: DOWN or MIDDLE :: (major 7th or Tonic octave)</li>
-                            <li>Switch 6 :: DOWN :: (major 6th)</li>
-                            <li>Switch 5 :: DOWN :: (perfect 5th)</li>
-                            <li>Switch 4 :: DOWN :: (perfect 4th)</li>
-                            <li>Switch 3 :: MIDDLE :: (Minor 3rd)</li>
-                            <li>Switch 2 :: MIDDLE :: (Major 2nd)</li>
-                            <li>Switch 1 :: MIDDLE :: (Tonic)</li>
-                        </ul>
-                        <Note>
-                            <p>NOTE: In most cases you will usually end up with only 6 of the 7 notes in a scale. This is by design. Learn to flick these switches during your permformance to reach certain notes of a scale. In more advanced cases, they can be used to create <Link href="https://en.wikipedia.org/wiki/Modulation_(music)" external>key changes</Link> during a performance.</p>
-                        </Note>
+                        <div className="flex flex-col md:flex-row">
+                            <div className="basis-full md:basis-3/4">
+                                <p>The <span className="text-azure font-unica p-1 rounded-sm">DEGREE</span> contains a series of 8 <span className="text-azure font-unica p-1 rounded-sm">scale degree</span> switches which can be used to construct a <span className="accent--blue">common scale between all 4 channels</span>.</p>
+
+                                <p>Each position of a toggle switch represents a single semitone. If you change the position of a switch upwards, all 4 channels across the horizontal axis will increase their pitch by one semitone. If you go downwards, then it will decrease their pitch by one semitone.</p>
+
+                                <p>For example, if all 8 switches are in their middle position, the scale degrees of each channel will be seperated by a whole tone (two semi-tones). In this state, you get what is called a "whole tone scale".</p>
+
+                                <p>You can adjust the position of the switches to create major scales, minor scales, and everything in between.</p>
+
+                                <p>
+                                    If musical theory isn't your thing, use the following switch configurations to get a major or a minor scale <span className="text-xs">(and everything will sound nice 🌈)</span>:
+                                </p>
+
+                                <h3 className="text-xl mb-2"><b>Major Scale</b></h3>
+                                <table className="w-full mb-8 border-collapse text-sm">
+                                    <thead>
+                                        <tr className="border-b-2 border-black pb-2">
+                                            <th className="text-left">Switch</th>
+                                            <th className="text-left">Position</th>
+                                            <th className="text-left">Scale degree</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>8 (top)</td>
+                                            <td>CENTER</td>
+                                            <td>Major 2nd</td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>DOWN or CENTER</td>
+                                            <td>Major 7th or Tonic octave</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>DOWN</td>
+                                            <td>Major 6th</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>DOWN</td>
+                                            <td>Perfect 5th</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>DOWN</td>
+                                            <td>Perfect 4th</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>CENTER</td>
+                                            <td>Minor 3rd</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>CENTER</td>
+                                            <td>Major 2nd</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1 (bottom)</td>
+                                            <td>CENTER</td>
+                                            <td>Tonic</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h3 className="text-xl mb-2"><b>Minor Scale</b></h3>
+                                <table className="w-full mb-8 border-collapse text-sm">
+                                    <thead>
+                                        <tr className="border-b-2 border-black">
+                                            <th className="text-left">Switch</th>
+                                            <th className="text-left">Position</th>
+                                            <th className="text-left">Scale degree</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>8 (top)</td>
+                                            <td>UP or CENTER</td>
+                                            <td>Either a Major 2nd or a minor 3rd</td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>CENTER</td>
+                                            <td>Tonic octave</td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>CENTER</td>
+                                            <td>Minor 7th</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>DOWN</td>
+                                            <td>Perfect 5th</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>DOWN</td>
+                                            <td>Perfect 4th</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>DOWN</td>
+                                            <td>Minor 3rd</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>CENTER</td>
+                                            <td>Major 2nd</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1 (bottom)</td>
+                                            <td>CENTER</td>
+                                            <td>Tonic</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="order-first sm:order-last basis-full md:basis-1/4">
+                                <div className="flex flex-row justify-center h-96 m-4">
+                                    <img className="bg-panel p-4" src={require('../media/counterpoint/scale_degree_switches.svg')} alt="scale degree switches" />
+                                </div>
+                            </div>
+                        </div>
                     </Col>
                 </Section>
 
@@ -318,11 +403,47 @@ const DegreeManual = () => {
                     </Col>
                     
                     <Col>
+                        <SectionHeading title={'VCO Calibration'} />
+
+                        <p>Analog VCOs are notoriously difficult to calibrate. They are very sensitive to temperature, humidity, and other environmental factors which ultimately causes imperfect pitch tracking (requiring frequent recalibration).</p>
+
+                        <p>The DEGREE has the ability to auto-calibrate the 1-volt-per-octave response of analog VCOs. By doing this, all four VCOs which the DEGREE controls will be in perfect harmony with each other, allowing for very large and lush chords across 5 octaves.</p>
+
+                        <p>
+                            It does this by patching a simple feedback loop between the target VCO and the DEGREE's CLOCK input. The frequency of the VCO is detected at a variety of 
+                            voltages provided by the DEGREE's 1VO output, and the DEGREE then uses this data to calculate the frequency of the VCO at any given voltage 
+                            using <Link href="https://en.wikipedia.org/wiki/Interpolation">exponential interpolation</Link>.
+                        </p>
+
+                        <SectionSubheading title={'Calibration Steps'} />
+                        
+                        <p>To calibrate a VCO, follow these steps (read each step carefully!):</p>
+
+                        <ol className="list-outside list-decimal marker:font-bold space-y-3 pl-5 sm:pl-6">
+                            <li className="p-1">Patch the 1VO output of the target channel to the 1VO input of the target VCO</li>
+                            <li className="p-1">Patch the output of the VCO into the <Definition item={CLOCK_INPUT} /> of the DEGREE</li>
+                            <li className="p-1">Set the frequency of the VCO to a low value. The VCO should be oscillating at a frequency between 16.35Hz and 65.41Hz.</li>
+                            <li className="p-1">Hold down the <Definition item={ALT_BTN} /> and then press <Definition item={ALT_BTN} /> + <Definition item={CV_MODE_BTN} />. Once calibration has been initialized, the target channels sequence display will illuminate indicating that the VCO is being calibrated.</li>
+                            <li className="p-1">The calibration routine will run for a few seconds, afterwhich the calibration data will be saved to flash memory and preserved between power cycles.</li>
+                            <li className="p-1">The display will flash a few times indicating that the calibration is complete.</li>
+                        </ol>
+                        <Note>
+                            <p>NOTE: When calibrating multiple VCOs, it is <b>VERY important</b> to first ensure that <b>all VCOs are at the same frequency</b>.</p>
+                        </Note>
+                        <Note>
+                            <p>NOTE: You should only need to do this once, but it would be worth while to re-calibrate your VCOs whenever you relocate your modular system.</p>
+                        </Note>
+                        <Note>
+                            <p>NOTE: You can only calibrate one VCO at a time.</p>
+                        </Note>
+                    </Col>
+
+                    <Col>
                         <SectionHeading title={'Settings and Gestures'} />
                         
                         <p>For each channel, the following settings are stored between power cycles of the module:</p>
 
-                        <ul>
+                        <ul className="list-disc list-inside">
                             <li>1 V/O calibration data</li>
                             <li>Bender calibration data</li>
                             <li>Channel mode</li>
@@ -335,7 +456,11 @@ const DegreeManual = () => {
                         <p>If you ever want to save or reset the current configuration of the module, use the following gestures 👇.</p>
 
                         <SectionSubheading title={'Config. Reset'} />                    
-                        <p>Holding <Definition item={ALT_BTN} /> + the <Definition item={FREEZE_BTN} /> with reset any/all of the the saved configuration data on the module. This includes the 1v/o calibration, the bender calibration, and the various channel settings to their default values.</p>
+                        <p>Holding <Definition item={ALT_BTN} /> + the <Definition item={FREEZE_BTN} /> will reset all of the the saved configuration data on the module. This includes the 1v/o calibration, the bender calibration, and the various channel settings to their default values.</p>
+
+                        <SectionSubheading title={'VCO Calibration Reset'} />
+                        <p>While holding one or more <Definition item={SELECT_PAD} plural />, pressing <Definition item={ALT_BTN} /> + the <Definition item={FREEZE_BTN} /> will reset the 1v/o calibration data for all selected channels to their default values.</p>
+                        
 
                         <SectionSubheading title={'Config. Save'} />
                         <p>Holding <Definition item={ALT_BTN} /> + the <Definition item={RECORD_BTN} /> will save the current settings of each channel so you don't need to reconfigure things after a power cycle.</p>
@@ -359,7 +484,7 @@ const DegreeManual = () => {
                     </ol>
 
                     <SectionSubheading title="STEP 3: Connect module to your computer / Google Chrome and prepare for upload" />
-                    <p>You now need to physically connect the module to your computer / laptop / tablet (? 🤷‍♂️). Follow these steps:</p>
+                    <p>You now need to physically connect the module to your computer / laptop / tablet. Follow these steps:</p>
                     <ol className="list-decimal list-inside">
                         <li>Power <b>OFF</b> your system.</li>
                         <li>Bring your laptop over to your system (or bring your system close to your laptop)</li>
