@@ -10,6 +10,7 @@ import { AiOutlineDownload } from 'react-icons/ai';
 import { TbCircuitPushbutton } from 'react-icons/tb';
 import FirmwareUpdater from '../views/FirmwareUpdater';
 import Code from '../components/Code/Code';
+import Image from '../components/Image/Image';
 
 const Label = ({children}: {children: React.ReactNode}) => {
     return (
@@ -44,7 +45,7 @@ const Counterpoint: React.FC = () => {
                     <h1 className="text-4xl md:text-6xl pt-12 pb-6 font-bold font-bungee">Counterpoint</h1>
                     <h2 className="text-2xl">Eurorack performance sequencer.</h2>
                     <div className="flex flex-row my-4 justify-center">
-                        <img className="p-4" src={require('../media/counterpoint/panel.svg')} alt="Counterpoint panel" />
+                        <Image source={require('../media/counterpoint/panel.png')} alt="Counterpoint panel" />
                     </div>
                 </Section>
 
@@ -279,7 +280,7 @@ const Counterpoint: React.FC = () => {
                                     <tr>
                                         <td>3</td>
                                         <td>CENTER</td>
-                                        <td>Minor 3rd</td>
+                                        <td>Major 3rd</td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
@@ -567,7 +568,15 @@ const Counterpoint: React.FC = () => {
                                     <Label>TRIPLET</Label> + <Label>OCTAVE PAD</Label>
                                 </td>
                                 <td>
-                                    Applies an octave offset to the active sequence of the corrosponding channel. (top octave pad is +1 octave, bottom is -1 octave)
+                                    If a sequence is playing back, Applies an <b>octave offset</b> to the active sequence of the corrosponding channel. (top octave pad +1 octave, bottom octave pad -1 octave).
+                                </td>
+                            </tr>
+                            <tr className="border-b border-dotted border-black pt-4">
+                                <td>
+                                    <Label>TRIPLET</Label> + <Label>OCTAVE PAD</Label>
+                                </td>
+                                <td>
+                                    If no sequence is playing back, sets the octave of a channel without triggering a new note. Only when a degree pad is touched will the target octave be reflected on the channels output.
                                 </td>
                             </tr>
                             <tr className="border-b border-dotted border-black pt-4">
@@ -580,6 +589,16 @@ const Counterpoint: React.FC = () => {
                             </tr>
                         </tbody>
                     </table>
+                </Section>
+
+                <Section>
+                    <SectionHeading title="🔧 Settings" />
+                    <p>Counterpoint has a number of settings which can be adjusted to alter the behavior of the module.</p>
+                    <p>To access the settings, press <Label>ALT</Label> + <Label>RESET</Label>.</p>
+
+                    <SectionSubheading title="Gate Link" />
+                    <p>Gate linking is a feature that allows you to link the gate output of one channel to the gate output of another channel.</p>
+                    
                 </Section>
 
                 <Section>

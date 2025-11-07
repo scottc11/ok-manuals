@@ -40,7 +40,7 @@ const Button = ({ children, onClick, disabled, className, variant = 'dark', type
             disabled={disabled}
             onMouseDown={() => setButtonClicked(true)}
             onMouseUp={() => setButtonClicked(false)}
-            className={`${getButtonClasses()} ${className || ''}`}>
+            className="inline-flex items-center gap-2 rounded border border-azure text-azure px-3 py-2 min-h-[44px] min-w-[44px] hover:bg-azure/10">
             {children}
         </button>
     )
