@@ -1,9 +1,13 @@
 const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const ReactRefreshTypeScript = require("react-refresh-typescript");
+
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 module.exports = {
-  mode: "none",
+  mode: isDevelopment ? "development" : "production",
   entry: "./src/index.tsx",
   output: {
     filename: "bundle.js",
@@ -16,6 +20,9 @@ module.exports = {
     static: "./dist",
     historyApiFallback: true,
     hot: true,
+  },
+  watchOptions: {
+    ignored: /node_modules/,
   },
   module: {
     rules: [
@@ -32,6 +39,14 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "ts-loader",
+          options: isDevelopment
+            ? {
+                transpileOnly: true,
+                getCustomTransformers: () => ({
+                  before: [ReactRefreshTypeScript()],
+                }),
+              }
+            : {},
         },
       },
       {
@@ -56,5 +71,6 @@ module.exports = {
       template: "./src/index.html",
       favicon: './src/media/favicon.svg',
     }),
-  ],
+    isDevelopment && new ReactRefreshWebpackPlugin(),
+  ].filter(Boolean),
 };
