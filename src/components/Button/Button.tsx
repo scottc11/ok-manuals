@@ -10,7 +10,7 @@ const Button = ({ children, onClick, disabled }: { children: React.ReactNode, on
             disabled={disabled}
             onMouseDown={() => setButtonClicked(true)}
             onMouseUp={() => setButtonClicked(false)}
-            className={`inline-block border-2 border-slate-500 bg-slate-900 text-lavender rounded-md p-2 ${buttonClicked ? 'border-b-2' : 'border-b-4'}`}>
+            className="inline-flex items-center gap-2 rounded border border-azure text-azure px-3 py-2 min-h-[44px] min-w-[44px] hover:bg-azure/10">
             {children}
         </button>
     )

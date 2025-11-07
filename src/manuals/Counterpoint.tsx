@@ -10,6 +10,7 @@ import { AiOutlineDownload } from 'react-icons/ai';
 import { TbCircuitPushbutton } from 'react-icons/tb';
 import FirmwareUpdater from '../views/FirmwareUpdater';
 import Code from '../components/Code/Code';
+import Image from '../components/Image/Image';
 
 const Label = ({children}: {children: React.ReactNode}) => {
     return (
@@ -44,7 +45,7 @@ const Counterpoint: React.FC = () => {
                     <h1 className="text-4xl md:text-6xl pt-12 pb-6 font-bold font-bungee">Counterpoint</h1>
                     <h2 className="text-2xl">Eurorack performance sequencer.</h2>
                     <div className="flex flex-row my-4 justify-center">
-                        <img className="p-4" src={require('../media/counterpoint/panel.png')} alt="Counterpoint panel" />
+                        <Image source={require('../media/counterpoint/panel.png')} alt="Counterpoint panel" />
                     </div>
                 </Section>
 

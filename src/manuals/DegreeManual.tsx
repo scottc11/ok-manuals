@@ -18,9 +18,15 @@ import ContentsContextProvider from "../context";
 import TableOfContents from "../components/TableOfContents/TableOfContents";
 import SectionHeading from "../components/SectionHeading/SectionHeading";
 import SectionSubheading from "../components/SectionSubHeading/SectionSubHeading";
-import { TbCircuitPushbutton } from "react-icons/tb";
-import { GrConnect } from "react-icons/gr";
 import FirmwareUpdater from "../views/FirmwareUpdater";
+import DownloadList from "../components/DownloadList/DownloadList";
+
+const DEGREE_FIRMWARE = [
+    { label: 'DEGREE Alt Firmware (Nov 2025)', file: 'degree-alt-firmware-nov-2025.bin', sizeLabel: '61 KB' },
+    { label: 'DEGREE Firmware (Nov 2025)', file: 'degree-firmware-nov-2025.bin', sizeLabel: '61 KB' },
+    { label: 'DEGREE Alt Firmware (Jun 2023)', file: 'degree-firmware-jun-2023.bin', sizeLabel: '61 KB' },
+    { label: 'DEGREE Firmware (Jun 2023)', file: 'degree-firmware-jun-2023.bin', sizeLabel: '61 KB' },
+];
 
 const DegreeManual = () => {
     return (
@@ -31,7 +37,7 @@ const DegreeManual = () => {
                     <h1 className="text-4xl md:text-6xl pt-12 pb-6 font-bold font-bungee">DEGREE</h1>
 
                     <div className="flex justify-center py-4">
-                        <img src={degree_image} />
+                        <Image source={degree_image} alt="DEGREE"/>
                     </div>
                 </Section>
                 
@@ -69,36 +75,39 @@ const DegreeManual = () => {
                 </Section>
 
                 <Section>
-                    <Col>
-                        <SectionHeading title={'Channel Modes'} />
-                        <p>At any given time each channel operates in one of two modes. <Definition item={MONOPHONIC_MODE} /> or <Definition item={QUANTIZER_MODE} />.</p>
-                        <p>You can toggle between a channels modes by holding your finger on a <Definition item={SELECT_PAD} /> and pressing the <Definition item={CV_MODE_BTN} />.</p>
-                    </Col>
-                    <Col>
-                        <SectionSubheading title={'Monophonic Mode'} />
-                    </Col>
-                    <Col md={12} xl={8}>
-                        <p>This is the most basic of modes.</p>
-                        <p>For each channel, only one touch pad will be illuminated at a time.</p>
-                        <p>Touching any of the touch pads pads immediately outputs the respective scale degrees voltage to that channel's <Definition item={VO_OUTPUT}/>.</p>
-                        <p>Additionally, when a touch pad is touched the corresponding channels GATE output is set to HIGH (+5V), and on release set back to LOW (0V).</p>
-                    </Col>
-                    <Col md={12} xl={4}>
-                        <Image source={monophonic_gif} />
-                    </Col>
+                    <SectionHeading title={'Channel Modes'} />
+                    
+                    <p>At any given time each channel operates in one of two modes. <Definition item={MONOPHONIC_MODE} /> or <Definition item={QUANTIZER_MODE} />.</p>
+                    <p>You can toggle between a channels modes by holding your finger on a <Definition item={SELECT_PAD} /> and pressing the <Definition item={CV_MODE_BTN} />.</p>
+                    
+                    <SectionSubheading title={'Monophonic Mode'} />
+                    
+                    <div className="flex flex-col md:flex-row gap-4">
+                        <div className="basis-full md:basis-1/2">
+                            <p>This is the most basic of modes.</p>
+                            <p>For each channel, only one touch pad will be illuminated at a time.</p>
+                            <p>Touching any of the touch pads pads immediately outputs the respective scale degrees voltage to that channel's <Definition item={VO_OUTPUT} />.</p>
+                            <p>Additionally, when a touch pad is touched the corresponding channels GATE output is set to HIGH (+5V), and on release set back to LOW (0V).</p>
+                        </div>
+                        <div className="flex justify-center md:w-1/3 sm:w-full mx-auto">
+                            <Image source={monophonic_gif} />
+                        </div>
+                    </div>
                 </Section>
                 
                 <Section>
-                    <Col>
-                        <SectionSubheading title={'Quantizer Mode'} />
-                    </Col>
-                    <Col md={12} xl={8}>
-                        <p>In quantizer mode, all 8 degrees become available options for incoming CV signals to get latched to. If a touch pad is illuminated, incoming CV can be latched to it.</p>
-                        <p>When a CV voltage latches to an active degree, that touch pad LED will dim; the <Definition item={VO_OUTPUT}/> gets updated; and a trigger signal will appear at the <Definition item={GATE_OUTPUT} />.</p>
-                    </Col>
-                    <Col md={12} xl={4}>
-                        <Image source={quantizer_gif} />
-                    </Col>
+                    <SectionSubheading title={'Quantizer Mode'} />
+
+                    <div className="flex flex-col md:flex-row gap-4">
+                        <div className="basis-full md:basis-1/2">
+                            <p>In quantizer mode, all 8 degrees become available options for incoming CV signals to get latched to. If a touch pad is illuminated, incoming CV can be latched to it.</p>
+                            <p>When a CV voltage latches to an active degree, that touch pad LED will dim; the <Definition item={VO_OUTPUT} /> gets updated; and a trigger signal will appear at the <Definition item={GATE_OUTPUT} />.</p>
+                        </div>
+                        <div className="flex justify-center md:w-1/3 sm:w-full mx-auto">
+                            <Image source={quantizer_gif} />
+                        </div>
+                    </div>
+
                 </Section>
 
                 <Section>
@@ -326,7 +335,7 @@ const DegreeManual = () => {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="order-first sm:order-last basis-full md:basis-1/4">
+                            <div className="order-first sm:order-last basis-full md:basis-1/4 sm:hidden">
                                 <div className="flex flex-row justify-center h-96 m-4">
                                     <img className="bg-panel p-4" src={require('../media/counterpoint/scale_degree_switches.svg')} alt="scale degree switches" />
                                 </div>
@@ -336,135 +345,129 @@ const DegreeManual = () => {
                 </Section>
 
                 <Section>
-                    <Col>
-                        <SectionHeading title={'The Benders 👌'} />
-                    </Col>
+                    <SectionHeading title={'The Benders 👌'} />
                     
-                    <Col>
-                        <p>Each of the four channels hosts a dedicated <Definition item={BENDER}/> component to act as a conduit between your finger and your modular system.</p>
+                    <p>Each of the four channels hosts a dedicated <Definition item={BENDER} /> component to act as a conduit between your finger and your modular system.</p>
 
-                        <p>It can be used in a variety of ways to modify the various outputs of the DEGREE, as well as provide a modulation source for other modules via its dedicated <Definition item={BENDER_OUTPUT} /> (+-8V).</p>
-                        
-                        <p>As mentioned, there is a variety of modes a <Definition item={BENDER} /> can be in at any one time. It can either be in <Definition item={PITCH_BEND_MODE} />, <Definition item={RATCHET_MODE} />, <Definition item={PITCH_BEND_MODE} /> + <Definition item={PITCH_BEND_MODE} />, or simply just “off”.</p>
-                        
-                        <Note>
-                            <p>NOTE: regardless of which mode a <Definition item={BENDER} /> is in, it will ALWAYS output the raw CV value. You cannot disable this. (and why would you?!)</p>
-                        </Note>
-                    </Col>
+                    <p>It can be used in a variety of ways to modify the various outputs of the DEGREE, as well as provide a modulation source for other modules via its dedicated <Definition item={BENDER_OUTPUT} /> (+-8V).</p>
+
+                    <p>As mentioned, there is a variety of modes a <Definition item={BENDER} /> can be in at any one time. It can either be in <Definition item={PITCH_BEND_MODE} />, <Definition item={RATCHET_MODE} />, <Definition item={PITCH_BEND_MODE} /> + <Definition item={PITCH_BEND_MODE} />, or simply just “off”.</p>
+
+                    <Note>
+                        <p>NOTE: regardless of which mode a <Definition item={BENDER} /> is in, it will ALWAYS output the raw CV value. You cannot disable this. (and why would you?!)</p>
+                    </Note>
                     
-                    <Col>
-                        <SectionHeading title={'Bender Modes'} />
-                        
-                        <SectionSubheading title={'Pitch Bend Mode'} />
-                        
-                        <p>When the 🔃 symbol is illuminated, the <Definition item={BENDER} /> is in “Pitch Bend” mode. In this mode, the <Definition item={BENDER} /> will apply a pitch bend effect to the <Definition item={VO_OUTPUT} /> of that channel.</p>
+                    <SectionHeading title={'Bender Modes'} />
 
-                        <p>Pitch Bend Range: When holding down the <Definition item={BENDER_RANGE_BTN} />, you can set the range in which the <Definition item={BENDER} /> effects the <Definition item={VO_OUTPUT} /> (in semi-tones). There are 8 possible semi-tone ranges: 1, 2, 3, 4, 5, 7, 10, and 12 semi-tones.</p>
+                    <SectionSubheading title={'Pitch Bend Mode'} />
 
-                        <SectionSubheading title={'Ratchet Mode'} />
-                        
-                        <p>When the ⏸ symbol is illuminated, the <Definition item={BENDER} /> is in “Ratchet” mode, and will directly effect the <Definition item={GATE_OUTPUT} /> of the corresponding channel.</p>
+                    <p>When the 🔃 symbol is illuminated, the <Definition item={BENDER} /> is in “Pitch Bend” mode. In this mode, the <Definition item={BENDER} /> will apply a pitch bend effect to the <Definition item={VO_OUTPUT} /> of that channel.</p>
 
-                        <p>When pressing the <Definition item={BENDER} /> “upwards” (ie. towards the top of the module), then the <Definition item={GATE_OUTPUT} /> will begin creating trigger events at an increasing rate (quarter notes ^ 8th notes ^^ 16th notes ^^^ 32nd notes), etc.</p>
+                    <p>Pitch Bend Range: When holding down the <Definition item={BENDER_RANGE_BTN} />, you can set the range in which the <Definition item={BENDER} /> effects the <Definition item={VO_OUTPUT} /> (in semi-tones). There are 8 possible semi-tone ranges: 1, 2, 3, 4, 5, 7, 10, and 12 semi-tones.</p>
 
-                        <p>When pulling the <Definition item={BENDER} /> “downwards” (ie. towards the bottom of the module), then the <Definition item={GATE_OUTPUT} /> will create trigger events that are triplets (at an increasing rate).</p>
+                    <SectionSubheading title={'Ratchet Mode'} />
 
-                        <SectionSubheading title={'Pitch Bend + Ratchet Mode'} />
+                    <p>When the ⏸ symbol is illuminated, the <Definition item={BENDER} /> is in “Ratchet” mode, and will directly effect the <Definition item={GATE_OUTPUT} /> of the corresponding channel.</p>
 
-                        <p>In this mode, both the 🔃 and the ⏸ symbols will be illuminated, and thus execute the corresponding modes simultaneously.</p>
+                    <p>When pressing the <Definition item={BENDER} /> “upwards” (ie. towards the top of the module), then the <Definition item={GATE_OUTPUT} /> will begin creating trigger events at an increasing rate (quarter notes ^ 8th notes ^^ 16th notes ^^^ 32nd notes), etc.</p>
 
-                        <SectionSubheading title={'OFF Mode'} />
+                    <p>When pulling the <Definition item={BENDER} /> “downwards” (ie. towards the bottom of the module), then the <Definition item={GATE_OUTPUT} /> will create trigger events that are triplets (at an increasing rate).</p>
 
-                        <p>In the case when you don't want the benders effecting the <Definition item={GATE_OUTPUT} /> or the <Definition item={VO_OUTPUT} />, but still wish to use the raw <Definition item={BENDER_OUTPUT} /> of for modulating other modules in your system, use this mode.</p>
-                    </Col>
+                    <SectionSubheading title={'Pitch Bend + Ratchet Mode'} />
+
+                    <p>In this mode, both the 🔃 and the ⏸ symbols will be illuminated, and thus execute the corresponding modes simultaneously.</p>
+
+                    <SectionSubheading title={'OFF Mode'} />
+
+                    <p>In the case when you don't want the benders effecting the <Definition item={GATE_OUTPUT} /> or the <Definition item={VO_OUTPUT} />, but still wish to use the raw <Definition item={BENDER_OUTPUT} /> of for modulating other modules in your system, use this mode.</p>
                     
                     
-                    <Col>
-                        <SectionHeading title={'Bender Sequencing'} />
-                        <p>
-                            To record the movements of the <Definition item={BENDER} plural /> into a channels sequence, enable RECORD and start bending. 
-                            The sequencer will record the raw CV values of the bender into the sequence, giving you the option 
-                            to apply Pitch Bend or Ratchet effects after the fact, should you wish too.
-                        </p>
-                    </Col>
+                    <SectionHeading title={'Bender Sequencing'} />
+                    <p>
+                        To record the movements of the <Definition item={BENDER} plural /> into a channels sequence, enable RECORD and start bending.
+                        The sequencer will record the raw CV values of the bender into the sequence, giving you the option
+                        to apply Pitch Bend or Ratchet effects after the fact, should you wish too.
+                    </p>
                     
-                    <Col>
-                        <SectionHeading title={'Bender Calibration'} />
-                        
-                        <p>The <Definition item={BENDER} /> components are very sensitive analog components. Each Bender component in your DEGREE is unique, and will react differently from its neighbor. Because of this, they must be calibrated by the on-board microcontroller to obtain the most stable and consistent operation.</p>
+                    <SectionHeading title={'Bender Calibration'} />
 
-                        <p>To enter <Definition item={BENDER_CALIBRATION_MODE} />, hold down <Definition item={ALT_BTN} /> and then press the <Definition item={BENDER_MODE_BTN} />. Once calibration has been initialized, the sequencer display will illuminate the top most and bottom most LEDs. When you see this, start push/pulling the <Definition item={BENDER} plural /> to their maximum bend ranges (as limited by the panel). When you have done this for all the benders, hold down <Definition item={ALT_BTN} /> and then press the <Definition item={BENDER_MODE_BTN} /> to exit the calibration process. The new calibration data will now be saved in the flash memory of the device and preserved between power cylces.</p>
+                    <p>The <Definition item={BENDER} /> components are very sensitive analog components. Each Bender component in your DEGREE is unique, and will react differently from its neighbor. Because of this, they must be calibrated by the on-board microcontroller to obtain the most stable and consistent operation.</p>
 
-                        <Note>
-                            <p>NOTE: You should only need to do this once, but it would be worth while to re-calibrate your benders whenever you relocate your modular system - as the temperature of the air does effects the sensitivity of the analog sensors attached to the bender components.</p>
-                        </Note>
+                    <p>To enter <Definition item={BENDER_CALIBRATION_MODE} />, hold down <Definition item={ALT_BTN} /> and then press the <Definition item={BENDER_MODE_BTN} />. Once calibration has been initialized, the sequencer display will illuminate the top most and bottom most LEDs. When you see this, start push/pulling the <Definition item={BENDER} plural /> to their maximum bend ranges (as limited by the panel). When you have done this for all the benders, hold down <Definition item={ALT_BTN} /> and then press the <Definition item={BENDER_MODE_BTN} /> to exit the calibration process. The new calibration data will now be saved in the flash memory of the device and preserved between power cylces.</p>
 
-                        <p><b>Bender Replacement:</b> Should any of your Bender components become faulty, please contact me and I will provide a replacement. You only need a screw driver to replace a Bender component yourself 🙂.</p>
-                    </Col>
-                    
-                    <Col>
-                        <SectionHeading title={'VCO Calibration'} />
+                    <Note>
+                        <p>NOTE: You should only need to do this once, but it would be worth while to re-calibrate your benders whenever you relocate your modular system - as the temperature of the air does effects the sensitivity of the analog sensors attached to the bender components.</p>
+                    </Note>
 
-                        <p>Analog VCOs are notoriously difficult to calibrate. They are very sensitive to temperature, humidity, and other environmental factors which ultimately causes imperfect pitch tracking (requiring frequent recalibration).</p>
+                    <p><b>Bender Replacement:</b> Should any of your Bender components become faulty, please contact me and I will provide a replacement. You only need a screw driver to replace a Bender component yourself 🙂.</p>
+                </Section>
 
-                        <p>The DEGREE has the ability to auto-calibrate the 1-volt-per-octave response of analog VCOs. By doing this, all four VCOs which the DEGREE controls will be in perfect harmony with each other, allowing for very large and lush chords across 5 octaves.</p>
+                <Section>
+                    <SectionHeading title={'VCO Calibration'} />
 
-                        <p>
-                            It does this by patching a simple feedback loop between the target VCO and the DEGREE's CLOCK input. The frequency of the VCO is detected at a variety of 
-                            voltages provided by the DEGREE's 1VO output, and the DEGREE then uses this data to calculate the frequency of the VCO at any given voltage 
-                            using <Link href="https://en.wikipedia.org/wiki/Interpolation">exponential interpolation</Link>.
-                        </p>
+                    <p>Analog VCOs are notoriously difficult to calibrate. They are very sensitive to temperature, humidity, and other environmental factors which ultimately causes imperfect pitch tracking (requiring frequent recalibration).</p>
 
-                        <SectionSubheading title={'Calibration Steps'} />
-                        
-                        <p>To calibrate a VCO, follow these steps (read each step carefully!):</p>
+                    <p>The DEGREE has the ability to auto-calibrate the 1-volt-per-octave response of analog VCOs. By doing this, all four VCOs which the DEGREE controls will be in perfect harmony with each other, allowing for very large and lush chords across 5 octaves.</p>
 
-                        <ol className="list-outside list-decimal marker:font-bold space-y-3 pl-5 sm:pl-6">
-                            <li className="p-1">Patch the 1VO output of the target channel to the 1VO input of the target VCO</li>
-                            <li className="p-1">Patch the output of the VCO into the <Definition item={CLOCK_INPUT} /> of the DEGREE</li>
-                            <li className="p-1">Set the frequency of the VCO to a low value. The VCO should be oscillating at a frequency between 16.35Hz and 65.41Hz.</li>
-                            <li className="p-1">Hold down the <Definition item={ALT_BTN} /> and then press <Definition item={ALT_BTN} /> + <Definition item={CV_MODE_BTN} />. Once calibration has been initialized, the target channels sequence display will illuminate indicating that the VCO is being calibrated.</li>
-                            <li className="p-1">The calibration routine will run for a few seconds, afterwhich the calibration data will be saved to flash memory and preserved between power cycles.</li>
-                            <li className="p-1">The display will flash a few times indicating that the calibration is complete.</li>
-                        </ol>
-                        <Note>
-                            <p>NOTE: When calibrating multiple VCOs, it is <b>VERY important</b> to first ensure that <b>all VCOs are at the same frequency</b>.</p>
-                        </Note>
-                        <Note>
-                            <p>NOTE: You should only need to do this once, but it would be worth while to re-calibrate your VCOs whenever you relocate your modular system.</p>
-                        </Note>
-                        <Note>
-                            <p>NOTE: You can only calibrate one VCO at a time.</p>
-                        </Note>
-                    </Col>
+                    <p>
+                        It does this by patching a simple feedback loop between the target VCO and the DEGREE's CLOCK input. The frequency of the VCO is detected at a variety of
+                        voltages provided by the DEGREE's 1VO output, and the DEGREE then uses this data to calculate the frequency of the VCO at any given voltage
+                        using <Link href="https://en.wikipedia.org/wiki/Interpolation">exponential interpolation</Link>.
+                    </p>
 
-                    <Col>
-                        <SectionHeading title={'Settings and Gestures'} />
-                        
-                        <p>For each channel, the following settings are stored between power cycles of the module:</p>
+                    <SectionSubheading title={'Calibration Steps'} />
 
-                        <ul className="list-disc list-inside">
-                            <li>1 V/O calibration data</li>
-                            <li>Bender calibration data</li>
-                            <li>Channel mode</li>
-                            <li>Bender mode</li>
-                            <li>Pitch Bend range</li>
-                            <li>quantize grid</li>
-                            <li>The recorded sequence (should one exist)</li>
-                        </ul>
+                    <p>To calibrate a VCO, follow these steps (<b><u>read each step carefully!</u></b>):</p>
 
-                        <p>If you ever want to save or reset the current configuration of the module, use the following gestures 👇.</p>
+                    <ol className="list-outside list-decimal marker:font-bold space-y-3 pl-5 sm:pl-6">
+                        <li className="p-1">Ensure your system has been powered on for at least 10 minutes to allow your VCO to  "warm up".</li>
+                        <li className="p-1">Turn the <Definition item={TEMPO_POT} /> to the center position.</li>
+                        <li className="p-1">Patch the 1VO output of the target channel to the 1VO input of the target VCO</li>
+                        <li className="p-1">Patch the output of the VCO into the <Definition item={CLOCK_INPUT} /> of the DEGREE (SAW, TRI, or SQUARE waves work best)</li>
+                        <li className="p-1">Set the frequency of the VCO to a low value. The VCO should be oscillating at a frequency between 16.35Hz and 65.41Hz.</li>
+                        <li className="p-1">Hold down the <Definition item={ALT_BTN} /> and then press <Definition item={ALT_BTN} /> + <Definition item={CV_MODE_BTN} />. Once calibration has been initialized, the target channels sequence display will illuminate indicating that the VCO is being calibrated.</li>
+                        <li className="p-1">The calibration routine will run for a few seconds, afterwhich the calibration data will be saved to flash memory and preserved between power cycles.</li>
+                        <li className="p-1">The display will flash a few times indicating that the calibration is complete.</li>
+                    </ol>
+                    <Note>
+                        <p>NOTE: When calibrating multiple VCOs, it is <b>VERY important</b> to first ensure that <b>all VCOs are set to the same frequency</b>. The chosen frequency should be between 16.35Hz and 65.41Hz. If you do not set each VCO to the same frequency prior to calibration, the "initial pitch" of each VCO after calibration will very likely be different.</p>
+                        <p>For example, if one VCO is set to 32.70hz (C1), and another is set to 34.65hz (C#1), then the initial pitch of the first VCO after calibration will be a semi-tone higher than the second VCO.</p>
+                        <p><b>TIP:</b> You don't need a tuner to set the frequency of your VCOs prior to calibration. You can just use your ear to ensure they are all set "nearly" to the same frequency. The calibration routine will take care of the rest.</p>
+                    </Note>
+                    <Note>
+                        <p>NOTE: You should only need to do this once, but it would be worth while to re-calibrate your VCOs whenever you relocate your modular system.</p>
+                    </Note>
+                    <Note>
+                        <p>NOTE: You can only calibrate one VCO at a time!</p>
+                    </Note>
+                </Section>
 
-                        <SectionSubheading title={'Config. Reset'} />                    
-                        <p>Holding <Definition item={ALT_BTN} /> + the <Definition item={FREEZE_BTN} /> will reset all of the the saved configuration data on the module. This includes the 1v/o calibration, the bender calibration, and the various channel settings to their default values.</p>
+                <Section>
+                    <SectionHeading title={'Settings and Gestures'} />
 
-                        <SectionSubheading title={'VCO Calibration Reset'} />
-                        <p>While holding one or more <Definition item={SELECT_PAD} plural />, pressing <Definition item={ALT_BTN} /> + the <Definition item={FREEZE_BTN} /> will reset the 1v/o calibration data for all selected channels to their default values.</p>
-                        
+                    <p>For each channel, the following settings are stored between power cycles of the module:</p>
 
-                        <SectionSubheading title={'Config. Save'} />
-                        <p>Holding <Definition item={ALT_BTN} /> + the <Definition item={RECORD_BTN} /> will save the current settings of each channel so you don't need to reconfigure things after a power cycle.</p>
-                    </Col>
+                    <ul className="list-disc list-inside">
+                        <li>1 V/O calibration data</li>
+                        <li>Bender calibration data</li>
+                        <li>Channel mode</li>
+                        <li>Bender mode</li>
+                        <li>Pitch Bend range</li>
+                        <li>quantize grid</li>
+                        <li>The recorded sequence (should one exist)</li>
+                    </ul>
+
+                    <p>If you ever want to save or reset the current configuration of the module, use the following gestures 👇.</p>
+
+                    <SectionSubheading title={'Config. Reset'} />
+                    <p>Holding <Definition item={ALT_BTN} /> + the <Definition item={FREEZE_BTN} /> will reset all of the the saved configuration data on the module. This includes the 1v/o calibration, the bender calibration, and the various channel settings to their default values.</p>
+
+                    <SectionSubheading title={'VCO Calibration Reset'} />
+                    <p>While holding one or more <Definition item={SELECT_PAD} plural />, pressing <Definition item={ALT_BTN} /> + the <Definition item={FREEZE_BTN} /> will reset the 1v/o calibration data for all selected channels to their default values.</p>
+
+
+                    <SectionSubheading title={'Config. Save'} />
+                    <p>Holding <Definition item={ALT_BTN} /> + the <Definition item={RECORD_BTN} /> will save the current settings of each channel so you don't need to reconfigure things after a power cycle.</p>
                 </Section>
 
                 <Section>
@@ -475,29 +478,28 @@ const DegreeManual = () => {
                     <SectionSubheading title="STEP 1: Are you using Google Chrome v61 or greater? 👀" />
                     <p>In order for this to work, you are going to need to <a className="text-azure hover:text-azure/80 underline" target="_blank" href="https://www.google.com/intl/en_ca/chrome/?brand=CHBD&gclid=Cj0KCQjwyLGjBhDKARIsAFRNgW-0DbYRWHdafOcyVQptTB-Ko36qyNh3Whw0Bp7RcopmCFanZ26NPPsaAmq4EALw_wcB&gclsrc=aw.dshttps://www.google.com/search?q=Install+Google+Chrome&rlz=1C5CHFA_enCA969CA969&oq=Install+Google+Chrome&aqs=chrome..69i57.562j0j7&sourceid=chrome&ie=UTF-8">Install Google Chrome</a>. It is the only way 🙏.</p>
 
-                    <SectionSubheading>STEP 2: Obtain firmware file <span className="inline-block"><AiOutlineDownload /></span></SectionSubheading>
-                    <p>You need a copy of the firmware you wish to upload to your module. To do so:</p>
-                    <ol className="list-decimal list-inside">
-                        <li>Navigate to the <a className="text-azure hover:text-azure/80 underline" target="_blank" href="https://github.com/scottc11/ok-web-programmer/blob/master/src/firmware">GitHub repository</a> which holds all the available firmware files.</li>
-                        <li>Select the firmware file you wish to upload. It will have a <b>'.bin'</b> extension.</li>
-                        <li>On the far right, there should be a <span className="inline-block"><AiOutlineDownload /></span> icon. Press that icon and <b>download the file to your local computer</b>.</li>
-                    </ol>
+                    <SectionSubheading>STEP 2: Download firmware file <span className="inline-block"><AiOutlineDownload /></span></SectionSubheading>
+                    <p>Download one of the following firmware files:</p>
+                    <DownloadList items={DEGREE_FIRMWARE} />
+                    <Note>
+                        <p>NOTE: The "ALT" firmware contains sequencing functionality that is different from the original firmware. The manual has been updated to reflect this (see <Link anchor href="#anchor-Sequencing">Sequencing</Link> section).</p>
+                    </Note>
 
                     <SectionSubheading title="STEP 3: Connect module to your computer / Google Chrome and prepare for upload" />
                     <p>You now need to physically connect the module to your computer / laptop / tablet. Follow these steps:</p>
-                    <ol className="list-decimal list-inside">
-                        <li>Power <b>OFF</b> your system.</li>
-                        <li>Bring your laptop over to your system (or bring your system close to your laptop)</li>
-                        <li>Remove your module from the case, <b>but keep the power cable connected</b>.</li>
-                        <li>Using a standard USB cable, connect one end of the cable to the associated USB connector on underside of the module</li>
-                        <li>Connect the other end of the USB cable to your computer</li>
-                        <li>Power on your Eurorack case / power supply. The module needs to be powered for the firmware upload to work. Once powered, it should be operating as usual.</li>
-                        <li>Now, on the underside of the module, there is a <b>tiny black button</b> and a <b>tiny white button</b> (near where the Benders are mounted)</li>
-                        <ul>
-                            <li><span className="inline-block"><TbCircuitPushbutton /></span> Press and hold down the BLACK button</li>
-                            <li>While the black button is being held down, <span className="inline-block"><TbCircuitPushbutton /></span> press the WHITE button</li>
+                    <ol className="list-outside list-decimal marker:font-bold space-y-3 pl-5 sm:pl-6">
+                        <li className="p-1">Power <b>OFF</b> your system.</li>
+                        <li className="p-1">Bring your laptop over to your system (or bring your system close to your laptop)</li>
+                        <li className="p-1">Remove your module from the case, <b>but keep the power cable connected</b>.</li>
+                        <li className="p-1">Using a standard USB cable, connect one end of the cable to the associated USB connector on underside of the module</li>
+                        <li className="p-1">Connect the other end of the USB cable to your computer</li>
+                        <li className="p-1">Power on your Eurorack case / power supply. The module needs to be powered for the firmware upload to work. Once powered, it should be operating as usual.</li>
+                        <li className="p-1">Now, on the underside of the module, there is a <b>tiny black button</b> and a <b>tiny white button</b> (near where the Benders are mounted)</li>
+                        <ul className="list-disc list-inside">
+                            <li>Press and hold down the <b>BLACK</b> button</li>
+                            <li>While the <b>BLACK</b> button is being held down, press the <b>WHITE</b> button</li>
                         </ul>
-                        <li>The module should now be "frozen" (ie. clock LED no longer flashing, touch pads unresponsive). This is GOOD! The module is now in "BOOTLOADER" mode.</li>
+                        <li className="p-1">The module should now be "frozen" (ie. clock LED no longer flashing, touch pads unresponsive). This is GOOD! The module is now in "BOOTLOADER" mode.</li>
                     </ol>
 
                     <SectionSubheading title="STEP 4: Upload firmware to the module" />
@@ -505,13 +507,13 @@ const DegreeManual = () => {
 
                     <SectionSubheading title="STEP 6:" />
                     <h3 className="text-2xl py-4">Finishing up</h3>
-                    <ol className="list-decimal list-inside">
-                        <li>Once the upload process is complete, the module should automatically reset itself and start running the newly uploaded firmware</li>
-                        <li>Power off your Eurorack system / disconnect the power supply</li>
-                        <li>Gently remove the USB cable from the modules USB connector</li>
-                        <li>You can now mount the module back into your case and turn on the power.</li>
-                        <li>After the module powers up, you are going to want to <b>calibrate the BENDER components</b> (ALT + MODE)</li>
-                        <li>You are done!</li>
+                    <ol className="list-outside list-decimal marker:font-bold space-y-3 pl-5 sm:pl-6">
+                        <li className="p-1">Once the upload process is complete, the module should automatically reset itself and start running the newly uploaded firmware</li>
+                        <li className="p-1">Power off your Eurorack system / disconnect the power supply</li>
+                        <li className="p-1">Gently remove the USB cable from the modules USB connector</li>
+                        <li className="p-1">You can now mount the module back into your case and turn on the power.</li>
+                        <li className="p-1">After the module powers up, you are going to want to <b>calibrate the BENDER components</b> (ALT + MODE)</li>
+                        <li className="p-1">You are done!</li>
                     </ol>
                 </Section>
             </ContentsContextProvider>
