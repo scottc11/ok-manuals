@@ -23,8 +23,8 @@ app.use(morgan('dev'));
 // API routes
 app.use('/api', apiRoutes);
 
-// Serve your frontend (if you want to serve the built frontend too)
-app.use(express.static('dist'));
+// Serve your webpack bundle from public path
+app.use('/public', express.static(path.join(__dirname, '..', 'public')));
 
 // Catch-all handler for frontend routing
 app.get('*', (req, res) => {
