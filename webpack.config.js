@@ -15,13 +15,13 @@ module.exports = {
   entry: "./src/client/index.tsx",
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "public"),
     publicPath: process.env.NODE_ENV === 'production' ? '/ok-manuals/' : '/',
   },
   devtool: "eval-cheap-module-source-map", // Changed from "inline-source-map"
   devServer: {
     port: 3000,
-    static: "./dist",
+    static: "./public",
     historyApiFallback: true,
     hot: true,
     watchFiles: {
@@ -90,7 +90,7 @@ module.exports = {
     isDevelopment && new ReactRefreshWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
-        { from: path.resolve(__dirname, 'public'), to: '.' },
+        { from: path.resolve(__dirname, 'firmware'), to: '.' },
       ],
     }),
   ].filter(Boolean),

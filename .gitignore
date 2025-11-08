@@ -1,7 +1,7 @@
 node_modules/
 dist/
 build/
-public/media/
+public/
 
 .DS_Store
 .env.local
