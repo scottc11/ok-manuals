@@ -12,7 +12,7 @@ require('dotenv').config();
 
 module.exports = {
   mode: isDevelopment ? "development" : "production",
-  entry: "./src/index.tsx",
+  entry: "./src/client/index.tsx",
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
@@ -25,7 +25,7 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     watchFiles: {
-      paths: ['src/**/*'],
+      paths: ['src/client/**/*'],
       options: {
         usePolling: false,
       },
@@ -84,8 +84,8 @@ module.exports = {
       "process.env.API_DOMAIN": JSON.stringify(process.env.API_DOMAIN || "set_vercel_domain_envirnonment_variable"),
     }),
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      favicon: './src/media/favicon.svg',
+      template: "./src/client/index.html",
+      favicon: './src/client/media/favicon.svg',
     }),
     isDevelopment && new ReactRefreshWebpackPlugin(),
     new CopyWebpackPlugin({
