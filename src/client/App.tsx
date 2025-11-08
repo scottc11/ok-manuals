@@ -3,7 +3,7 @@ import "./App.scss";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import DegreeManual from "./manuals/DegreeManual";
-import { HashRouter, Switch, Route } from "react-router-dom";
+import { HashRouter, Switch, Route, BrowserRouter } from "react-router-dom";
 import Home from "./views/Home";
 import Counterpoint from "./manuals/Counterpoint";
 import PageNotFound404 from "./views/PageNotFound404";
@@ -23,7 +23,7 @@ function App() {
   return (
     <CartProvider>
       {/* basename is set to the GitHub Pages URL */}
-      <HashRouter basename="/">
+      <BrowserRouter basename="/">
         <div className="w-screen h-screen overflow-auto bg-black">
           <Header />
           <div className="min-h-screen text-white">
@@ -70,7 +70,7 @@ function App() {
           </div>
           <Footer />
         </div>
-      </HashRouter>
+      </BrowserRouter>
     </CartProvider>
   );
 }
