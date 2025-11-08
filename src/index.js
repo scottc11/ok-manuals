@@ -7,7 +7,7 @@ const morgan = require('morgan');
 require('dotenv').config();
 
 // Mount native Express API routes
-const apiRoutes = require('./routes');
+const apiRoutes = require('./server/routes');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
