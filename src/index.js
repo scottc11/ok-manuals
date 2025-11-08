@@ -28,7 +28,7 @@ app.use(express.static('dist'));
 
 // Catch-all handler for frontend routing
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
