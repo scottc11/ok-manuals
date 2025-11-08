@@ -1,12 +1,11 @@
 {
   "watch": [
-    "server.js",
-    "api/"
+    "src/server/"
   ],
   "ignore": [
     "node_modules/",
     "dist/",
-    "src/",
+    "src/client/",
     "public/",
     "*.test.js",
     "*.spec.js"

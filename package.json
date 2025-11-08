@@ -5,14 +5,12 @@
   "description": "OK200 Eurorack Module Manuals",
   "private": false,
   "scripts": {
-    "deploy": "NODE_ENV=production npm run build && gh-pages -d dist",
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch",
     "start": "node --max-old-space-size=4096 ./node_modules/.bin/webpack serve --open",
     "start:dev": " API_DOMAIN=http://localhost:3001 node --max-old-space-size=4096 ./node_modules/.bin/webpack serve --open --mode development",
-    "server": "node server.js",
-    "server:dev": "nodemon server.js",
-    "deploy-backend": "vercel --prod"
+    "server": "node src/server/index.js",
+    "server:dev": "nodemon src/server/index.js"
   },
   "author": "",
   "license": "ISC",
