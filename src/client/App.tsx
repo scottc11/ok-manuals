@@ -23,7 +23,7 @@ function App() {
   return (
     <CartProvider>
       {/* basename is set to the GitHub Pages URL */}
-      <HashRouter basename={process.env.NODE_ENV === 'production' ? '/ok-manuals' : '/'}>
+      <HashRouter basename="/">
         <div className="w-screen h-screen overflow-auto bg-black">
           <Header />
           <div className="min-h-screen text-white">

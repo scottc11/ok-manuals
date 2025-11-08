@@ -16,7 +16,7 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "public"),
-    publicPath: process.env.NODE_ENV === 'production' ? '/ok-manuals/' : '/',
+    publicPath: '/',
   },
   devtool: "eval-cheap-module-source-map", // Changed from "inline-source-map"
   devServer: {
