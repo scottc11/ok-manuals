@@ -1,3 +1,6 @@
+import { Entry } from 'contentful';
+import { EntryFields } from 'contentful/dist/types/types/entry';
+
 
 export type IO = "led" | "input" | "output" | "display" | "touch" | "button" | "toggle-switch" | "slide-potentiometer" | "potentiometer" | "bender";
 
@@ -95,9 +98,13 @@ export interface CheckoutSession {
     payment_status: string;
 }
 
-// News types
-export type NewsEntry = {
-    title: string;
-    slug: string;
-    date: string;
+export interface BlogPostFields {
+    title?: EntryFields.Text;
+    date?: EntryFields.Date;
+    content?: EntryFields.RichText;
+    image?: EntryFields.AssetLink;
 };
+export interface BlogPost {
+    fields: BlogPostFields;
+    sys?: { id?: string };
+}

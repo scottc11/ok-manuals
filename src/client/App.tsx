@@ -3,7 +3,7 @@ import "./App.scss";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import DegreeManual from "./manuals/DegreeManual";
-import { HashRouter, Switch, Route, BrowserRouter } from "react-router-dom";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Home from "./views/Home";
 import Counterpoint from "./manuals/Counterpoint";
 import PageNotFound404 from "./views/PageNotFound404";
@@ -17,7 +17,7 @@ import NewsletterUnsubscribe from "./views/NewsletterUnsubscribe";
 import Modules from "./views/Modules";
 import ProductRouter from "./components/ProductRouter/ProductRouter";
 import News from "./views/News";
-import NewsRouter from "./views/NewsRouter";
+import BlogPostDetail from "./views/BlogPostDetail";
 
 function App() {  
   return (
@@ -41,8 +41,8 @@ function App() {
                 <Route exact path="/news">
                   <News />
                 </Route>
-                <Route exact path="/news/:slug">
-                  <NewsRouter />
+                <Route exact path="/news/:id">
+                  <BlogPostDetail />
                 </Route>
                 <Route exact path="/cart">
                   <Cart />

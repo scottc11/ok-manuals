@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const morgan = require('morgan');
+const contentfulRoutes = require('./server/routes/content');
 
 // Load environment variables
 require('dotenv').config();
@@ -22,6 +23,7 @@ app.use(morgan('dev'));
 
 // API routes
 app.use('/api', apiRoutes);
+app.use('/api/content', contentfulRoutes);
 
 // Serve your webpack bundle from public path
 app.use('/public', express.static(path.join(__dirname, '..', 'public')));
