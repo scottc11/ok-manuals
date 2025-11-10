@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import { CartItem, CartContextType, Product, StripeProduct } from '../types';
+import { CartItem, CartContextType } from '../types';
 
 // Cart actions
 type CartAction =
-  | { type: 'ADD_ITEM'; payload: { product: StripeProduct; quantity: number } }
+  | { type: 'ADD_ITEM'; payload: { item: { slug: string; name: string; thumbnailUrl?: string; stripeId?: string }; quantity: number } }
   | { type: 'REMOVE_ITEM'; payload: { id: string } }
   | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } }
   | { type: 'CLEAR_CART' }
@@ -23,26 +23,28 @@ const initialState: CartState = {
 const cartReducer = (state: CartState, action: CartAction): CartState => {
   switch (action.type) {
     case 'ADD_ITEM': {
-      const { product, quantity } = action.payload;
-      const existingItem = state.items.find(item => item.productId === product.id);
+      const { item, quantity } = action.payload;
+      const existingItem = state.items.find(existing =>
+        (item.stripeId && existing.stripeId === item.stripeId) || existing.slug === item.slug
+      );
       
       if (existingItem) {
         return {
           ...state,
           items: state.items.map(item =>
-            item.productId === product.id
+            ((existingItem.stripeId && item.stripeId === existingItem.stripeId) || item.slug === existingItem.slug)
               ? { ...item, quantity: item.quantity + quantity }
               : item
           ),
         };
       } else {
         const newItem: CartItem = {
-          id: `${product.id}_${Date.now()}`,
-          productId: product.id,
-          name: product.name,
-          price: product.price,
+          id: `${item.slug}_${Date.now()}`,
+          slug: item.slug,
+          name: item.name,
           quantity,
-          image: product.image,
+          thumbnailUrl: item.thumbnailUrl,
+          stripeId: item.stripeId,
         };
         return {
           ...state,
@@ -119,8 +121,8 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const value: CartContextType = {
     items: state.items,
     
-    addItem: (product: StripeProduct, quantity: number = 1) => {
-      dispatch({ type: 'ADD_ITEM', payload: { product, quantity } });
+    addItem: (item, quantity: number = 1) => {
+      dispatch({ type: 'ADD_ITEM', payload: { item, quantity } });
     },
     
     removeItem: (id: string) => {
@@ -133,10 +135,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     
     clearCart: () => {
       dispatch({ type: 'CLEAR_CART' });
-    },
-    
-    getTotal: () => {
-      return state.items.reduce((total, item) => total + (item.price * item.quantity), 0);
     },
     
     getItemCount: () => {

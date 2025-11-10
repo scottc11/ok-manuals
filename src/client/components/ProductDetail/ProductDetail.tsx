@@ -1,100 +1,52 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
-import { Product, StripeProduct } from '../../types';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Product } from '../../types';
+import { getImagesUrls } from '../../utils';
 import { useCart } from '../../context/CartContext';
 import Button from '../Button/Button';
 import ImageLightbox from './ImageLightbox';
 
-interface ProductDetailParams {
-  slug: string;
-}
-
 interface ProductDetailProps {
-  images?: string[];
-  description?: string;
-  discontinued?: boolean;
-  slug: string;
+  product: Product;
 }
 
-const ProductDetail: React.FC<ProductDetailProps> = ({ slug, images = [], description = '', discontinued = false }) => {
+const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   const history = useHistory();
   const { addItem } = useCart();
-  const [product, setProduct] = useState<StripeProduct | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch(`${process.env.API_DOMAIN}/api/products`);
-        const data = await response.json();
-
-        if (data.success) {
-          const foundProduct = data.products.find((p: StripeProduct) => p.metadata?.slug === slug);
-          if (foundProduct) {
-            setProduct(foundProduct);
-          } else {
-            setError('Product not found');
-          }
-        } else {
-          setError(data.error || 'Failed to fetch product');
-        }
-      } catch (err) {
-        setError('Network error occurred while fetching product');
-        console.error('Error fetching product:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProduct();
-  }, [slug, images]);
-
-  const formatPrice = (price: number, currency: string) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency.toUpperCase(),
-    }).format(price / 100);
+  const getThumbnailUrl = () => {
+    const raw =
+      (product.thumbnail as unknown as any)?.fields?.file?.url ||
+      (product.thumbnail as unknown as any)?.url ||
+      undefined;
+    if (!raw) return undefined;
+    if (typeof raw === 'string' && raw.startsWith('//')) {
+      return `https:${raw}`;
+    }
+    return raw as string | undefined;
   };
 
   const handleAddToCart = () => {
-    if (product) {
-      addItem(product, quantity);
-    }
+    addItem(
+      {
+        slug: product.slug as unknown as string,
+        name: product.name as unknown as string,
+        thumbnailUrl: getThumbnailUrl(),
+        stripeId: product.stripeId as unknown as string | undefined,
+      },
+      quantity
+    );
   };
 
   const handleBackToProducts = () => {
     history.push('/modules');
   };
 
-  if (loading) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex justify-center items-center min-h-96">
-          <div className="text-white text-lg">Loading product...</div>
-        </div>
-      </div>
-    );
-  }
+  const isDisabled = product.discontinued === true;
 
-  if (error || !product) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col items-center justify-center min-h-96">
-          <div className="text-red-400 text-lg mb-4">{error || 'Product not found'}</div>
-          <Button onClick={handleBackToProducts}>
-            Back to Products
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
-  const isOutOfStock = product.stock !== undefined && product.stock <= 0;
-  const isDisabled = discontinued || isOutOfStock;
-  const displayImages = images.length > 0 ? images : (product.image ? [product.image] : []);
+  
+  const displayImages = getImagesUrls(product.images);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -110,9 +62,15 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ slug, images = [], descri
 
         {/* Product Details - Right Side */}
         <div className="lg:w-1/2">
-          <h1 className="text-6xl font-unica font-bold text-white mb-4">{product.name}</h1>
+          <h1 className="text-6xl font-unica font-bold text-white mb-4">{product.name as unknown as string}</h1>
           
-          {discontinued && (
+          {product.subtitle && (
+            <h2 className="text-gray-300 text-2xl font-unica font-bold mb-6 leading-relaxed">
+              {product.subtitle as unknown as string}
+            </h2>
+          )}
+          
+          {product.discontinued && (
             <div className="mb-4">
               <span className="inline-block bg-red-600 text-white text-sm font-medium px-3 py-1 rounded-full">
                 Discontinued
@@ -120,28 +78,17 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ slug, images = [], descri
             </div>
           )}
           
-          {description && (
-            <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-              {description}
+
+
+          {product.shortDescription && (
+            <p className="text-white text-lg mb-6 leading-relaxed">
+              {product.shortDescription as unknown as string}
             </p>
           )}
 
-          <div className="mb-6">
-            <span className="text-4xl font-sans text-white">
-              {formatPrice(product.price, product.currency)}
-            </span>
-          </div>
+          <div className="text-3xl font-numbers border-b-2 border-gray-400 pb-2">{product.price}</div>
 
-          {product.stock !== undefined && (
-            <div className="mb-6">
-              <span className={`text-lg ${isOutOfStock ? 'text-red-400' : 'text-gray-400'}`}>
-                {isOutOfStock ? 'Out of Stock' : `${product.stock} in stock`}
-              </span>
-            </div>
-          )}
-
-          {/* Quantity Selector */}
-          <div className="mb-6">
+          <div className="my-6">
             <label htmlFor="quantity" className="block text-white text-sm font-medium mb-2">
               Quantity
             </label>
@@ -164,10 +111,9 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ slug, images = [], descri
             </div>
           </div>
 
-          {/* Add to Cart Button */}
           <div className="mb-6 w-full">
             <Button onClick={handleAddToCart} disabled={isDisabled} className="w-full">
-              {discontinued ? 'Discontinued' : isOutOfStock ? 'Out of Stock' : `Add to Cart`}
+              {product.discontinued ? 'Discontinued' : `Add to Cart`}
             </Button>
           </div>
         </div>

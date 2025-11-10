@@ -37,7 +37,7 @@ const CounterpointDetail: React.FC = () => {
 
   return (
     <div className="container mx-auto py-8">
-        <ProductDetail slug={product.slug} images={getImages(product)} description={product.description} discontinued={product.discontinued} />
+        <ProductDetail product={product as unknown as Product} />
         <div className="flex flex-col gap-4">
             <NavLink to={Counterpoint.paths.manual} className="block">
                 <Button className="w-full" variant="dark">

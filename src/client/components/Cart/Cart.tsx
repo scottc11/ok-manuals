@@ -1,17 +1,51 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import Button from '../Button/Button';
 
 const Cart: React.FC = () => {
-  const { items, removeItem, updateQuantity, clearCart, getTotal, getItemCount } = useCart();
+  const { items, removeItem, updateQuantity, clearCart, getItemCount } = useCart();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [stripeMap, setStripeMap] = useState<Record<string, { id: string; price: number; currency: string }>>({});
+  const [loadingPrices, setLoadingPrices] = useState(false);
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number, currency: string = 'usd') => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD',
+      currency: currency.toUpperCase(),
     }).format(price / 100);
   };
+
+  useEffect(() => {
+    const fetchStripeProducts = async () => {
+      setLoadingPrices(true);
+      try {
+        const resp = await fetch(`${process.env.API_DOMAIN}/api/products`);
+        const data = await resp.json();
+        if (data.success && Array.isArray(data.products)) {
+          const map: Record<string, { id: string; price: number; currency: string }> = {};
+          data.products.forEach((p: any) => {
+            if (p.id && typeof p.price === 'number') {
+              map[p.id] = { id: p.id, price: p.price, currency: p.currency || 'usd' };
+            }
+          });
+          setStripeMap(map);
+        }
+      } catch (e) {
+        console.error('Failed to fetch Stripe products', e);
+      } finally {
+        setLoadingPrices(false);
+      }
+    };
+    fetchStripeProducts();
+  }, []);
+
+  const cartTotal = useMemo(() => {
+    return items.reduce((sum, item) => {
+      const stripe = item.stripeId ? stripeMap[item.stripeId] : undefined;
+      if (!stripe) return sum;
+      return sum + stripe.price * item.quantity;
+    }, 0);
+  }, [items, stripeMap]);
 
   const handleQuantityChange = (itemId: string, newQuantity: number) => {
     if (newQuantity <= 0) {
@@ -24,6 +58,22 @@ const Cart: React.FC = () => {
   const handleCheckout = async () => {
     if (items.length === 0) return;
 
+    const payloadItems = items.map((ci) => {
+      const stripe = ci.stripeId ? stripeMap[ci.stripeId] : undefined;
+      return {
+        name: ci.name,
+        image: ci.thumbnailUrl,
+        price: stripe?.price,
+        quantity: ci.quantity,
+        productId: stripe?.id,
+      };
+    }).filter((i) => typeof i.price === 'number' && i.productId);
+
+    if (payloadItems.length !== items.length) {
+      alert('Some items are not available for checkout. Please update your cart.');
+      return;
+    }
+
     setIsCheckingOut(true);
     try {
       const response = await fetch(`${process.env.API_DOMAIN}/api/create-checkout-session`, {
@@ -31,7 +81,7 @@ const Cart: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ items }),
+        body: JSON.stringify({ items: payloadItems }),
       });
 
       const data = await response.json();
@@ -77,9 +127,9 @@ const Cart: React.FC = () => {
             <div key={item.id} className="flex items-center space-x-4 p-4 bg-gray-700 rounded-lg">
               {/* Product Image */}
               <div className="w-16 h-16 bg-gray-600 rounded-lg flex items-center justify-center">
-                {item.image ? (
+                {item.thumbnailUrl ? (
                   <img
-                    src={item.image}
+                    src={item.thumbnailUrl}
                     alt={item.name}
                     className="w-full h-full object-cover rounded-lg"
                   />
@@ -91,7 +141,11 @@ const Cart: React.FC = () => {
               {/* Product Info */}
               <div className="flex-1">
                 <h3 className="text-white font-semibold">{item.name}</h3>
-                <p className="text-gray-300">{formatPrice(item.price)}</p>
+                <p className="text-gray-300">
+                  {item.stripeId && stripeMap[item.stripeId]
+                    ? formatPrice(stripeMap[item.stripeId].price, stripeMap[item.stripeId].currency)
+                    : loadingPrices ? 'Fetching price...' : 'Unavailable'}
+                </p>
               </div>
 
               {/* Quantity Controls */}
@@ -116,7 +170,9 @@ const Cart: React.FC = () => {
               {/* Item Total */}
               <div className="text-right">
                 <p className="text-white font-semibold">
-                  {formatPrice(item.price * item.quantity)}
+                  {item.stripeId && stripeMap[item.stripeId]
+                    ? formatPrice(stripeMap[item.stripeId].price * item.quantity, stripeMap[item.stripeId].currency)
+                    : loadingPrices ? '...' : '—'}
                 </p>
               </div>
 
@@ -139,7 +195,7 @@ const Cart: React.FC = () => {
               Items ({getItemCount()})
             </span>
             <span className="text-xl font-bold text-green-400">
-              {formatPrice(getTotal())}
+              {formatPrice(cartTotal)}
             </span>
           </div>
 
@@ -148,8 +204,8 @@ const Cart: React.FC = () => {
             <Button onClick={clearCart}>
               Clear Cart
             </Button>
-            <Button onClick={handleCheckout} disabled={isCheckingOut}>
-              {isCheckingOut ? 'Processing...' : `Checkout ${formatPrice(getTotal())}`}
+            <Button onClick={handleCheckout} disabled={isCheckingOut || loadingPrices}>
+              {isCheckingOut ? 'Processing...' : `Checkout ${formatPrice(cartTotal)}`}
             </Button>
           </div>
         </div>
