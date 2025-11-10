@@ -21,23 +21,15 @@ module.exports = {
   devtool: "eval-cheap-module-source-map", // Changed from "inline-source-map"
   devServer: {
     port: 3000,
-    static: "./public",
+    static: {
+      directory: path.resolve(__dirname, 'public'),
+      watch: false,
+    },
     historyApiFallback: true,
     hot: true,
-    watchFiles: {
-      paths: ['src/client/**/*'],
-      options: {
-        usePolling: false,
-      },
-    },
-  },
-  optimization: {
-    removeAvailableModules: false,
-    removeEmptyChunks: false,
-    splitChunks: false,
   },
   watchOptions: {
-    ignored: /node_modules/,
+    ignored: ['**/node_modules/**', '/firmware/**', '/public/**'],
   },
   module: {
     rules: [
@@ -86,12 +78,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/client/index.html",
       favicon: './src/client/media/favicon.svg',
+      minify: isDevelopment ? false : {
+        collapseWhitespace: true,
+        removeComments: true,
+      },
     }),
     isDevelopment && new ReactRefreshWebpackPlugin(),
-    new CopyWebpackPlugin({
-      patterns: [
-        { from: path.resolve(__dirname, 'firmware'), to: '.' },
-      ],
-    }),
+    !isDevelopment && new CopyWebpackPlugin({
+      patterns: [{ from: path.resolve(__dirname, 'firmware'), to: '.' }],
+    })
   ].filter(Boolean),
 };
