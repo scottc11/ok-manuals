@@ -1,107 +1,54 @@
-import React, { useState } from 'react';
-import Button from '../Button/Button';
+import React from 'react';
 
 interface NewsletterSignupProps {
     className?: string;
 }
 
 const NewsletterSignup: React.FC<NewsletterSignupProps> = ({ className = '' }) => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [message, setMessage] = useState('');
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-        setMessage('');
-
-        try {
-            const response = await fetch(`${process.env.API_DOMAIN}/api/newsletter-signup`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, email }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                setMessage('Thank you for subscribing! 🤘');
-                setName('');
-                setEmail('');
-            } else {
-                setMessage(data.error || 'Something went wrong. Please try again.');
-            }
-        } catch (error) {
-            setMessage('Network error. Please check your connection and try again.');
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
     return (
         <div className={`p-8 ${className}`}>
             <h3 className="text-4xl font-bold text-gray-800 mb-2 text-center">Mailing List</h3>
-            <p className="text-gray-600 mb-6 text-center">Sign up for my mailing list below to receive updates on new designs and manufacturing timelines.</p>
-            
-            <form onSubmit={handleSubmit} className="text-black w-full md:w-1/2 mx-auto space-y-4">
-                
-                <div>
-                    <input
-                        type="text"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        disabled={isSubmitting}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
-                        placeholder="Name"
-                    />
-                </div>
-                
-                <div>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        disabled={isSubmitting}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
-                        placeholder="Email"
-                    />
-                </div>
-
-                <div>
-                    <input
-                        type="text"
-                        name="website"
-                        style={{ display: 'none'}}
-                        tabIndex={-1}
-                        autoComplete="off"
-                    />
-                </div>
-                
-                <Button
-                    type="submit"
-                    variant="light"
-                    className="w-full"
-                    disabled={isSubmitting}
-                >
-                    {isSubmitting ? 'Signing Up...' : 'Sign Up'}
-                </Button>
-
-                {message && (
-                    <div className={`text-center mt-4 p-3 rounded-md ${
-                        message.includes('Thank you') 
-                            ? 'text-lime text-opacity-80'
-                            : 'text-red-700'
-                    }`}>
-                        {message}
+            <p className="text-onyx mb-4 text-center">
+                Sign up for my mailing list below to receive updates on new designs and manufacturing timelines.
+            </p>
+            <form
+                action="https://ok200.us18.list-manage.com/subscribe/post?u=935f87428090dde65ff7e73dd&amp;id=da174f293d&amp;f_id=0095ace6f0"
+                method="post"
+                target="_blank"
+                noValidate
+                className="w-full max-w-md mx-auto p-4 sm:p-6"
+            >
+                <div className="mb-4">
+                    <div className="flex items-center gap-3 flex-col xs:flex-row">
+                        <div className="relative flex-1">
+                            <input
+                                type="email"
+                                name="EMAIL"
+                                id="mce-EMAIL"
+                                required
+                                placeholder="Email Address"
+                                className="peer block w-full rounded-sm bg-transparent border border-onyx text-onyx placeholder-onyx/70 px-3 py-3 focus:outline-none focus:ring-2 focus:ring-onyx"
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            name="subscribe"
+                            id="mc-embedded-subscribe"
+                            className="inline-flex h-11 min-w-[44px] items-center justify-center rounded-md bg-onyx px-5 text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-onyx focus:ring-offset-2"
+                        >
+                            Subscribe
+                        </button>
                     </div>
-                )}
+                </div>
+                {/* real people should not fill this in and expect good things - do not remove this or risk form bot signups */}
+                <div aria-hidden="true" style={{ position: 'absolute', left: '-5000px' }}>
+                    <input
+                        type="text"
+                        name="b_935f87428090dde65ff7e73dd_da174f293d"
+                        tabIndex={-1}
+                        defaultValue=""
+                    />
+                </div>
             </form>
         </div>
     );
