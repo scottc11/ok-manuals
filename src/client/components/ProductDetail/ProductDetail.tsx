@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import { Product } from '../../types';
+import { Product, StripeProduct } from '../../types';
 import { useCart } from '../../context/CartContext';
 import Button from '../Button/Button';
 import ImageLightbox from './ImageLightbox';
@@ -13,13 +13,13 @@ interface ProductDetailProps {
   images?: string[];
   description?: string;
   discontinued?: boolean;
+  slug: string;
 }
 
-const ProductDetail: React.FC<ProductDetailProps> = ({ images = [], description = '', discontinued = false }) => {
-  const { slug } = useParams<ProductDetailParams>();
+const ProductDetail: React.FC<ProductDetailProps> = ({ slug, images = [], description = '', discontinued = false }) => {
   const history = useHistory();
   const { addItem } = useCart();
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<StripeProduct | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
@@ -32,7 +32,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ images = [], description 
         const data = await response.json();
 
         if (data.success) {
-          const foundProduct = data.products.find((p: Product) => p.metadata?.slug === slug);
+          const foundProduct = data.products.find((p: StripeProduct) => p.metadata?.slug === slug);
           if (foundProduct) {
             setProduct(foundProduct);
           } else {

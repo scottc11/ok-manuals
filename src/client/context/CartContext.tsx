@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
-import { CartItem, CartContextType, Product } from '../types';
+import { CartItem, CartContextType, Product, StripeProduct } from '../types';
 
 // Cart actions
 type CartAction =
-  | { type: 'ADD_ITEM'; payload: { product: Product; quantity: number } }
+  | { type: 'ADD_ITEM'; payload: { product: StripeProduct; quantity: number } }
   | { type: 'REMOVE_ITEM'; payload: { id: string } }
   | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } }
   | { type: 'CLEAR_CART' }
@@ -119,7 +119,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const value: CartContextType = {
     items: state.items,
     
-    addItem: (product: Product, quantity: number = 1) => {
+    addItem: (product: StripeProduct, quantity: number = 1) => {
       dispatch({ type: 'ADD_ITEM', payload: { product, quantity } });
     },
     

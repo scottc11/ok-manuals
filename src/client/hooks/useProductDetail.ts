@@ -1,31 +1,26 @@
 import { useState, useEffect } from 'react';
-import { useCart } from '../context/CartContext';
 import { Product } from '../types';
 
 export const useProductDetail = (slug: string) => {
-  const { addItem } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.API_DOMAIN}/api/products`);
-        const data = await response.json();
-
-        if (data.success) {
-          const foundProduct = data.products.find((p: Product) => p.metadata?.slug === slug);
-          if (foundProduct) {
-            setProduct(foundProduct);
-          } else {
+        const response = await fetch(`${process.env.API_DOMAIN}/api/content/products/${slug}`);
+        if (!response.ok) {
+          if (response.status === 404) {
             setError('Product not found');
+          } else {
+            setError('Failed to fetch product');
           }
-        } else {
-          setError(data.error || 'Failed to fetch product');
+          return;
         }
+        const data = await response.json();
+        setProduct(data?.fields ?? null);
       } catch (err) {
         setError('Network error occurred while fetching product');
         console.error('Error fetching product:', err);
@@ -37,29 +32,9 @@ export const useProductDetail = (slug: string) => {
     fetchProduct();
   }, [slug]);
 
-  const formatPrice = (price: number, currency: string) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency.toUpperCase(),
-    }).format(price / 100);
-  };
-
-  const handleAddToCart = () => {
-    if (product) {
-      addItem(product, quantity);
-    }
-  };
-
-  const isOutOfStock = product?.stock !== undefined && product.stock <= 0;
-
   return {
     product,
     loading,
     error,
-    quantity,
-    setQuantity,
-    handleAddToCart,
-    formatPrice,
-    isOutOfStock
   };
 }; 

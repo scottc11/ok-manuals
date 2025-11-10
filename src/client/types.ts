@@ -63,14 +63,26 @@ export interface StripePrice {
 }
 
 export interface Product {
+    slug: EntryFields.Text;
+    name: EntryFields.Text;
+    shortDescription?: EntryFields.Text;
+    description?: EntryFields.Text;
+    price?: EntryFields.Text;
+    thumbnail?: EntryFields.AssetLink;
+    images?: EntryFields.AssetLink[];
+    discontinued?: EntryFields.Boolean;
+    active?: EntryFields.Boolean;
+}
+
+export interface StripeProduct {
     id: string;
     name: string;
     description?: string;
     price: number;
-    currency: string;
-    image?: string;
+    metadata: Record<string, string>;
     stock?: number;
-    metadata?: Record<string, string>;
+    image?: string;
+    currency?: string;
 }
 
 export interface CartItem {
@@ -84,7 +96,7 @@ export interface CartItem {
 
 export interface CartContextType {
     items: CartItem[];
-    addItem: (product: Product, quantity?: number) => void;
+    addItem: (product: StripeProduct, quantity?: number) => void;
     removeItem: (id: string) => void;
     updateQuantity: (id: string, quantity: number) => void;
     clearCart: () => void;
