@@ -1,28 +1,28 @@
 import React from "react";
+import ContactForm from "../components/ContactForm/ContactForm";
+import Divider from "../components/Divider/Divider";
+import NewsletterSignup from "../components/NewsletterSignup/NewsletterSignup";
 
 const About = () => {
   return (
-    <div className="container">
-        <h1 className="text-h1 font-heading py-4">About 👀</h1>
-        <div>
-            <p className="font-body">
-                OK200 is a modular synth business I started back in 2019. I design and build modules for the Eurorack format. I also make music and perform live with my modular synth setup, using . I'm based in Toronto, Canada.
+    <div className="bg-white text-onyx">
+        <div className="container mx-auto py-8 max-w-3xl">
+            <h1 className="text-4xl font-bungee mb-8 text-left">About</h1>
+            <p className="text-onyx text-opacity-75">
+                <b>OK200</b> is a self-run Canadian boutique electronic instrument company founded by me, <b>Scott Campbell</b>. I mainly focus my designs towards being "hands-on" and performative to enhance the playability of a eurorack system during live performance. I use a variety of custom-manufactured components to provide more intuitive and expressive control within a modular synthesizer system.
             </p>
-            <p>
-                  that specializes in designing cutting-edge, hands-on sequencing modules for electronic musicians and performers. With a focus on live performance, our modules are meticulously crafted to provide intuitive and expressive control over your modular synthesizer setup, making your performances truly unique and dynamic.
-            </p>
-        </div>
 
-        <div className="bg-white">
-            <h2 className="text-h2 font-heading">Our Team</h2>
-            <div className="flex flex-row gap-4">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, cumque at animi totam et dolores laborum fugiat suscipit dicta modi dolorum possimus saepe doloremque nostrum. Perspiciatis tempora iure culpa ullam.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, cumque at animi totam et dolores laborum fugiat suscipit dicta modi dolorum possimus saepe doloremque nostrum. Perspiciatis tempora iure culpa ullam.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem, cumque at animi totam et dolores laborum fugiat suscipit dicta modi dolorum possimus saepe doloremque nostrum. Perspiciatis tempora iure culpa ullam.</p>
+            <Divider />
+
+            <div className="mt-8">
+                <h1 className="text-4xl font-bungee mb-8 text-left">Contact</h1>
+
+                <ContactForm />
             </div>
-        </div>
 
-        <div className="py-4 h-[300px] w-[300px] bg-cover bg-center bg-[url('https://ok200-media.s3.amazonaws.com/Counterpoint.png')]">
+            <Divider />
+
+            <NewsletterSignup />
 
         </div>
     </div>

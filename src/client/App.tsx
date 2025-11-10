@@ -12,12 +12,12 @@ import ProductDetail from "./components/ProductDetail/ProductDetail";
 import Cart from "./components/Cart/Cart";
 import { CartProvider } from "./context/CartContext";
 import FontLoadingSpinner from "./components/FontLoadingSpinner";
-import Contact from "./views/Contact";
 import NewsletterUnsubscribe from "./views/NewsletterUnsubscribe";
 import Modules from "./views/Modules";
 import ProductRouter from "./components/ProductRouter/ProductRouter";
 import News from "./views/News";
 import BlogPostDetail from "./views/BlogPostDetail";
+import About from "./views/About";
 
 function App() {  
   return (
@@ -38,6 +38,9 @@ function App() {
                 <Route exact path="/modules/:slug">
                   <ProductRouter />
                 </Route>
+                <Route exact path="/about">
+                  <About />
+                </Route>
                 <Route exact path="/news">
                   <News />
                 </Route>
@@ -55,9 +58,6 @@ function App() {
                 </Route>
                 <Route exact path="/manuals/counterpoint">
                   <Counterpoint />
-                </Route>
-                <Route exact path="/contact">
-                  <Contact />
                 </Route>
                 <Route exact path="/unsubscribe">
                   <NewsletterUnsubscribe />
