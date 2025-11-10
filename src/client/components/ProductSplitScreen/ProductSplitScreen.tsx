@@ -59,7 +59,7 @@ const ProductSplitScreen = ({
     );
     
     return (
-        <div className={`flex gap-6 min-h-[60vh] flex-col md:flex-row ${className}`}>
+        <div id="product-split-screen" className={`min-h-[60vh] ${className}`}>
             {/* Mobile: Banner -> Image -> Content */}
             <div className="md:hidden flex flex-col gap-6">
                 {bannerSection}
@@ -69,7 +69,7 @@ const ProductSplitScreen = ({
             
             {/* Desktop: Grouped layout with reverse option */}
             <div className={`hidden md:flex gap-6 w-full ${reversed ? 'flex-row-reverse' : 'flex-row'}`}>
-                <div className="flex flex-col gap-6 w-[45%]">
+                <div className="flex flex-col gap-10 w-[45%]">
                     {bannerSection}
                     {contentSection}
                 </div>
