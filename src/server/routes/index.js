@@ -139,8 +139,8 @@ router.post('/create-checkout-session', async (req, res) => {
 			currency: 'usd',
 			line_items: lineItems,
 			mode: 'payment',
-			success_url: `${req.headers.origin}/#/success?session_id={CHECKOUT_SESSION_ID}`,
-			cancel_url: `${req.headers.origin}/#/cart`,
+			success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+			cancel_url: `${req.headers.origin}/cart`,
 			allow_promotion_codes: true,
 			metadata: {
 				cart_items: JSON.stringify(

@@ -65,7 +65,7 @@ const Success: React.FC = () => {
           <div className="text-red-400 text-6xl mb-4">❌</div>
           <h1 className="text-2xl font-bold text-white mb-4">Payment Verification Failed</h1>
           <p className="text-gray-400 mb-8">{error}</p>
-          <Button onClick={() => window.location.href = '/#/'}>
+          <Button onClick={() => window.location.href = '/'}>
             Return Home
           </Button>
         </div>
@@ -113,10 +113,10 @@ const Success: React.FC = () => {
         )}
 
         <div className="space-x-4">
-          <Button onClick={() => window.location.href = '/#/'}>
+          <Button onClick={() => window.location.href = '/'}>
             Return Home
           </Button>
-          <Button onClick={() => window.location.href = '/#/shop'}>
+          <Button onClick={() => window.location.href = '/shop'}>
             Continue Shopping
           </Button>
         </div>

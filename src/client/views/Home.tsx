@@ -22,7 +22,7 @@ const Home = () => {
                     price="$899"
                     bodyText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
                     ctaText="Details →"
-                    ctaAction={() => window.location.assign('#/modules/counterpoint')}
+                    ctaAction={() => window.location.assign('/modules/counterpoint')}
                     rightImage={require('../media/counterpoint/panel.svg')}
                     className="pt-8"
                 />
@@ -33,14 +33,14 @@ const Home = () => {
                     price="$1,299"
                     bodyText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
                     ctaText="Details →"
-                    ctaAction={() => window.location.assign('#/modules/degree')}
+                    ctaAction={() => window.location.assign('/modules/degree')}
                     rightImage={require('../media/DEGREE/DEGREE.png')}
                     className="pt-8"
                 />
             </Section>
                         
             {/* Newsletter Signup */}
-            <div className="bg-lavender">
+            <div className="bg-lime">
                 <Section>
                     <NewsletterSignup />
                 </Section>

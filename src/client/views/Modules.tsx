@@ -64,7 +64,7 @@ const Modules: React.FC = () => {
                         title="Counterpoint"
                         price="$899"
                         bodyText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
-                        ctaAction={() => window.location.assign('#/modules/counterpoint')}
+                        ctaAction={() => window.location.assign('/modules/counterpoint')}
                         image={require('../media/counterpoint/panel.svg')}
                     />
 
@@ -72,7 +72,7 @@ const Modules: React.FC = () => {
                         title="DEGREE"
                         price="$1,299"
                         bodyText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
-                        ctaAction={() => window.location.assign('#/modules/degree')}
+                        ctaAction={() => window.location.assign('/modules/degree')}
                         image={require('../media/DEGREE/DEGREE.png')}
                     />
                 </div>
