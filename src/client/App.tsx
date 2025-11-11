@@ -17,13 +17,15 @@ import News from "./views/News";
 import BlogPostDetail from "./views/BlogPostDetail";
 import About from "./views/About";
 import ShoppingCart from "./views/ShoppingCart";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {  
   return (
     <CartProvider>
       {/* basename is set to the GitHub Pages URL */}
       <BrowserRouter basename="/">
-        <div className="w-screen h-screen overflow-auto bg-black">
+        <ScrollToTop />
+        <div id="app-scroll-container" className="w-screen h-screen overflow-auto bg-black">
           <Header />
           <div className="min-h-screen text-white">
             <FontLoadingSpinner>
