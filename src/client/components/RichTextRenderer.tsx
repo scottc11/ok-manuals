@@ -56,7 +56,7 @@ const richTextOptions: Options = {
             const rawUrl = file?.url || '';
             const src = rawUrl?.startsWith('//') ? `https:${rawUrl}` : rawUrl;
             if (!src) return '';
-            return `<img src="${src}" alt="${title}" class="w-full h-auto rounded my-4" loading="lazy" />`;
+            return `<img src="${src}" alt="${title}" class="h-auto rounded my-4" loading="lazy" />`;
         },
         // Hyperlinks
         [INLINES.HYPERLINK]: (node: any, next: (nodes: any[]) => string) => {
