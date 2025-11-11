@@ -12,7 +12,7 @@ import { CartProvider } from "./context/CartContext";
 import FontLoadingSpinner from "./components/FontLoadingSpinner";
 import NewsletterUnsubscribe from "./views/NewsletterUnsubscribe";
 import Modules from "./views/Modules";
-import ProductRouter from "./components/ProductRouter/ProductRouter";
+import ProductView from "./views/ProductView";
 import News from "./views/News";
 import BlogPostDetail from "./views/BlogPostDetail";
 import About from "./views/About";
@@ -37,7 +37,7 @@ function App() {
                   <Modules />
                 </Route>
                 <Route exact path="/modules/:slug">
-                  <ProductRouter />
+                  <ProductView />
                 </Route>
                 <Route exact path="/about">
                   <About />
