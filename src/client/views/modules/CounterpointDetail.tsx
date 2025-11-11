@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React from 'react';
 import ProductDetail from '../../components/ProductDetail/ProductDetail';
-import YouTubeVideo from '../../components/YouTubeVideo';
-import Button from '../../components/Button/Button';
 import { Counterpoint } from '../../content/modules';
 import { Product } from '../../types';
 import { useProductDetail } from '../../hooks/useProductDetail';
+import ManualLink from '../../components/ManualLink/ManualLink';
+import YouTubeVideo from '../../components/YouTubeVideo';
 
 const CounterpointDetail: React.FC = () => {
 
   const { product, loading, error } = useProductDetail('counterpoint');
 
-  const getImages = (product: Product) => {
-    return (Array.isArray(product.images) ? (product.images as unknown as any[]).map((img: any) => img?.fields?.file?.url || img?.url).filter(Boolean) : []);
-  };
-  
   if (loading) {
     return (
       <div className="container mx-auto py-8">
@@ -38,13 +33,20 @@ const CounterpointDetail: React.FC = () => {
   return (
     <div className="container mx-auto py-8">
         <ProductDetail product={product as unknown as Product} />
-        <div className="flex flex-col gap-4">
-            <NavLink to={Counterpoint.paths.manual} className="block">
-                <Button className="w-full" variant="dark">
-                    Manual →
-                </Button>
-            </NavLink>
-        </div>
+        
+        { product?.manualUrl && <ManualLink path={product.manualUrl as unknown as string} /> }
+        
+        { product?.videos && (
+          <div className="flex flex-col gap-8">
+            {(product.videos as Array<{ fields: {videoId: string; title: string } }>).map((video) => (
+              <YouTubeVideo
+                key={video.fields.videoId}
+                videoId={video.fields.videoId}
+                title={video.fields.title}
+              />
+            ))}
+          </div>
+        )}
     </div>
   );
 };

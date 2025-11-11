@@ -74,8 +74,8 @@ const richTextOptions: Options = {
             // Handle specific content models
             if (contentTypeId === 'youTubeVideo') {
                 const link: string = fields?.link || '';
-                const title: string = fields?.label || 'YouTube Video';
-                const videoId = extractYouTubeId(link) || '';
+                const title: string = fields?.title || 'YouTube Video';
+                const videoId = fields.videoId || extractYouTubeId(link) || '';
                 return `<div class="cf-embedded-entry my-6" data-entry-id="${entryId}" data-content-type="${contentTypeId}" data-video-id="${videoId}" data-title="${title}"></div>`;
             }
             // Generic placeholder

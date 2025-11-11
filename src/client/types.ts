@@ -1,5 +1,6 @@
-import { Entry } from 'contentful';
+import type { Entry } from 'contentful';
 import { EntryFields } from 'contentful/dist/types/types/entry';
+import type { EntrySkeletonType } from 'contentful/dist/types/types/query';
 
 
 export type IO = "led" | "input" | "output" | "display" | "touch" | "button" | "toggle-switch" | "slide-potentiometer" | "potentiometer" | "bender";
@@ -62,6 +63,13 @@ export interface StripePrice {
     product: string;
 }
 
+type VideoFields = {
+    videoId: EntryFields.Text;
+    title: EntryFields.Text;
+};
+type VideoSkeleton = EntrySkeletonType<VideoFields>;
+export type VideoEntry = Entry<VideoSkeleton>;
+
 export interface Product {
     slug: EntryFields.Text;
     name: EntryFields.Text;
@@ -75,6 +83,8 @@ export interface Product {
     stripeId?: EntryFields.Text;
     subtitle?: EntryFields.Text;
     manualUrl?: EntryFields.Text;
+    videos?: VideoEntry[];
+    tags?: EntryFields.Text[];
 }
 
 export interface StripeProduct {
