@@ -70,13 +70,13 @@ const Header: React.FC = () => {
               before:md:content-[''] before:md:absolute before:md:inset-0 before:md:rounded-2xl 
               before:md:bg-gradient-to-b before:md:from-gray-700/20 before:md:to-gray-900/20 before:md:pointer-events-none`}
           >
-            <NavLink to="/" exact className={(isActive) => highlight(isActive)}>Home</NavLink>
-            <NavLink to={Counterpoint.paths.detail} className={(isActive) => highlight(isActive)}>Counterpoint</NavLink>
-            <NavLink to={Degree.paths.detail} className={(isActive) => highlight(isActive)}>DEGREE</NavLink>
-            <NavLink to="/news" className={(isActive) => highlight(isActive)}>News</NavLink>
+            <NavLink to="/" exact className={(isActive) => highlight(isActive)} onClick={() => setIsMenuOpen(false)}>Home</NavLink>
+            <NavLink to={Counterpoint.paths.detail} className={(isActive) => highlight(isActive)} onClick={() => setIsMenuOpen(false)}>Counterpoint</NavLink>
+            <NavLink to={Degree.paths.detail} className={(isActive) => highlight(isActive)} onClick={() => setIsMenuOpen(false)}>DEGREE</NavLink>
+            <NavLink to="/news" className={(isActive) => highlight(isActive)} onClick={() => setIsMenuOpen(false)}>News</NavLink>
             {/* <NavLink to="/modules" className={(isActive) => highlight(isActive)}>Modules</NavLink> */}
-            <NavLink to="/about" className={(isActive) => highlight(isActive)}>About</NavLink>
-            <NavLink to="/cart" className={(isActive) => highlight(isActive)} style={{ position: 'relative' }}>
+            <NavLink to="/about" className={(isActive) => highlight(isActive)} onClick={() => setIsMenuOpen(false)}>About</NavLink>
+            <NavLink to="/cart" className={(isActive) => highlight(isActive)} onClick={() => setIsMenuOpen(false)} style={{ position: 'relative' }}>
               <IoCartOutline className="text-lime" size={30} />
               {getItemCount() > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
