@@ -102,112 +102,115 @@ const Cart: React.FC = () => {
 
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold text-white mb-8">Shopping Cart</h1>
-        <div className="text-center py-16">
-          <div className="text-gray-400 text-6xl mb-4">🛒</div>
-          <h2 className="text-xl text-white mb-2">Your cart is empty</h2>
-          <p className="text-gray-400 mb-8">Add some products to get started!</p>
-          <Button onClick={() => window.location.href = '/modules'}>
-            Continue Shopping
-          </Button>
-        </div>
+      <div className="text-center py-16 border-2 border-gray-200 rounded-lg">
+        <div className="text-gray-400 text-6xl mb-4">🛒</div>
+        <h2 className="text-xl">Your cart is empty!</h2>
+        <p className="text-gray-400 mb-8">Add some products to get started!</p>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-white mb-8">Shopping Cart</h1>
-      
-      <div className="bg-gray-800 rounded-lg p-6">
-        {/* Cart Items */}
-        <div className="space-y-4 mb-6">
+    <div className="bg-white ">
+      {/* Cart Table */}
+      <table className="w-full my-4 border-collapse">
+        <thead>
+          <tr className="border-b-2 border-black">
+            <th className="text-left py-3 pr-4 w-1/2">Product</th>
+            <th className="text-left py-3 pr-4 w-28">Qty</th>
+            <th className="text-left py-3 pr-4 w-28">Price</th>
+            <th className="text-left py-3 pr-0 w-12"></th>
+          </tr>
+        </thead>
+        <tbody>
           {items.map((item) => (
-            <div key={item.id} className="flex items-center space-x-4 p-4 bg-gray-700 rounded-lg">
-              {/* Product Image */}
-              <div className="w-16 h-16 bg-gray-600 rounded-lg flex items-center justify-center">
-                {item.thumbnailUrl ? (
-                  <img
-                    src={item.thumbnailUrl}
-                    alt={item.name}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                ) : (
-                  <div className="text-gray-400 text-xl">📦</div>
-                )}
-              </div>
-
-              {/* Product Info */}
-              <div className="flex-1">
-                <h3 className="text-white font-semibold">{item.name}</h3>
-                <p className="text-gray-300">
-                  {item.stripeId && stripeMap[item.stripeId]
-                    ? formatPrice(stripeMap[item.stripeId].price, stripeMap[item.stripeId].currency)
-                    : loadingPrices ? 'Fetching price...' : 'Unavailable'}
-                </p>
-              </div>
-
-              {/* Quantity Controls */}
-              <div className="flex items-center space-x-2">
+            <tr key={item.id} className="border-b-2 border-onyx/10 border-dotted">
+              <td className="py-3 pr-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 rounded-md bg-gray-100 border border-gray-200 flex items-center justify-center overflow-hidden">
+                    {item.thumbnailUrl ? (
+                      <img
+                        src={item.thumbnailUrl}
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-gray-400 text-xl">📦</span>
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="font-semibold text-gray-900 truncate">{item.name}</div>
+                    <div className="text-sm text-gray-500">
+                      {item.stripeId && stripeMap[item.stripeId]
+                        ? formatPrice(stripeMap[item.stripeId].price, stripeMap[item.stripeId].currency)
+                        : loadingPrices ? 'Fetching price...' : 'Unavailable'}
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td className="py-3 pr-4 align-top">
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                    aria-label={`Decrease quantity of ${item.name}`}
+                    className="h-11 text-gray-700 hover:text-gray-900"
+                  >
+                    −
+                  </button>
+                  <span className="text-center font-semibold text-gray-900">
+                    {item.quantity}
+                  </span>
+                  <button
+                    onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                    aria-label={`Increase quantity of ${item.name}`}
+                    className="h-11  text-gray-700 hover:text-gray-900"
+                  >
+                    +
+                  </button>
+                </div>
+              </td>
+              <td className="py-3 pr-4 align-middle font-semibold text-gray-900">
+                {item.stripeId && stripeMap[item.stripeId]
+                  ? formatPrice(
+                      (stripeMap[item.stripeId].price || 0) * item.quantity,
+                      stripeMap[item.stripeId].currency
+                    )
+                  : loadingPrices ? '...' : '—'}
+              </td>
+              <td className="py-3 pr-0 align-middle">
                 <button
-                  onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
-                  className="w-8 h-8 bg-gray-600 text-white rounded-full hover:bg-gray-500"
+                  onClick={() => removeItem(item.id)}
+                  className="p-2 text-red-600 hover:text-red-500"
+                  title="Remove item"
+                  aria-label={`Remove ${item.name} from cart`}
                 >
-                  -
+                  🗑️
                 </button>
-                <span className="text-white font-semibold w-8 text-center">
-                  {item.quantity}
-                </span>
-                <button
-                  onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
-                  className="w-8 h-8 bg-gray-600 text-white rounded-full hover:bg-gray-500"
-                >
-                  +
-                </button>
-              </div>
-
-              {/* Item Total */}
-              <div className="text-right">
-                <p className="text-white font-semibold">
-                  {item.stripeId && stripeMap[item.stripeId]
-                    ? formatPrice(stripeMap[item.stripeId].price * item.quantity, stripeMap[item.stripeId].currency)
-                    : loadingPrices ? '...' : '—'}
-                </p>
-              </div>
-
-              {/* Remove Button */}
-              <button
-                onClick={() => removeItem(item.id)}
-                className="text-red-400 hover:text-red-300 p-2"
-                title="Remove item"
-              >
-                🗑️
-              </button>
-            </div>
+              </td>
+            </tr>
           ))}
+        </tbody>
+      </table>
+
+      {/* Cart Summary */}
+      <div className="pt-6">
+        <div className="flex justify-between items-center mb-4">
+          <span className="text-lg text-gray-900">
+            Items ({getItemCount()})
+          </span>
+          <span className="text-xl font-bold text-gray-900">
+            {formatPrice(cartTotal)}
+          </span>
         </div>
 
-        {/* Cart Summary */}
-        <div className="border-t border-gray-600 pt-6">
-          <div className="flex justify-between items-center mb-4">
-            <span className="text-lg text-white">
-              Items ({getItemCount()})
-            </span>
-            <span className="text-xl font-bold text-green-400">
-              {formatPrice(cartTotal)}
-            </span>
-          </div>
-
-          {/* Actions */}
-          <div className="flex space-x-4">
-            <Button onClick={clearCart}>
-              Clear Cart
-            </Button>
-            <Button onClick={handleCheckout} disabled={isCheckingOut || loadingPrices}>
-              {isCheckingOut ? 'Processing...' : `Checkout ${formatPrice(cartTotal)}`}
-            </Button>
-          </div>
+        {/* Actions */}
+        <div className="flex justify-end gap-4">
+          <Button onClick={clearCart} variant="light">
+            Clear Cart
+          </Button>
+          <Button onClick={handleCheckout} disabled={isCheckingOut || loadingPrices} variant="light">
+            {isCheckingOut ? 'Processing...' : `Checkout ${formatPrice(cartTotal)}`}
+          </Button>
         </div>
       </div>
     </div>

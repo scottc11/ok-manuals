@@ -8,8 +8,6 @@ import Home from "./views/Home";
 import Counterpoint from "./manuals/Counterpoint";
 import PageNotFound404 from "./views/PageNotFound404";
 import Success from "./views/Success";
-import ProductDetail from "./components/ProductDetail/ProductDetail";
-import Cart from "./components/Cart/Cart";
 import { CartProvider } from "./context/CartContext";
 import FontLoadingSpinner from "./components/FontLoadingSpinner";
 import NewsletterUnsubscribe from "./views/NewsletterUnsubscribe";
@@ -18,6 +16,7 @@ import ProductRouter from "./components/ProductRouter/ProductRouter";
 import News from "./views/News";
 import BlogPostDetail from "./views/BlogPostDetail";
 import About from "./views/About";
+import ShoppingCart from "./views/ShoppingCart";
 
 function App() {  
   return (
@@ -48,7 +47,7 @@ function App() {
                   <BlogPostDetail />
                 </Route>
                 <Route exact path="/cart">
-                  <Cart />
+                  <ShoppingCart />
                 </Route>
                 <Route exact path="/success">
                   <Success />
