@@ -4,39 +4,48 @@ import ProductSplitScreen from "../components/ProductSplitScreen/ProductSplitScr
 import NewsletterSignup from "../components/NewsletterSignup/NewsletterSignup";
 import HeroBanner from "../components/HeroBanner/HeroBanner";
 import InstagramPostEmbedded from "../components/InstagramPostEmbedded/InstagramPostEmbedded";
+import { useProductDetail } from "../hooks/useProductDetail";
 
 const Home = () => {
+
+    const counterpoint = useProductDetail('counterpoint');
+    const degree = useProductDetail('degree');
+
     return (
         <>
             {/* Hero Banner */}
             <HeroBanner 
-                backgroundColor="bg-black"
+                backgroundColor="bg-onyx"
                 backgroundImage={require('../media/hero-banner.png')}
                 heading="Performable eurorack modules"
             />
             
             {/* Products Section */}
             <Section>            
+                { counterpoint.product && (
                 <ProductSplitScreen
                     bannerImage={require('../media/counterpoint/counterpoint-banner.png')}
-                    price="$899"
-                    bodyText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
+                    price={counterpoint.product.price as unknown as string}
+                    bodyText={counterpoint.product.shortDescription as unknown as string}
                     ctaText="Details →"
                     ctaAction={() => window.location.assign('/modules/counterpoint')}
-                    rightImage={require('../media/counterpoint/panel.svg')}
+                    rightImage={counterpoint.product.thumbnail?.fields?.file?.url as unknown as string}
                     className="pt-8"
-                />
+                    />
+                )}
 
-                <ProductSplitScreen
-                    reversed
-                    bannerImage={require('../media/DEGREE/degree-banner.png')}
-                    price="$1,299"
-                    bodyText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
-                    ctaText="Details →"
-                    ctaAction={() => window.location.assign('/modules/degree')}
-                    rightImage={require('../media/DEGREE/DEGREE.png')}
-                    className="pt-8"
-                />
+                { degree.product && (
+                    <ProductSplitScreen
+                        reversed
+                        bannerImage={require('../media/DEGREE/degree-banner.png')}
+                        price={degree.product.price as unknown as string}
+                        bodyText={degree.product.shortDescription as unknown as string}
+                        ctaText="Details →"
+                        ctaAction={() => window.location.assign('/modules/degree')}
+                        rightImage={degree.product.thumbnail?.fields?.file?.url as unknown as string}
+                        className="pt-8"
+                    />
+                )}
             </Section>
                         
             {/* Newsletter Signup */}

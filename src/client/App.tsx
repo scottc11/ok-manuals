@@ -25,7 +25,7 @@ function App() {
       {/* basename is set to the GitHub Pages URL */}
       <BrowserRouter basename="/">
         <ScrollToTop />
-        <div id="app-scroll-container" className="w-screen h-screen overflow-auto bg-black">
+        <div id="app-scroll-container" className="w-screen h-screen overflow-auto bg-onyx">
           <Header />
           <div className="min-h-screen text-white">
             <FontLoadingSpinner>
