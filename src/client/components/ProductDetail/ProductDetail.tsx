@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Product } from '../../types';
 import { getImagesUrls } from '../../utils';
@@ -14,6 +14,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
   const history = useHistory();
   const { addItem } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const [addedVisible, setAddedVisible] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
+  const hideTimerRef = useRef<number | null>(null);
+  const fadeTimerRef = useRef<number | null>(null);
 
   const getThumbnailUrl = () => {
     const raw =
@@ -37,14 +41,28 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
       },
       quantity
     );
+    if (hideTimerRef.current) {
+      window.clearTimeout(hideTimerRef.current);
+      hideTimerRef.current = null;
+    }
+    if (fadeTimerRef.current) {
+      window.clearTimeout(fadeTimerRef.current);
+      fadeTimerRef.current = null;
+    }
+    setFadeOut(false);
+    setAddedVisible(true);
+    fadeTimerRef.current = window.setTimeout(() => setFadeOut(true), 2000);
+    hideTimerRef.current = window.setTimeout(() => {
+      setAddedVisible(false);
+      setFadeOut(false);
+    }, 2300);
   };
 
   const handleBackToProducts = () => {
     history.push('/modules');
   };
 
-  const isDisabled = product.discontinued === true;
-
+  const isDisabled = product.discontinued || quantity < 1;
   
   const displayImages = getImagesUrls(product.images);
 
@@ -95,7 +113,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                disabled={quantity <= 1 || isDisabled}
+                disabled={isDisabled}
                 className="bg-gray-700 text-white px-3 py-1 rounded disabled:opacity-50"
               >
                 -
@@ -112,8 +130,10 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
           </div>
 
           <div className="mb-6 w-full">
-            <Button onClick={handleAddToCart} disabled={isDisabled} className="w-full">
-              {product.discontinued ? 'Discontinued' : `Add to Cart`}
+            <Button onClick={handleAddToCart} disabled={isDisabled} className={`w-full transition-opacity duration-300 ${addedVisible && fadeOut ? 'opacity-0' : 'opacity-100'} ${addedVisible ? 'text-lime' : ''}`}>
+                <span>
+                  {addedVisible ? 'Added to cart!' : 'Add to Cart'}
+                </span>
             </Button>
           </div>
         </div>

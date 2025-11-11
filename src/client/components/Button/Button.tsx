@@ -40,7 +40,7 @@ const Button = ({ children, onClick, disabled, className, variant = 'dark', type
             disabled={disabled}
             onMouseDown={() => setButtonClicked(true)}
             onMouseUp={() => setButtonClicked(false)}
-            className={getButtonClasses()}>
+            className={`${getButtonClasses()} ${className}`}>
             {children}
         </button>
     )
