@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.get('/blog-posts', async (req, res) => {
     try {
-        const entries = await client.getEntries({ content_type: 'blogPost' });
+        const entries = await client.getEntries({ content_type: 'blogPost', order: '-fields.date'});
         res.json(entries.items);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch blog posts' });
