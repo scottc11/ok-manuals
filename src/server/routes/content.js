@@ -11,9 +11,15 @@ const client = contentful.createClient({
 
 const router = express.Router();
 
+// https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/search-parameters/content-type
 router.get('/blog-posts', async (req, res) => {
     try {
-        const entries = await client.getEntries({ content_type: 'blogPost', order: '-fields.date'});
+        const entries = await client.getEntries({
+            content_type: 'blogPost',
+            'fields.published[in]': 'true', // include only published blog posts
+            select: 'fields.title,fields.date,fields.image,fields.published', // select only the fields we need
+            order: '-fields.date'
+        });
         res.json(entries.items);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch blog posts' });
