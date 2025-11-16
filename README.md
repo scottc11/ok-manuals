@@ -3,7 +3,7 @@
 https://scottc11.github.io/ok-manuals/
 
 ## Deployment
-Deployed using [GitHub pages](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages)
+Deployed using Vercel. Pushing anything to master branch will trigger a deployment.
 
 ## Tech stack
 - React
@@ -12,10 +12,12 @@ Deployed using [GitHub pages](https://docs.github.com/en/pages/getting-started-w
 - (Tailwind)[https://v3.tailwindcss.com/docs/installation]
 - Webpack
 - (Resend email service)[https://resend.com/emails] (account: business email)
-- Vercel (cloud functions for simple backend tasks) (account: business email)
+- Vercel (Server) (account: business email)
 - Stripe checkout (stripe hosted e-commerce)
 - Google Sheets
 - Google cloud console (Sheets API)
+- (Contentful)[https://app.contentful.com/spaces/3852y1mxtp1y/views/entries] (account: business email)
+- (MailChimp)[https://us18.admin.mailchimp.com/] (account: business email)
 
 ### Google Sheets
 A service account in Google Cloud Console had to be made to interact with the google sheets API. You will need the "private_key" associated with this service account for an environemnet variable. You can find the service account in the OK200 google cloud console project "Website" (Service Accounts tab). 
