@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Product } from '../types';
 
-export const useProductDetail = (slug: string) => {
+export const useProductDetail = (slug: string, selectFields?: string[]) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -10,7 +10,12 @@ export const useProductDetail = (slug: string) => {
     const fetchProduct = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.API_DOMAIN}/api/content/products/${slug}`);
+        const baseUrl = `${process.env.API_DOMAIN}/api/content/products/${slug}`;
+        const url =
+          selectFields && selectFields.length > 0
+            ? `${baseUrl}?${new URLSearchParams({ select: selectFields.join(',') }).toString()}`
+            : baseUrl;
+        const response = await fetch(url);
         if (!response.ok) {
           if (response.status === 404) {
             setError('Product not found');
@@ -30,7 +35,7 @@ export const useProductDetail = (slug: string) => {
     };
 
     fetchProduct();
-  }, [slug]);
+  }, [slug, selectFields?.join(',')]);
 
   return {
     product,

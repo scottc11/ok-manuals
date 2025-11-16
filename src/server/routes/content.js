@@ -41,7 +41,19 @@ router.get('/blog-posts/:id', async (req, res) => {
 
 router.get('/products', async (req, res) => {
     try {
-        const entries = await client.getEntries({ content_type: 'product' });
+        const { select } = req.query;
+        const params = { content_type: 'product' };
+        if (select) {
+            const selectCsv = Array.isArray(select) ? select.join(',') : String(select);
+            const normalized = selectCsv
+                .split(',')
+                .map(s => (s || '').trim())
+                .filter(Boolean)
+                .map(s => `fields.${s}`)
+                .join(',');
+            params.select = normalized;
+        }
+        const entries = await client.getEntries(params);
         res.json(entries.items);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch products' });
@@ -51,7 +63,20 @@ router.get('/products', async (req, res) => {
 router.get('/products/:slug', async (req, res) => {
     try {
         const { slug } = req.params;
-        const entry = await client.getEntries({ content_type: 'product', 'fields.slug': slug });
+        const { select } = req.query;
+        console.log(select);
+        const params = { content_type: 'product', 'fields.slug': slug };
+        if (select) {
+            const selectCsv = Array.isArray(select) ? select.join(',') : String(select);
+            const normalized = selectCsv
+                .split(',')
+                .map(s => (s || '').trim())
+                .filter(Boolean)
+                .map(s => `fields.${s}`)
+                .join(',');
+            params.select = normalized;
+        }
+        const entry = await client.getEntries(params);
         if (entry.items.length === 0) {
             return res.status(404).json({ error: 'Product not found' });
         }

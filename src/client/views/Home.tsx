@@ -8,8 +8,8 @@ import { useProductDetail } from "../hooks/useProductDetail";
 
 const Home = () => {
 
-    const counterpoint = useProductDetail('counterpoint');
-    const degree = useProductDetail('degree');
+    const counterpoint = useProductDetail('counterpoint', ['shortDescription', 'thumbnail', 'price']);
+    const degree = useProductDetail('degree', ['shortDescription', 'thumbnail', 'price']);
 
     return (
         <>
