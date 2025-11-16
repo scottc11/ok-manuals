@@ -12,7 +12,7 @@ Deployed using Vercel. Pushing anything to master branch will trigger a deployme
 - (Tailwind)[https://v3.tailwindcss.com/docs/installation]
 - Webpack
 - (Resend email service)[https://resend.com/emails] (account: business email)
-- Vercel (Server) (account: business email)
+- (Vercel)[https://vercel.com/scott-campbells-projects/ok200] (Server) (account: business email)
 - Stripe checkout (stripe hosted e-commerce)
 - Google Sheets
 - Google cloud console (Sheets API)
