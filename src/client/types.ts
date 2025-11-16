@@ -85,6 +85,7 @@ export interface Product {
     manualUrl?: EntryFields.Text;
     videos?: VideoEntry[];
     tags?: EntryFields.Text[];
+    specifications?: EntryFields.Object;
 }
 
 export interface StripeProduct {
