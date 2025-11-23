@@ -58,7 +58,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
     }, 2300);
   };
 
-  const isDisabled = product.discontinued || quantity < 1;
+  const isDisabled = product.active === false || quantity < 1;
   
   const displayImages = getImagesUrls(product.images);
 
@@ -84,8 +84,17 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
             </h2>
           )}
 
+          {product.status && (
+            <div className="my-6 font-bungee">
+              <span>Status: </span>
+              <span className={`inline-block ${product.status.toLowerCase() === 'discontinued' ? 'text-red-600' : 'text-lime'} px-2 rounded-sm`}>
+                {product.status as unknown as string}
+              </span>
+            </div>
+          )}
+
           {product.tags && (
-            <div className="mb-4 flex flex-wrap gap-2">
+            <div className="my-4 flex flex-wrap gap-2">
               {product.tags.map((tag) => (
                 <span key={tag} className="inline-block bg-lime text-black text-sm font-mono font-medium px-3 p-1 rounded-full">
                   {tag as unknown as string}
@@ -93,16 +102,6 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
               ))}
             </div>
           )}
-          
-          {product.discontinued && (
-            <div className="mb-4">
-              <span className="inline-block bg-red-600 text-white text-sm font-medium px-3 py-1 rounded-full">
-                Discontinued
-              </span>
-            </div>
-          )}
-          
-
 
           {product.shortDescription && (
             <p className="text-white text-lg mb-6 font-mono leading-relaxed">

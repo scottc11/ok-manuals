@@ -78,7 +78,7 @@ export interface Product {
     price?: EntryFields.Text;
     thumbnail?: EntryFields.AssetLink;
     images?: EntryFields.AssetLink[];
-    discontinued?: EntryFields.Boolean;
+    status?: EntryFields.Text;
     active?: EntryFields.Boolean;
     stripeId?: EntryFields.Text;
     subtitle?: EntryFields.Text;

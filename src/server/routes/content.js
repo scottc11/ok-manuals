@@ -64,7 +64,6 @@ router.get('/products/:slug', async (req, res) => {
     try {
         const { slug } = req.params;
         const { select } = req.query;
-        console.log(select);
         const params = { content_type: 'product', 'fields.slug': slug };
         if (select) {
             const selectCsv = Array.isArray(select) ? select.join(',') : String(select);
