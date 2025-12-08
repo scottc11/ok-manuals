@@ -12,6 +12,25 @@ import FirmwareUpdater from '../views/FirmwareUpdater';
 import Code from '../components/Code/Code';
 import Image from '../components/Image/Image';
 
+const VOUT = '1VO';
+const GATE = 'GATE';
+const BEND_CV = 'B CV';
+const Q_CV = 'Q CV';
+const CLOCK = 'CLOCK';
+const RESET = 'RESET';
+const DIR_CV = 'DIR CV';
+const RATE_CV = 'RATE CV';
+const Q_ON = 'Q ON';
+const SELECT_PAD = 'SELECT PAD';
+const ALT = 'ALT';
+const RECORD = 'RECORD';
+const FUNC = 'FUNC';
+const CLEAR = 'CLEAR';
+const SETTINGS = 'SETTINGS';
+const AQ = 'AQ';
+const MIDI_EXPANDER = 'MIDI EXPANDER';
+const MIDI_OUT = 'MIDI OUT';
+
 const Label = ({children}: {children: React.ReactNode}) => {
     return (
         <span className="text-azure font-unica p-1 rounded-sm">
@@ -79,12 +98,18 @@ const Counterpoint: React.FC = () => {
                             <span className="ml-4 text-onyx/40 italic">"the orchestra counterpoints the vocal part"</span>
                         </p>
                     </div>
-                    <p>This is <Label>COUNTERPOINT</Label>. It is a Eurorack module designed to <u>control multiple oscillators</u> in a modular system, with the core focus being to keep each oscillator musically coherent with each other.</p>
+                    <p>
+                        This is <Label>COUNTERPOINT</Label>. It is a Eurorack module designed to <u>control multiple oscillators</u> in a modular system, with the core focus being to keep 
+                        each oscillator (or "voice") musically coherent with one another.
+                    </p>
                     <p>It uses four channels of <b>brass touch pads</b> (capacitive touch) to control the pitch of four independant oscillators (VCOs), all while containing them to a common musical scale.</p>
-                    <p>The scale is set using 8 "scale degree" switches on the module.</p>
-                    <p>It is very hands on and <b>performative</b>. It features a sequencer that allows you to record and playback sequences of notes played on the touch pads.</p>
-                    <p>Counterpoint also features a few extra bells and whistles such as an <Label>arpeggiator</Label>, per channel <Label>CV quantization</Label>, and per channel <Label>pitch bend / portamento</Label> effects.</p>
-                    <p>This manual will guide you through the various features and functions of the Counterpoint 🤓.</p>
+                    <p>The musical scale is set using a collection of eight 3-stage toggle switches intended to explore musical scales in an unopinionated way.</p>
+                    <p>
+                        The module is very hands on and <b>performative</b>. It features a sequencer that allows the performer to capture harmonic progressions and ideas on the fly and 
+                        play them back as sequenced loops which can be further manipulated in real time through a variety of gestures.
+                    </p>
+                    <p>Counterpoint also features an <Label>arpeggiator</Label>, per channel <Label>CV quantization</Label>, and per channel <Label>pitch bend / portamento</Label> effects.</p>
+                    <p>This manual will guide you through the various features and functions of the Counterpoint.</p>
                     <p>For more info on the name, check out <Link external href="https://en.wikipedia.org/wiki/Counterpoint">this wikipedia page</Link>.</p>
                 </Section>
 
@@ -102,7 +127,10 @@ const Counterpoint: React.FC = () => {
                         <img className="bg-panel p-4 w-3/4" src={require('../media/counterpoint/panel_jacks.svg')} alt="sequence length and meter" />
                     </div>
 
-                    <p>The input / output jacks are split into two sections. On the right side there is a grid of jacks corresponding to each channel (channel <Label>A</Label>, <Label>B</Label>, <Label>C</Label>, <Label>D</Label>), and on the left side are jacks corrosponding to "universal" controls for all channels.</p>
+                    <p>
+                        The input / output jacks are split into two sections. On the right side there is a grid of jacks corresponding to each channel (channel <Label>A</Label>, <Label>B</Label>, 
+                        <Label>C</Label>, <Label>D</Label>), and on the left side are jacks corrosponding to the clock transport and arpeggiator.
+                    </p>
 
                     <SectionSubheading title="Channel in/out" />
 
@@ -230,9 +258,13 @@ const Counterpoint: React.FC = () => {
                     <SectionHeading title="🎼 Scale Degree Switches" />
                     <div className="flex flex-col md:flex-row">
                         <div className="basis-full md:basis-3/4">
-                            <p><Label>Counterpoint</Label> contains a series of 8 <Label>scale degree</Label> switches which can be used to construct a <Highlight>common scale between all 4 channels</Highlight>.</p>
+                            <p>
+                                The 8 toggle switches on the <Label>Counterpoint</Label> are what you use to contruct a common musical scale between all 4 channels. They logic behind them is centered around 
+                                music theory, particularly the concept of "Counterpoint and Harmony". You don't need to know any music theory to use the module, but if you're interested in the theory behind 
+                                it you can check out <Link external href="https://en.wikipedia.org/wiki/Counterpoint">this wikipedia page</Link>.
+                            </p>
                             
-                            <p>Each position of a toggle switch represents a single semitone. If you change the position of a switch upwards, all 4 channels across the horizontal axis will increase their pitch by one semitone. If you go downwards, then it will decrease their pitch by one semitone.</p>
+                            <p>Each position of a toggle switch represents a single <b>semitone</b>. If you change the position of a switch upwards, all 4 channels across the horizontal axis will increase their pitch by one semitone. If you go downwards, then it will decrease their pitch by one semitone.</p>
                             
                             <p>For example, if all 8 switches are in their middle position, the scale degrees of each channel will be seperated by a whole tone (two semi-tones). In this state, you get what is called a "whole tone scale".</p>
                             
@@ -254,42 +286,42 @@ const Counterpoint: React.FC = () => {
                                 <tbody>
                                     <tr>
                                         <td>8 (top)</td>
-                                        <td>CENTER</td>
-                                        <td>Major 2nd</td>
+                                        <td>DOWN</td>
+                                        <td>Tonic octave</td>
                                     </tr>
                                     <tr>
                                         <td>7</td>
-                                        <td>DOWN or CENTER</td>
-                                        <td>Major 7th or Tonic octave</td>
+                                        <td>CENTER</td>
+                                        <td>Major 7th</td>
                                     </tr>
                                     <tr>
                                         <td>6</td>
-                                        <td>DOWN</td>
+                                        <td>CENTER</td>
                                         <td>Major 6th</td>
                                     </tr>
                                     <tr>
                                         <td>5</td>
-                                        <td>DOWN</td>
+                                        <td>CENTER</td>
                                         <td>Perfect 5th</td>
                                     </tr>
                                     <tr>
                                         <td>4</td>
-                                        <td>DOWN</td>
+                                        <td>CENTER</td>
                                         <td>Perfect 4th</td>
                                     </tr>
                                     <tr>
                                         <td>3</td>
-                                        <td>CENTER</td>
+                                        <td>UP</td>
                                         <td>Major 3rd</td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td>CENTER</td>
+                                        <td>UP</td>
                                         <td>Major 2nd</td>
                                     </tr>
                                     <tr>
                                         <td>1 (bottom)</td>
-                                        <td>CENTER</td>
+                                        <td>UP</td>
                                         <td>Tonic</td>
                                     </tr>
                                 </tbody>
@@ -306,42 +338,42 @@ const Counterpoint: React.FC = () => {
                                 <tbody>
                                     <tr>
                                         <td>8 (top)</td>
-                                        <td>UP or CENTER</td>
-                                        <td>Either a Major 2nd or a minor 3rd</td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td>CENTER</td>
+                                        <td>DOWN</td>
                                         <td>Tonic octave</td>
                                     </tr>
                                     <tr>
+                                        <td>7</td>
+                                        <td>DOWN</td>
+                                        <td>Minor 7th</td>
+                                    </tr>
+                                    <tr>
                                         <td>6</td>
-                                        <td>CENTER</td>
+                                        <td>DOWN</td>
                                         <td>Minor 7th</td>
                                     </tr>
                                     <tr>
                                         <td>5</td>
-                                        <td>DOWN</td>
+                                        <td>CENTER</td>
                                         <td>Perfect 5th</td>
                                     </tr>
                                     <tr>
                                         <td>4</td>
-                                        <td>DOWN</td>
+                                        <td>CENTER</td>
                                         <td>Perfect 4th</td>
                                     </tr>
                                     <tr>
                                         <td>3</td>
-                                        <td>DOWN</td>
+                                        <td>CENTER</td>
                                         <td>Minor 3rd</td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
-                                        <td>CENTER</td>
+                                        <td>UP</td>
                                         <td>Major 2nd</td>
                                     </tr>
                                     <tr>
                                         <td>1 (bottom)</td>
-                                        <td>CENTER</td>
+                                        <td>UP</td>
                                         <td>Tonic</td>
                                     </tr>
                                 </tbody>
@@ -427,7 +459,10 @@ const Counterpoint: React.FC = () => {
                             
                             <p>You can change the rate and direction of a specific channel while it is in <Label>ARPEGGIATOR</Label> mode by using the channel's <Label>SELECT PAD</Label> and the <Label>ARP RATE / ARP DIR</Label> pads.</p>
                             
-                            <p>Additionally, pressing the <Label>ARP LOCK</Label> button <b>without</b> a <Label>SELECT PAD</Label> being touched will keep the arpeggiator engaged for all channels regardless of whether the <Label>ARP RATE</Label> pad is being touched.</p>
+                            <p>
+                                Additionally, pressing the <Label>ARP LOCK</Label> button <b>without</b> a <Label>SELECT PAD</Label> being touched will keep the arpeggiator engaged 
+                                for all channels regardless of whether the <Label>ARP RATE</Label> pad is being touched.
+                            </p>
                         </div>
                     </div>
                     <Note>
@@ -439,7 +474,8 @@ const Counterpoint: React.FC = () => {
                     <p>Additionally, if you hold the <Label>TRIPLET</Label> pad in conjunction with an <Label>ARP RATE</Label> pad, the arp rate will be set to a triplet of the selected note value.</p>
                     <p>To set the arp rate, touch one of the four <Label>ARP RATE</Label> pads. The arp rate will change based on the <b>highest arp rate</b> that is touched.</p>
 
-                    <p>The arp rate can also be CV controlled via the <Label>RATE CV</Label> input (0V to 10V).</p>
+                    <p>The arp rate can also be CV controlled via the <Label>RATE CV</Label> input (0V to 10V). At 0V, the arp rate will be set to the quarter note value. As the control voltage increases,
+                    the arp rate will increase until it reaches its highest possible value of thirty second note triplets at 10V.</p>
 
                     <SectionSubheading title="Arp Direction" />
                     <p>The arp direction can be set to <Label>UP</Label>, <Label>DOWN</Label>, <Label>UP/DOWN</Label>, or <Label>ORDER</Label>.</p>
@@ -449,7 +485,7 @@ const Counterpoint: React.FC = () => {
                 </Section>
 
                 <Section>
-                    <SectionHeading title="🎹 Sequencing" />
+                    <SectionHeading title="🧬 Sequencing" />
 
                     <div className="flex flex-row m-6 justify-center">
                         <img className="bg-panel p-4 w-2/3" src={require('../media/counterpoint/panel_seq_actions.svg')} alt="sequencer actions" />
@@ -536,10 +572,33 @@ const Counterpoint: React.FC = () => {
                     <SectionSubheading title="Reset a sequence" />
                     <p>Pressing the <Label>RESET</Label> button will reset the sequence, but not immediately. It will wait until the next quarter note occurs before resetting.</p>
 
+                    <SectionSubheading title="Stop a sequence" />
+                    <p>Holding <Label>FUNC</Label> and pressing <Label>RESET</Label> will stop all sequences on the next beat. The sequence will not continue to play back after it is stopped. To resume playback, press <Label>RESET</Label> again.</p>
+                    <p>You can stop individual sequences by holding the <Label>SELECT PAD</Label> for that channel and pressing <Label>FUNC</Label> + <Label>RESET</Label>. To resume playback, press <Label>RESET</Label> again.</p>
+
                     <SectionSubheading title="Quantizing a sequence" />
                     <p>Pressing <Label>ALT</Label> + <Label>RECORD</Label> will "snap" all touch events in all active sequences to a grid of 32nd notes.</p>
                     <p>If you wish quantization to occur automatically, enter <Label>SETTINGS</Label> and make sure the <Label>AQ</Label> row is illuminated.</p>
                     <p>If you want to quantize only a single sequence, press the <Label>ALT</Label> + <Label>RECORD</Label> button while touching the <Label>SELECT PAD</Label> for that channel.</p>
+                </Section>
+
+
+                <Section>
+                    <SectionHeading title="🔗 Channel Link" />
+                    <p>Counterpoint allows you to link once channel with another in such a way that the gate and 1VO outputs of the "slave" channel will be synchronized to the gate and 1VO outputs of the "master" channel.</p>
+                    <p>
+                        To link a channel, hold <Label>{FUNC}</Label> + <Label>SELECT PAD</Label> for the channels you wish to link and then press the <Label>CLEAR</Label> button.
+                    </p>
+                    <p>The master channel is determined by the channel which was touched first.</p>
+                    <p>To unlink a channel, hold <Label>FUNC</Label> + <Label>SELECT PAD</Label> for the channels you wish to unlink and then press the <Label>CLEAR</Label> button.</p>
+                    <p>When a channel is linked, you have the ability to adjust the octave offset of any of the slave channels. This is done by interacting the the slave channels octave pads.</p>
+                    <p>
+                        Additionally, you can also adjust the scale degree offset of any slave channels by interacting with the slave channels degree pads. This means that a slave channel 
+                        doesn't have to be in unison with the master channel. For example, you could have the slave channel output exactly a minor third above whatever the master channel is outputting.
+                    </p>
+                    <Note>
+                        <p>Note: the <Label>SLEW</Label> setting for a channel will always be independent of the linked channel, but any <Label>pitch bend</Label> CV will be syncronized between the linked channels.</p>
+                    </Note>
                 </Section>
 
 
@@ -557,7 +616,7 @@ const Counterpoint: React.FC = () => {
                         <tbody>
                             <tr className="border-b border-dotted border-black pt-4">
                                 <td>
-                                    <Label>SELECT PAD</Label> + <Label>RECORD</Label>
+                                    <Label>FUNC</Label> + <Label>SELECT PAD</Label> + <Label>RECORD</Label>
                                 </td>
                                 <td>
                                     Adds one bar to the actively running sequence, or creates a new sequence with a length of one bar.
@@ -565,7 +624,7 @@ const Counterpoint: React.FC = () => {
                             </tr>
                             <tr className="border-b border-dotted border-black pt-4">
                                 <td>
-                                    <Label>TRIPLET</Label> + <Label>OCTAVE PAD</Label>
+                                    <Label>{FUNC}</Label> + <Label>OCTAVE PAD</Label>
                                 </td>
                                 <td>
                                     If a sequence is playing back, Applies an <b>octave offset</b> to the active sequence of the corrosponding channel. (top octave pad +1 octave, bottom octave pad -1 octave).
@@ -573,7 +632,7 @@ const Counterpoint: React.FC = () => {
                             </tr>
                             <tr className="border-b border-dotted border-black pt-4">
                                 <td>
-                                    <Label>TRIPLET</Label> + <Label>OCTAVE PAD</Label>
+                                    <Label>{FUNC}</Label> + <Label>OCTAVE PAD</Label>
                                 </td>
                                 <td>
                                     If no sequence is playing back, sets the octave of a channel without triggering a new note. Only when a degree pad is touched will the target octave be reflected on the channels output.
@@ -581,7 +640,7 @@ const Counterpoint: React.FC = () => {
                             </tr>
                             <tr className="border-b border-dotted border-black pt-4">
                                 <td>
-                                    <Label>TRIPLET</Label> + <Label>ARP RATE PAD</Label>
+                                    <Label>{FUNC}</Label> + <Label>ARP RATE PAD</Label>
                                 </td>
                                 <td>
                                     Sets the arp rate to a triplet of the corrosponding note value.
@@ -593,12 +652,178 @@ const Counterpoint: React.FC = () => {
 
                 <Section>
                     <SectionHeading title="🔧 Settings" />
-                    <p>Counterpoint has a number of settings which can be adjusted to alter the behavior of the module.</p>
-                    <p>To access the settings, press <Label>ALT</Label> + <Label>RESET</Label>.</p>
+                    <p>Counterpoint has a number of settings which can be adjusted to alter the behavior of each channel.</p>
+                    <p>To access the settings, press the <Label>SETTINGS</Label> button.</p>
+                    <p>The settings menu will be displayed using the touch pad LEDs as indicators.</p>
+                    <p>The far right side of the panel will illuminate to indicate the various per-channel settings.</p>
 
-                    <SectionSubheading title="Gate Link" />
-                    <p>Gate linking is a feature that allows you to link the gate output of one channel to the gate output of another channel.</p>
+                    <SectionSubheading title="Calibration data (CA)" />
+                    <p>The row labeled <Label>CA</Label> is used to indicate the existence of calibration data for a particular channel. If the LED is illuminated, then calibration data exists for that channel.</p>
+
+                    <SectionSubheading title="Record octaves (RO)" />
+                    <p>The row labeled <Label>RO</Label> is used to indicate whether the octave touch pads should be recorded when sequencing a channel. If the LED is illuminated, then the octave touch pads will be recorded when sequencing a channel.</p>
+
+                    <SectionSubheading title="Auto Quantize (AQ)" />
+                    <p>
+                        The row labeled <Label>AQ</Label> is used to indicate whether the channel should automatically quantize a recorded sequence to a 16th note grid. If the LED is 
+                        illuminated, then the module will automatically quantize sequences when <Label>RECORD</Label> is enabled.
+                    </p>
+
+                    <SectionSubheading title="Gate Sync (GS)" />
+                    <p>
+                        The row labeled <Label>GS</Label> is used to synchronize the gate output of one or more channels. If any of the LEDs in the row are illuminated, the channels associated with 
+                        those LEDs will have their <Label>{GATE}</Label> output synchronized with other "gate synced" channels. This means that when one channel's <Label>{GATE}</Label> output goes HIGH, 
+                        all gate synced channels will also have their <Label>{GATE}</Label> output also go HIGH.
+                    </p>
                     
+                </Section>
+
+                <Section>
+                    <SectionHeading title="💾 Saving sequences" />
+                    <p>Counterpoint allows you to save up to 16 sequences to make available either during a performance or between power cycles.</p>
+                    <p>
+                        Saved sequences can be accessed by pressing the <Label>SETTINGS</Label> button and entering the settings menu. The top for rows represent the 16 possible sequence slots. If a 
+                        slot is illuminated, then a sequence is saved in that slot.
+                    </p>
+                    <p>
+                        To launch a sequence, you need only touch the sequence slot you wish to launch. Once launched, the sequence will be loaded into either the selected channels (via 
+                        the <Label>SELECT PAD</Label>), or if no channel is selected it will get loaded into the corrosponding channel which the sequence slot is associated with. After a sequence is loaded,
+                        it becomes "queued" for playback, and will not begin playing back until the start of the next bar.
+                    </p>
+                    <Note>
+                        <p>
+                            NOTE: Saving and launching sequences was never an original feature of the Counterpoint, and has only been added at the request of some users. Knowing this, you should understand
+                            that this feature is not the most intuitive, as the panel layout was not originally designed to accomodate it.
+                        </p>
+                    </Note>
+                </Section>
+
+                <Section>
+                    <SectionHeading title="🎹 MIDI" />
+                    <div className="flex flex-row">
+                        <div className="flex flex-col basis-3/4">
+
+                            <div className="flex flex-row justify-center py-12">
+                                <img className="w-1/4" src={require('../media/midi_logo.svg')} alt="MIDI Logo" />
+                            </div>
+
+                            <p>Using a <Link external href="https://minimidi.world/">MIDI-to-TRS (TYPE-A)</Link> adapter, Counterpoint can both send and recieve MIDI messages via the 2HP <Label>MIDI EXPANDER</Label> (sold separately).</p>
+                            <p>
+                                The MIDI implementation is standard, but since Counterpoint's interface of touch pads don't suggest any particular "notes", using it as a traditional
+                                MIDI controller may not give you the results you expect. 
+                            </p>
+                            <p>
+                                The <Label>{MIDI_EXPANDER}</Label> has a switch on it which is used to determine the direction of the MIDI messages. This means Counterpoint
+                                cannot both send and recieve MIDI messages at the same time.
+                            </p>
+
+                            <SectionSubheading title="MIDI Out" />
+                            <p>When the MIDI EXPANDER switch is set to <Label>OUT</Label>, Counterpoint will send MIDI ON/OFF messages on the following channels:</p>
+                            
+                            <table className="w-full my-4 border-collapse">
+                                <thead>
+                                    <tr className="border-b-2 border-black">
+                                        <th className="text-left w-1/3">Counterpoint Channel</th>
+                                        <th className="text-left w-2/3">MIDI Channel</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className="border-b border-dotted border-black pt-4">
+                                        <td>
+                                            A
+                                        </td>
+                                        <td>
+                                            Channel 1
+                                        </td>
+                                    </tr>
+                                    <tr className="border-b border-dotted border-black pt-4">
+                                        <td>
+                                            B
+                                        </td>
+                                        <td>
+                                            Channel 2
+                                        </td>
+                                    </tr>
+                                    <tr className="border-b border-dotted border-black pt-4">
+                                        <td>
+                                            C
+                                        </td>
+                                        <td>
+                                            Channel 3
+                                        </td>
+                                    </tr>
+                                    <tr className="border-b border-dotted border-black pt-4">
+                                        <td>
+                                            D
+                                        </td>
+                                        <td>
+                                            Channel 4
+                                        </td>
+                                    </tr>
+                                    <tr className="border-b border-dotted border-black pt-4">
+                                        <td>
+                                            A, B, D, C (all channels)
+                                        </td>
+                                        <td>
+                                            Channel 5
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <SectionSubheading title="MIDI Input" />
+                            
+                            <p>When the MIDI EXPANDER switch is set to <Label>IN</Label>, Counterpoint will recieve MIDI messages and handle them as follows:</p>
+                            
+                            <table className="w-full my-4 border-collapse">
+                                <thead>
+                                    <tr className="border-b-2 border-black">
+                                        <th className="text-left w-1/3">Channel</th>
+                                        <th className="text-left w-1/3">Event</th>
+                                        <th className="text-left w-2/3">Handling</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className="border-b border-dotted border-black pt-4">
+                                        <td>
+                                            Channel (1, 2, 3, 4)
+                                        </td>
+                                        <td>
+                                            Note ON
+                                        </td>
+                                        <td>
+                                            Sets <Label>{VOUT}</Label> to the corrosponding note + sets the <Label>{GATE}</Label> output to HIGH.
+                                        </td>
+                                    </tr>
+                                    <tr className="border-b border-dotted border-black pt-4">
+                                        <td>
+                                            Channel (1, 2, 3, 4)
+                                        </td>
+                                        <td>
+                                            Note OFF
+                                        </td>
+                                        <td>
+                                            Sets the gate output to LOW.
+                                        </td>
+                                    </tr>
+                                    <tr className="border-b border-dotted border-black pt-4">
+                                        <td>
+                                            Channel 5
+                                        </td>
+                                        <td>
+                                            Note ON
+                                        </td>
+                                        <td>
+                                            Cyclic: cycles through all channels in a cyclic manner.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className="flex flex-row justify-center basis-1/4">
+                            <img className="h-1/2" src={require('../media/midi_expander.png')} alt="MIDI EXPANDER" />
+                        </div>
+                    </div>
                 </Section>
 
                 <Section>

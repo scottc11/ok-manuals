@@ -87,7 +87,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ product }) => {
           {product.status && (
             <div className="my-6 font-bungee">
               <span>Status: </span>
-              <span className={`inline-block ${product.status.toLowerCase() === 'discontinued' ? 'text-red-600' : 'text-lime'} px-2 rounded-sm`}>
+              <span className={`inline-block ${product.status.toLowerCase() === 'discontinued' ? 'text-red-600' : 'text-lavender'} px-2 rounded-sm`}>
                 {product.status as unknown as string}
               </span>
             </div>

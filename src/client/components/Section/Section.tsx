@@ -10,7 +10,7 @@ type SectionProps = {
 
 const Section = ({id, collapsable, children}: SectionProps) => {
     return (
-        <div id={id} className="section py-6">
+        <div id={id} className="section py-6 mb-12">
             <div className="container">
                 {children}
             </div>
