@@ -11,6 +11,7 @@ import { TbCircuitPushbutton } from 'react-icons/tb';
 import FirmwareUpdater from '../views/FirmwareUpdater';
 import Code from '../components/Code/Code';
 import Image from '../components/Image/Image';
+import DownloadList from '../components/DownloadList/DownloadList';
 
 const VOUT = '1VO';
 const GATE = 'GATE';
@@ -907,14 +908,12 @@ const Counterpoint: React.FC = () => {
                         <li>An installation of Google Chrome version 61 or higher</li>
                     </ul>
                     <Note>
-                        <p>Note: You will NOT need to power the module from your eurorack system for this process.</p>
+                        <p>Note: You will NOT need to power the module from your eurorack system for this process. The USB connection is all that is needed.</p>
                     </Note>
                     
                     
                     <SectionSubheading title="Step 2: Download the latest firmware" />
-                    <p>The latest firmware can be found at <a className="text-azure hover:text-azure/80 underline" href="https://github.com/scottc11/ok-counterpoint" target="_blank" rel="noopener noreferrer">https://github.com/scottc11/ok-counterpoint</a>.</p>
-                    <p>The available firmware will be labeled with a date and have a filename similar to <Code>counterpoint-20250330.bin</Code>.</p>
-                    <p>Click on the file you wish to download. On the far right, there should be a <span className="inline-block"><AiOutlineDownload /></span> icon. Pressing that icon will <b>download the file to your local computer</b>.</p>
+                    <DownloadList items={[{label: '1.0.0', file: 'counterpoint-firmware.bin', sizeLabel: '61 KB'}]} />
                     
                     
                     <SectionSubheading title="Step 3: USB-C connection" />
