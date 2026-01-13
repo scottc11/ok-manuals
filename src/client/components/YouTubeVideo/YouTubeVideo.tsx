@@ -33,6 +33,11 @@ const YouTubeVideo = ({
         if (muted) params.append('mute', '1');
         if (!controls) params.append('controls', '0');
         
+        // Minimize YouTube chrome (still not 100% gone)
+        params.append('rel', '0'); // Don't show related videos
+        params.append('iv_load_policy', '3'); // Hide annotations
+        params.append('playsinline', '1'); // Play inline on mobile
+
         const queryString = params.toString();
         return queryString ? `${baseUrl}?${queryString}` : baseUrl;
     };
@@ -70,7 +75,6 @@ const YouTubeVideo = ({
                 title={title}
                 style={iframeStyle}
                 className={`w-full ${height ? '' : 'h-full'}`}
-                frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
                 loading="lazy"

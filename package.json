@@ -7,7 +7,7 @@
     "build": "webpack --config webpack.config.js",
     "watch": "webpack --config webpack.config.js --watch",
     "start": "node --max-old-space-size=4096 ./node_modules/.bin/webpack serve --open",
-    "start:dev": " API_DOMAIN=http://localhost:3001 node --max-old-space-size=4096 ./node_modules/.bin/webpack serve --open --mode development",
+    "start:dev": "node --max-old-space-size=4096 ./node_modules/.bin/webpack serve --open --mode development",
     "server": "node src/index.js",
     "server:dev": "nodemon src/index.js"
   },

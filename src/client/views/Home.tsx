@@ -5,6 +5,7 @@ import NewsletterSignup from "../components/NewsletterSignup/NewsletterSignup";
 import HeroBanner from "../components/HeroBanner/HeroBanner";
 import InstagramPostEmbedded from "../components/InstagramPostEmbedded/InstagramPostEmbedded";
 import { useProductDetail } from "../hooks/useProductDetail";
+import VideoSection from "../sections/VideoSection";
 
 const Home = () => {
 
@@ -47,7 +48,10 @@ const Home = () => {
                     />
                 )}
             </Section>
-                        
+
+            {/* Video Section */}
+            <VideoSection videoId="Uh_s-r6_d4g?si=pcOLuslAvlDnpjxS" backgroundColor="bg-onyx" />
+
             {/* Newsletter Signup */}
             <div className="bg-lime">
                 <Section>
