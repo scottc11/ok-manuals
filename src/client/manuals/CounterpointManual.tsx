@@ -546,7 +546,7 @@ const CounterpointManual: React.FC = () => {
                             <p>A sequence's 'meter' is the number of beats in a bar. It can be set to <Label>[3/4]</Label>, <Label>[4/4]</Label>, <Label>[5/4]</Label>, or <Label>[7/4]</Label>.</p>
                             <p>To set the meter of a sequence, press the button between the <Label>BARS</Label> and <Label>METER</Label> display while holding down the <Label>ALT</Label> button.</p>
                             <p>Any new sequences will automatically be set to the active meter. Any existing sequences will not change.</p>
-                            <p>To see the meter of an existing sequence, hold the <Label>SELECT PAD</Label> for that channel. The associated meter will begin pulsing.</p>
+                            <p>To see the meter of an existing sequence, hold the <Label>SELECT PAD</Label> for that channel. The associated meter for that channel's sequence will begin to pulse/blink.</p>
                         </div>
                     </div>
                     
@@ -592,9 +592,9 @@ const CounterpointManual: React.FC = () => {
                     </p>
                     <p>The master channel is determined by the channel which was touched first.</p>
                     <p>To unlink a channel, hold <Label>FUNC</Label> + <Label>SELECT PAD</Label> for the channels you wish to unlink and then press the <Label>CLEAR</Label> button.</p>
-                    <p>When a channel is linked, you have the ability to adjust the octave offset of any of the slave channels. This is done by interacting the the slave channels octave pads.</p>
+                    <p>When a channel is linked, you have the ability to adjust the octave offset of any of the slave channels. This is done by interacting with the slave channel's octave pads.</p>
                     <p>
-                        Additionally, you can also adjust the scale degree offset of any slave channels by interacting with the slave channels degree pads. This means that a slave channel 
+                        Additionally, you can also adjust the scale degree offset of any slave channels by interacting with the slave channel's degree pads. This means that a slave channel 
                         doesn't have to be in unison with the master channel. For example, you could have the slave channel output exactly a minor third above whatever the master channel is outputting.
                     </p>
                     <Note>
