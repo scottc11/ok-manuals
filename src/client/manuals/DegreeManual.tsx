@@ -425,7 +425,7 @@ const DegreeManual = () => {
                         <li className="p-1">Patch the 1VO output of the target channel to the 1VO input of the target VCO</li>
                         <li className="p-1">Patch the output of the VCO into the <Definition item={CLOCK_INPUT} /> of the DEGREE (SAW, TRI, or SQUARE waves work best)</li>
                         <li className="p-1">Set the frequency of the VCO to a low value. The VCO should be oscillating at a frequency between 16.35Hz and 65.41Hz.</li>
-                        <li className="p-1">Hold down the <Definition item={ALT_BTN} /> and then press <Definition item={ALT_BTN} /> + <Definition item={CV_MODE_BTN} />. Once calibration has been initialized, the target channels sequence display will illuminate indicating that the VCO is being calibrated.</li>
+                        <li className="p-1">Select the channel you wish to calibrate by holding down the <Definition item={SELECT_PAD} />, then press <Definition item={ALT_BTN} /> + <Definition item={CV_MODE_BTN} /> to initialize calibration. Once calibration has been initialized, the target channels sequence display will illuminate indicating that the VCO is being calibrated.</li>
                         <li className="p-1">The calibration routine will run for a few seconds, afterwhich the calibration data will be saved to flash memory and preserved between power cycles.</li>
                         <li className="p-1">The display will flash a few times indicating that the calibration is complete.</li>
                     </ol>
