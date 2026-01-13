@@ -691,12 +691,6 @@ const CounterpointManual: React.FC = () => {
                         the <Label>SELECT PAD</Label>), or if no channel is selected it will get loaded into the corrosponding channel which the sequence slot is associated with. After a sequence is loaded,
                         it becomes "queued" for playback, and will not begin playing back until the start of the next bar.
                     </p>
-                    <Note>
-                        <p>
-                            NOTE: Saving and launching sequences was never an original feature of the Counterpoint, and has only been added at the request of some users. Knowing this, you should understand
-                            that this feature is not the most intuitive, as the panel layout was not originally designed to accomodate it.
-                        </p>
-                    </Note>
                 </Section>
 
                 <Section>
