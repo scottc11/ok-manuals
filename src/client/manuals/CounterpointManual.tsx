@@ -56,7 +56,7 @@ const Micro = ({children}: {children: React.ReactNode}) => {
     )
 }
 
-const Counterpoint: React.FC = () => {    
+const CounterpointManual: React.FC = () => {    
     return (
         <div className="bg-offwhite text-black font-body pb-8">
             <ContentsContextProvider>
@@ -941,4 +941,4 @@ const ui = {
     }
 }
 
-export default Counterpoint;
+export default CounterpointManual;

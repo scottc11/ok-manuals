@@ -5,7 +5,7 @@ import Footer from "./components/Footer/Footer";
 import DegreeManual from "./manuals/DegreeManual";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Home from "./views/Home";
-import Counterpoint from "./manuals/Counterpoint";
+import CounterpointManual from "./manuals/CounterpointManual";
 import PageNotFound404 from "./views/PageNotFound404";
 import Success from "./views/Success";
 import { CartProvider } from "./context/CartContext";
@@ -58,7 +58,7 @@ function App() {
                   <DegreeManual />
                 </Route>
                 <Route exact path="/manuals/counterpoint">
-                  <Counterpoint />
+                  <CounterpointManual />
                 </Route>
                 <Route exact path="/unsubscribe">
                   <NewsletterUnsubscribe />
