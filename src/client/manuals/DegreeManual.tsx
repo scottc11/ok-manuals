@@ -415,6 +415,10 @@ const DegreeManual = () => {
                         using <Link href="https://en.wikipedia.org/wiki/Interpolation">exponential interpolation</Link>.
                     </p>
 
+                    <Note>
+                        <p>NOTE: To reset the calibration data for a channel to default, see the <Link anchor href="#anchor-Settings and Gestures">Settings and Gestures</Link> section.</p>
+                    </Note>
+
                     <SectionSubheading title={'Calibration Steps'} />
 
                     <p>To calibrate a VCO, follow these steps (<b><u>read each step carefully!</u></b>):</p>
