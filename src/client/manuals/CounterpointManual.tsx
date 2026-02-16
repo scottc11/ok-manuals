@@ -56,6 +56,85 @@ const Micro = ({children}: {children: React.ReactNode}) => {
     )
 }
 
+const RateToCvTable: React.FC = () => {
+    return (
+        <table className="lg:w-1/2 w-full mb-4 border-collapse">
+            <thead>
+                <tr className="border-b-2 border-black">
+                    <th className="text-left w-1/3">CV Input</th>
+                    <th className="text-left w-2/3">GATE Output Rate</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr className="border-b border-dotted border-black pt-4">
+                    <td>
+                        0V - 1.25V
+                    </td>
+                    <td>
+                        1/4
+                    </td>
+                </tr>
+                <tr className="border-b border-dotted border-black pt-4">
+                    <td>
+                        1.25V - 2.5V
+                    </td>
+                    <td>
+                        1/4t
+                    </td>
+                </tr>
+                <tr className="border-b border-dotted border-black pt-4">
+                    <td>
+                        2.5V - 3.75V
+                    </td>
+                    <td>
+                        1/8
+                    </td>
+                </tr>
+                <tr className="border-b border-dotted border-black pt-4">
+                    <td>
+                        3.75V - 5V
+                    </td>
+                    <td>
+                        1/8t
+                    </td>
+                </tr>
+                <tr className="border-b border-dotted border-black pt-4">
+                    <td>
+                        5V - 6.25V
+                    </td>
+                    <td>
+                        1/16
+                    </td>
+                </tr>
+                <tr className="border-b border-dotted border-black pt-4">
+                    <td>
+                        6.25V - 7.5V
+                    </td>
+                    <td>
+                        1/16t
+                    </td>
+                </tr>
+                <tr className="border-b border-dotted border-black pt-4">
+                    <td>
+                        7.5V - 8.75V
+                    </td>
+                    <td>
+                        1/32
+                    </td>
+                </tr>
+                <tr className="border-b border-dotted border-black pt-4">
+                    <td>
+                        8.75V - 10V
+                    </td>
+                    <td>
+                        1/32t
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    )
+}
+
 const CounterpointManual: React.FC = () => {    
     return (
         <div className="bg-offwhite text-black font-body pb-8">
@@ -471,17 +550,28 @@ const CounterpointManual: React.FC = () => {
                     </Note>
 
                     <SectionSubheading title="Arp Rate" />
-                    <p>The arp rate can be set to quarter notes (1/4), eighth notes (1/8), sixteenth notes (1/16), or thirty second notes (1/32).</p>
+                    <p>The rate of the arpeggiator can be set to quarter notes (1/4), eighth notes (1/8), sixteenth notes (1/16), or thirty second notes (1/32).</p>
+                    
                     <p>Additionally, if you hold the <Label>TRIPLET</Label> pad in conjunction with an <Label>ARP RATE</Label> pad, the arp rate will be set to a triplet of the selected note value.</p>
+                    
                     <p>To set the arp rate, touch one of the four <Label>ARP RATE</Label> pads. The arp rate will change based on the <b>highest arp rate</b> that is touched.</p>
 
-                    <p>The arp rate can also be CV controlled via the <Label>RATE CV</Label> input (0V to 10V). At 0V, the arp rate will be set to the quarter note value. As the control voltage increases,
-                    the arp rate will increase until it reaches its highest possible value of thirty second note triplets at 10V.</p>
+                    <h3 className="text-xl font-bungee mt-4">Arp Rate CV Control</h3>
+
+                    <p>The rate of the arpeggiator can also be controlled with CV via the <Label>RATE CV</Label> input (0V to 10V).</p>
+
+                    <p className="mb-4">At slightly above 0V, the arp rate will be set to the quarter note value. As the control voltage increases, the arp rate will increase until it reaches its highest possible value of thirty second note triplets when CV is at 10V.</p>
+
+                    <RateToCvTable />
 
                     <SectionSubheading title="Arp Direction" />
                     <p>The arp direction can be set to <Label>UP</Label>, <Label>DOWN</Label>, <Label>UP/DOWN</Label>, or <Label>ORDER</Label>.</p>
                     <p>To set the arp direction, press the <Label>ARP DIR</Label> button and use the <Label>ARP RATE</Label> pads to select the direction.</p>
                     <p>The global arp direction can be CV controlled via the <Label>DIR CV</Label> input (0V to 10V). 0-2.5V is <Label>UP</Label>, 2.5-5V is <Label>DOWN</Label>, 5-7.5V is <Label>UP/DOWN</Label>, and 7.5-10V is <Label>ORDER</Label>.</p>
+
+                    <h3 className="text-xl font-bungee mt-4">Arp Direction CV Control</h3>
+                    <p>The arp direction can also be controlled with CV via the <Label>DIR CV</Label> input (0V to 10V).</p>
+                    <p>0-2.5V is <Label>UP</Label>, 2.5-5V is <Label>DOWN</Label>, 5-7.5V is <Label>UP/DOWN</Label>, and 7.5-10V is <Label>ORDER</Label>.</p>
 
                 </Section>
 
@@ -586,7 +676,11 @@ const CounterpointManual: React.FC = () => {
 
                 <Section>
                     <SectionHeading title="🔗 Channel Link" />
-                    <p>Counterpoint allows you to link once channel with another in such a way that the gate and 1VO outputs of the "slave" channel will be synchronized to the gate and 1VO outputs of the "master" channel.</p>
+                    <p>
+                        Counterpoint allows you to link once channel with another in such a way that the gate and 1VO outputs of the "slave" channel
+                         will be synchronized to the gate and 1VO outputs of the "master" channel. This allows you to create larger sounding monophonic leads/basslines, as well as 
+                        create <Link external href="https://en.wikipedia.org/wiki/Dyad_(music)">dyad progressions</Link> between two channels (or triad progressions between three channels, etc.).
+                    </p>
                     <p>
                         To link a channel, hold <Label>{FUNC}</Label> + <Label>SELECT PAD</Label> for the channels you wish to link and then press the <Label>CLEAR</Label> button.
                     </p>
@@ -660,9 +754,18 @@ const CounterpointManual: React.FC = () => {
 
                     <SectionSubheading title="Calibration data (CA)" />
                     <p>The row labeled <Label>CA</Label> is used to indicate the existence of calibration data for a particular channel. If the LED is illuminated, then calibration data exists for that channel.</p>
+                    
+                    
+                    <SectionSubheading title="CV Ratchet (CR)" />
+                    <p>The row labeled <Label>CR</Label> is used to configure the behavior of the Q CV input when a channel is in <u>Monophonic mode</u>.</p>
+                    <p>
+                        If the LED is illuminated, then the Q CV input will set the rate at which the <Label>GATE</Label> output will be triggered.
+                        The rate at which the <Label>GATE</Label> output will be triggered is determined like so:
+                    </p>
 
-                    <SectionSubheading title="Record octaves (RO)" />
-                    <p>The row labeled <Label>RO</Label> is used to indicate whether the octave touch pads should be recorded when sequencing a channel. If the LED is illuminated, then the octave touch pads will be recorded when sequencing a channel.</p>
+                    <RateToCvTable />
+
+                    <p>If the LED is not illuminated, then the Q CV input will be ignored (in monophonic mode), and the <Label>GATE</Label> output will be triggered exclusively by the channels <Label>TOUCH PADs</Label>.</p>
 
                     <SectionSubheading title="Auto Quantize (AQ)" />
                     <p>
@@ -678,6 +781,7 @@ const CounterpointManual: React.FC = () => {
                     </p>
                     
                 </Section>
+                
 
                 <Section>
                     <SectionHeading title="💾 Saving sequences" />
@@ -688,8 +792,15 @@ const CounterpointManual: React.FC = () => {
                     </p>
                     <p>
                         To launch a sequence, you need only touch the sequence slot you wish to launch. Once launched, the sequence will be loaded into either the selected channels (via 
-                        the <Label>SELECT PAD</Label>), or if no channel is selected it will get loaded into the corrosponding channel which the sequence slot is associated with. After a sequence is loaded,
+                        channel <Label>SELECT PAD</Label>s), or if no channel is selected it will get loaded into the corrosponding channel which the sequence slot is associated with. After a sequence is loaded,
                         it becomes "queued" for playback, and will not begin playing back until the start of the next bar.
+                    </p>
+                    <p>
+                        To delete a sequence, touch the sequence you wish to delete. The CLEAR button will start pulsing, at this point pressing the CLEAR button will delete the selected sequence.
+                    </p>
+                    <p>
+                        You can copy a sequence from one slot to another by touching the sequence you wish to copy and then touching the sequence slot you wish to copy it to. 
+                        The CLEAR button will start pulsing, at this point pressing the CLEAR button will copy the selected sequence to the selected sequence slot.
                     </p>
                 </Section>
 
