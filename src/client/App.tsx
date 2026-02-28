@@ -18,6 +18,7 @@ import BlogPostDetail from "./views/BlogPostDetail";
 import About from "./views/About";
 import ShoppingCart from "./views/ShoppingCart";
 import ScrollToTop from "./components/ScrollToTop";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {  
   return (
@@ -71,6 +72,7 @@ function App() {
           </div>
           <Footer />
         </div>
+        <Analytics />
       </BrowserRouter>
     </CartProvider>
   );
