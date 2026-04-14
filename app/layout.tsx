@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Bungee, Quicksand, Inconsolata, Unica_One } from "next/font/google";
 import "./globals.css";
+import { CartProvider } from "./components/CartProvider";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -59,7 +62,11 @@ export default function RootLayout({
       className={`${quicksand.variable} ${inconsolata.variable} ${bungee.variable} ${unicaOne.variable}`}
     >
       <body className="bg-onyx text-white min-h-screen">
-        {children}
+        <CartProvider>
+          <Header />
+          <main className="min-h-screen">{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
