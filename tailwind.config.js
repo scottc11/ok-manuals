@@ -4,6 +4,7 @@ const { BiHeading } = require('react-icons/bi');
 module.exports = {
     content: [
         "./src/client/**/*.{js,jsx,ts,tsx,html}",
+        "./app/**/*.{js,jsx,ts,tsx}",
     ],
     theme: {
         screens: {

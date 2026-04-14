@@ -48,12 +48,13 @@ module.exports = {
           loader: "ts-loader",
           options: isDevelopment
             ? {
+                configFile: "tsconfig.webpack.json",
                 transpileOnly: true,
                 getCustomTransformers: () => ({
                   before: [ReactRefreshTypeScript()],
                 }),
               }
-            : {},
+            : { configFile: "tsconfig.webpack.json" },
         },
       },
       {
