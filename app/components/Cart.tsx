@@ -12,9 +12,6 @@ export default function Cart() {
   >({});
   const [loadingPrices, setLoadingPrices] = useState(false);
 
-  const apiDomain =
-    process.env.NEXT_PUBLIC_API_DOMAIN ?? "";
-
   const formatPrice = (price: number, currency: string = "usd") =>
     new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -25,7 +22,7 @@ export default function Cart() {
     const fetchStripeProducts = async () => {
       setLoadingPrices(true);
       try {
-        const resp = await fetch(`${apiDomain}/api/products`);
+        const resp = await fetch("/api/products");
         const data = await resp.json();
         if (data.success && Array.isArray(data.products)) {
           const map: Record<
@@ -50,7 +47,7 @@ export default function Cart() {
       }
     };
     fetchStripeProducts();
-  }, [apiDomain]);
+  }, []);
 
   const cartTotal = useMemo(() => {
     return items.reduce((sum, item) => {
@@ -94,7 +91,7 @@ export default function Cart() {
     setIsCheckingOut(true);
     try {
       const response = await fetch(
-        `${apiDomain}/api/create-checkout-session`,
+        "/api/create-checkout-session",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

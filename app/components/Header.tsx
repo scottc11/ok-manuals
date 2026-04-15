@@ -104,14 +104,14 @@ export default function Header() {
               before:md:content-[''] before:md:absolute before:md:inset-0 before:md:rounded-2xl 
               before:md:bg-gradient-to-b before:md:from-gray-700/20 before:md:to-gray-900/20 before:md:pointer-events-none`}
           >
-            {NAV_LINKS.map(({ href, label, exact }) => (
+            {NAV_LINKS.map((link) => (
               <Link
-                key={href}
-                href={href}
-                className={highlight(isActive(href, exact))}
+                key={link.href}
+                href={link.href}
+                className={highlight(isActive(link.href, "exact" in link ? link.exact : undefined))}
                 onClick={() => setIsMenuOpen(false)}
               >
-                {label}
+                {link.label}
               </Link>
             ))}
             <Link

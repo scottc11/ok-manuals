@@ -12,8 +12,6 @@ export default function SuccessPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN ?? "";
-
   useEffect(() => {
     const verifySession = async () => {
       const sessionId = searchParams.get("session_id");
@@ -25,7 +23,7 @@ export default function SuccessPage() {
 
       try {
         const response = await fetch(
-          `${apiDomain}/api/verify-session?session_id=${sessionId}`,
+          `/api/verify-session?session_id=${sessionId}`,
         );
         const data = await response.json();
         if (data.success) {
@@ -43,7 +41,7 @@ export default function SuccessPage() {
     };
 
     verifySession();
-  }, [searchParams, clearCart, apiDomain]);
+  }, [searchParams, clearCart]);
 
   const formatPrice = (amount: number, currency: string) =>
     new Intl.NumberFormat("en-US", {

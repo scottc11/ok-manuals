@@ -10,8 +10,6 @@ export default function NewsletterUnsubscribePage() {
   >("idle");
   const [message, setMessage] = useState("");
 
-  const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN ?? "";
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -26,7 +24,7 @@ export default function NewsletterUnsubscribePage() {
 
     try {
       const response = await fetch(
-        `${apiDomain}/api/newsletter-unsubscribe`,
+        "/api/newsletter-unsubscribe",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
