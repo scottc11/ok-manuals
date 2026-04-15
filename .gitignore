@@ -1,7 +1,17 @@
 node_modules/
 dist/
 build/
-public/
+# Old Webpack build outputs (keep public/ tracked for Next.js static assets)
+public/bundle.js
+public/index.html
+public/favicon.svg
+public/*.bin
+public/*.js.map
+public/media/
+# Webpack hashed asset filenames
+public/[0-9a-f][0-9a-f][0-9a-f]*.png
+public/[0-9a-f][0-9a-f][0-9a-f]*.svg
+public/[0-9a-f][0-9a-f][0-9a-f]*.gif
 
 # Next.js
 .next/
