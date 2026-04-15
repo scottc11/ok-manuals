@@ -18,3 +18,18 @@ export async function getProduct(slug: string, selectFields?: string[]) {
   const entries = await contentfulClient.getEntries(params);
   return entries.items[0]?.fields ?? null;
 }
+
+export async function getBlogPosts() {
+  const entries = await contentfulClient.getEntries({
+    content_type: 'blogPost',
+    'fields.published[in]': 'true',
+    select: ['fields.title', 'fields.date', 'fields.image', 'fields.published'],
+    order: ['-fields.date'],
+  });
+  return entries.items;
+}
+
+export async function getBlogPost(id: string) {
+  const entry = await contentfulClient.getEntry(id);
+  return entry;
+}
