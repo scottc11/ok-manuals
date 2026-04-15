@@ -36,6 +36,7 @@ Google Cloud Project: "charming-scarab-466410-p8",
 `GOOGLE_PRIVATE_KEY_BASE64=base64_encode_your_google_private_key` (no quotations needed)
 `CONTENTFUL_SPACE_ID=someid`
 `CONTENTFUL_ACCESS_TOKEN=someaccesstoken`
+`REVALIDATION_SECRET=some_random_secret_string`
 
 
 ### Stripe Checkout
