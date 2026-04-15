@@ -6,11 +6,11 @@ https://scottc11.github.io/ok-manuals/
 Deployed using Vercel. Pushing anything to master branch will trigger a deployment.
 
 ## Tech stack
+- [Next.js](https://nextjs.org/) (App Router)
 - React
 - TypeScript
 - Sass
-- (Tailwind)[https://v3.tailwindcss.com/docs/installation]
-- Webpack
+- [Tailwind CSS](https://v3.tailwindcss.com/docs/installation)
 - (Resend email service)[https://resend.com/emails] (account: business email)
 - (Vercel)[https://vercel.com/scott-campbells-projects/ok200] (Server) (account: business email)
 - Stripe checkout (stripe hosted e-commerce)
@@ -38,6 +38,16 @@ Google Cloud Project: "charming-scarab-466410-p8",
 `CONTENTFUL_ACCESS_TOKEN=someaccesstoken`
 `REVALIDATION_SECRET=some_random_secret_string`
 
+### Contentful
+Content is managed in [Contentful](https://app.contentful.com/spaces/3852y1mxtp1y/views/entries) and fetched at build time by Next.js server components.
+
+**On-demand revalidation:** When content is published or unpublished in Contentful, a webhook sends a POST request to `/api/revalidate` which triggers Next.js to regenerate all cached pages. This means content updates appear on the live site without a full redeploy.
+
+**Webhook setup (Settings > Webhooks in Contentful):**
+- URL: `https://ok200.vercel.app/api/revalidate`
+- Method: POST
+- Custom header: `x-revalidation-secret` = the value of `REVALIDATION_SECRET` env var in Vercel
+- Triggers: Entry publish, Entry unpublish
 
 ### Stripe Checkout
 
