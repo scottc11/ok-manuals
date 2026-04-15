@@ -9,7 +9,7 @@ export type DownloadItem = {
 
 export default function DownloadList({
   items,
-  basePath = "firmware/",
+  basePath = "/firmware/",
 }: {
   items: DownloadItem[];
   basePath?: string;
