@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bungee, Quicksand, Inconsolata, Unica_One } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { CartProvider } from "./components/CartProvider";
 import Header from "./components/Header";
@@ -67,6 +68,7 @@ export default function RootLayout({
           <main className="min-h-screen">{children}</main>
           <Footer />
         </CartProvider>
+        <Analytics />
       </body>
     </html>
   );
