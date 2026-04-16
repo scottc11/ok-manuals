@@ -71,7 +71,7 @@ export default async function HomePage() {
 
       <div className="bg-lime">
         <Section>
-          <NewsletterSignup />
+          <NewsletterSignup variant="light" />
         </Section>
       </div>
 
