@@ -16,29 +16,29 @@ export default function BlogPostCard({ post, index }: BlogPostCardProps) {
 
   return (
     <article
-      className="rounded-lg border border-gray-200 bg-white shadow-sm overflow-hidden"
+      className="rounded-xl bg-neutral-900 border border-neutral-800 overflow-hidden transition-all duration-300 group-hover:border-lime/40 group-hover:shadow-lg group-hover:shadow-lime/5 group-hover:-translate-y-1"
       aria-labelledby={`post-title-${idBase}`}
     >
       {imageUrl && (
-        <div className="w-full relative h-48">
+        <div className="w-full relative h-52 overflow-hidden">
           <Image
             src={imageUrl}
             alt={imageAlt}
             fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 768px"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(max-width: 640px) 100vw, 50vw"
           />
         </div>
       )}
-      <div className="p-4">
+      <div className="p-5">
         <h2
           id={`post-title-${idBase}`}
-          className="text-xl font-semibold mb-1"
+          className="text-lg font-semibold text-white leading-snug mb-2 line-clamp-2"
         >
           {title}
         </h2>
         {date && (
-          <p className="text-sm text-gray-600">
+          <p className="text-xs font-mono text-gray-400 tracking-wide uppercase">
             {new Date(date).toLocaleDateString(undefined, {
               year: "numeric",
               month: "short",

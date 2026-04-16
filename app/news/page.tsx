@@ -13,21 +13,21 @@ export default async function NewsPage() {
   const posts = await getBlogPosts();
 
   return (
-    <div className="bg-white text-black">
-      <div className="container mx-auto px-4 py-8 max-w-3xl">
-        <h1 className="text-4xl font-bungee mb-8 text-left">News</h1>
-        <div className="grid grid-cols-1 gap-6">
+    <div className="bg-onyx text-white">
+      <div className="container mx-auto px-4 py-12 md:py-16 max-w-4xl">
+        <h1 className="text-4xl font-bungee mb-10 text-left">News</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {posts.map((post, idx) => (
             <Link
               key={post?.sys?.id || idx}
               href={`/news/${post?.sys?.id}`}
-              className="block focus:outline-none"
+              className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-lime rounded-xl"
             >
               <BlogPostCard post={post} index={idx} />
             </Link>
           ))}
           {posts.length === 0 && (
-            <p className="text-base text-gray-600">No blog posts found.</p>
+            <p className="text-base text-gray-400">No blog posts found.</p>
           )}
         </div>
       </div>

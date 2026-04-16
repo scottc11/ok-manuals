@@ -67,10 +67,10 @@ export default function ContactForm() {
     <div id="contact-form">
       <form
         onSubmit={handleSubmit}
-        className="space-y-6 rounded-lg bg-white p-4 shadow-lg"
+        className="space-y-6 rounded-xl bg-neutral-900 border border-neutral-800 p-6"
       >
         <div>
-          <label htmlFor="name" className="block text-sm font-medium mb-2">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
             Name *
           </label>
           <input
@@ -80,13 +80,13 @@ export default function ContactForm() {
             value={formData.name}
             onChange={handleInputChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+            className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-lime focus:border-transparent transition"
             placeholder="Your name"
           />
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-sm font-medium mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
             Email *
           </label>
           <input
@@ -96,13 +96,13 @@ export default function ContactForm() {
             value={formData.email}
             onChange={handleInputChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+            className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-lime focus:border-transparent transition"
             placeholder="your.email@example.com"
           />
         </div>
 
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium mb-2">
+          <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
             Subject
           </label>
           <input
@@ -111,13 +111,13 @@ export default function ContactForm() {
             name="subject"
             value={formData.subject}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
+            className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-lime focus:border-transparent transition"
             placeholder="What's this about?"
           />
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm font-medium mb-2">
+          <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
             Message *
           </label>
           <textarea
@@ -127,7 +127,7 @@ export default function ContactForm() {
             onChange={handleInputChange}
             required
             rows={6}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black resize-vertical"
+            className="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-lime focus:border-transparent transition resize-vertical"
             placeholder="Your message..."
           />
         </div>
@@ -135,19 +135,19 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full px-3 py-2 rounded border-2 border-black text-black hover:bg-black hover:text-white transition-colors duration-200 disabled:opacity-50"
+          className="w-full px-4 py-3 rounded-lg border-2 border-white text-white hover:bg-white hover:text-onyx transition-colors duration-200 disabled:opacity-50 font-medium"
         >
           {isSubmitting ? "Sending..." : "Send"}
         </button>
 
         {submitStatus === "success" && (
-          <div className="text-center text-gray-500 text-sm">
+          <div className="text-center text-lime text-sm">
             <p className="font-medium">Message sent successfully!</p>
           </div>
         )}
 
         {submitStatus === "error" && (
-          <div className="text-center text-red-700 text-sm">
+          <div className="text-center text-red-400 text-sm">
             <p className="font-medium">Error sending message</p>
             <p>{errorMessage}</p>
           </div>
