@@ -98,8 +98,13 @@ export default function RichTextRenderer({
   }, [document]);
 
   useEffect(() => {
-    mountedRootsRef.current.forEach((root) => root.unmount());
+    const previousRoots = mountedRootsRef.current;
     mountedRootsRef.current = [];
+    if (previousRoots.length > 0) {
+      queueMicrotask(() => {
+        previousRoots.forEach((root) => root.unmount());
+      });
+    }
 
     const container = containerRef.current;
     if (!container) return;
@@ -117,8 +122,13 @@ export default function RichTextRenderer({
     });
 
     return () => {
-      mountedRootsRef.current.forEach((root) => root.unmount());
+      const rootsToUnmount = mountedRootsRef.current;
       mountedRootsRef.current = [];
+      if (rootsToUnmount.length > 0) {
+        queueMicrotask(() => {
+          rootsToUnmount.forEach((root) => root.unmount());
+        });
+      }
     };
   }, [contentHtml]);
 
