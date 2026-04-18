@@ -5,6 +5,8 @@ import "./globals.css";
 import { CartProvider } from "./components/CartProvider";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import MessageBanner from "./components/MessageBanner";
+import { getMessageBanner } from "../lib/contentful";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -52,11 +54,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const banner = await getMessageBanner();
+
   return (
     <html
       lang="en"
@@ -64,6 +68,13 @@ export default function RootLayout({
     >
       <body className="bg-onyx text-white min-h-screen">
         <CartProvider>
+          {banner && (
+            <MessageBanner
+              id={banner.id}
+              message={banner.message}
+              dismissible={banner.dismissible}
+            />
+          )}
           <Header />
           <main className="min-h-screen">{children}</main>
           <Footer />

@@ -40,3 +40,39 @@ export async function getBlogPost(id: string) {
   const entry = await contentfulClient.getEntry(id);
   return entry;
 }
+
+export interface MessageBannerEntry {
+  id: string;
+  message: string;
+  dismissible?: boolean;
+}
+
+export async function getMessageBanner(): Promise<MessageBannerEntry | null> {
+  try {
+    const entries = await contentfulClient.getEntries({
+      content_type: "bannerMessage",
+      order: ["-sys.updatedAt"],
+      limit: 1,
+    });
+
+    const item = entries.items[0];
+    if (!item) return null;
+
+    const fields = item.fields as Record<string, any>;
+    const message = typeof fields.message === "string" ? fields.message.trim() : "";
+    if (!message) return null;
+
+    return {
+      id: item.sys.id,
+      message,
+      dismissible: Boolean(fields.dismissible),
+    };
+  } catch (error) {
+    // Content type may not exist yet, or network failure — fail silently so the
+    // rest of the site renders normally.
+    if (process.env.NODE_ENV !== "production") {
+      console.warn("getBannerMessage: unable to fetch banner", error);
+    }
+    return null;
+  }
+}
