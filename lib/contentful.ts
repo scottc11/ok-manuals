@@ -26,19 +26,58 @@ export async function getProducts() {
   return entries.items;
 }
 
+/** YYYY-MM-DD from a Contentful date field, for URLs (UTC calendar day). */
+export function blogPostDateToPathSegment(
+  dateValue: string | undefined,
+): string | null {
+  if (!dateValue || typeof dateValue !== "string") return null;
+  const d = new Date(dateValue);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toISOString().slice(0, 10);
+}
+
 export async function getBlogPosts() {
   const entries = await contentfulClient.getEntries({
     content_type: 'blogPost',
     'fields.published[in]': 'true',
-    select: ['fields.title', 'fields.date', 'fields.image', 'fields.published'],
+    select: [
+      'fields.title',
+      'fields.date',
+      'fields.image',
+      'fields.published',
+    ],
     order: ['-fields.date'],
   });
   return entries.items;
 }
 
-export async function getBlogPost(id: string) {
-  const entry = await contentfulClient.getEntry(id);
-  return entry;
+/** Fetch a single post by URL segment YYYY-MM-DD (one post per day). */
+export async function getBlogPostByDateSegment(dateSegment: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateSegment)) return null;
+  const start = `${dateSegment}T00:00:00.000Z`;
+  const end = `${dateSegment}T23:59:59.999Z`;
+  const entries = await contentfulClient.getEntries({
+    content_type: 'blogPost',
+    'fields.date[gte]': start,
+    'fields.date[lte]': end,
+    'fields.published[in]': 'true',
+    limit: 1,
+  });
+  return entries.items[0] ?? null;
+}
+
+export async function getBlogPostDateSegments(): Promise<string[]> {
+  const entries = await contentfulClient.getEntries({
+    content_type: 'blogPost',
+    'fields.published[in]': 'true',
+    select: ['fields.date'],
+  });
+  const segments = entries.items
+    .map((item) =>
+      blogPostDateToPathSegment((item.fields as Record<string, any>).date),
+    )
+    .filter((s): s is string => s != null);
+  return [...new Set(segments)];
 }
 
 export interface MessageBannerEntry {

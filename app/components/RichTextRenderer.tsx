@@ -49,6 +49,12 @@ const richTextOptions: Options = {
       `<h5 class="text-base sm:text-lg font-semibold mt-3 mb-1">${next(node.content)}</h5>`,
     [BLOCKS.HEADING_6]: (node: any, next: (nodes: any[]) => string) =>
       `<h6 class="text-sm sm:text-base uppercase tracking-wide text-gray-700 mt-3 mb-1">${next(node.content)}</h6>`,
+    [BLOCKS.UL_LIST]: (node: any, next: (nodes: any[]) => string) =>
+      `<ul class="list-outside list-disc pl-6 my-4 space-y-1">${next(node.content)}</ul>`,
+    [BLOCKS.OL_LIST]: (node: any, next: (nodes: any[]) => string) =>
+      `<ol class="list-outside list-decimal pl-6 my-4 space-y-1">${next(node.content)}</ol>`,
+    [BLOCKS.LIST_ITEM]: (node: any, next: (nodes: any[]) => string) =>
+      `<li class="pl-1 marker:text-gray-800">${next(node.content)}</li>`,
     [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
       const file = node?.data?.target?.fields?.file;
       const title = node?.data?.target?.fields?.title || "";
@@ -135,8 +141,9 @@ export default function RichTextRenderer({
   const wrapperClasses = [
     "leading-relaxed",
     "space-y-4",
-    "[&_ul]:list-outside",
-    "[&_ol]:list-outside",
+    "[&_ul]:list-outside [&_ul]:list-disc [&_ul]:pl-6",
+    "[&_ol]:list-outside [&_ol]:list-decimal [&_ol]:pl-6",
+    "[&_li>p]:pt-0 [&_li>p]:pb-0 [&_li>p]:my-0",
     className || "",
   ]
     .join(" ")

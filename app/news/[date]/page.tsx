@@ -1,18 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getBlogPost } from "../../../lib/contentful";
-import RichTextRenderer from "../../components/RichTextRenderer";
 import { notFound } from "next/navigation";
+import {
+  getBlogPostByDateSegment,
+  getBlogPostDateSegments,
+} from "../../../lib/contentful";
+import RichTextRenderer from "../../components/RichTextRenderer";
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ date: string }>;
+}
+
+export async function generateStaticParams() {
+  const segments = await getBlogPostDateSegments();
+  return segments.map((date) => ({ date }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { id } = await params;
+  const { date } = await params;
   try {
-    const entry = await getBlogPost(id);
+    const entry = await getBlogPostByDateSegment(date);
     const title = (entry?.fields?.title as string) || "Blog Post";
     return {
       title,
@@ -24,24 +32,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BlogPostDetailPage({ params }: PageProps) {
-  const { id } = await params;
+  const { date } = await params;
 
-  let entry: any;
+  let entry: Awaited<ReturnType<typeof getBlogPostByDateSegment>> | null = null;
   try {
-    entry = await getBlogPost(id);
+    entry = await getBlogPostByDateSegment(date);
   } catch {
     notFound();
   }
 
   if (!entry) notFound();
 
-  const title = entry?.fields?.title || "Untitled";
-  const date = entry?.fields?.date || "";
-  const rawUrl = (entry?.fields?.image as any)?.fields?.file?.url || "";
+  const fields = entry.fields as Record<string, any>;
+  const title = fields.title || "Untitled";
+  const postDate = fields.date || "";
+  const rawUrl = fields.image?.fields?.file?.url || "";
   const imageUrl = rawUrl.startsWith("//") ? `https:${rawUrl}` : rawUrl;
-  const imageAlt =
-    (entry?.fields?.image as any)?.fields?.title || title || "Blog image";
-  const richContent = entry?.fields?.content;
+  const imageAlt = fields.image?.fields?.title || title || "Blog image";
+  const richContent = fields.content;
 
   return (
     <div className="bg-white text-black">
@@ -65,9 +73,9 @@ export default async function BlogPostDetailPage({ params }: PageProps) {
             </div>
           )}
           <h1 className="text-3xl font-bold mb-2">{title as string}</h1>
-          {date && (
+          {postDate && (
             <p className="text-sm text-gray-600 mb-4">
-              {new Date(date as string).toLocaleDateString(undefined, {
+              {new Date(postDate as string).toLocaleDateString(undefined, {
                 year: "numeric",
                 month: "short",
                 day: "numeric",
