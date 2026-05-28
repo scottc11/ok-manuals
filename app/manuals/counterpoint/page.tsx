@@ -376,13 +376,62 @@ export default function CounterpointManualPage() {
 
         <Section>
           <SectionHeading title="🔗 Channel Link" />
-          <p>Counterpoint allows you to link once channel with another in such a way that the gate and 1VO outputs of the &quot;slave&quot; channel will be synchronized to the gate and 1VO outputs of the &quot;master&quot; channel. This allows you to create larger sounding monophonic leads/basslines, as well as create <ManualLink external href="https://en.wikipedia.org/wiki/Dyad_(music)">dyad progressions</ManualLink> between two channels (or triad progressions between three channels, etc.).</p>
+          <div className="bg-onyx/10 -mx-4 px-4 py-4 -mt-4 rounded-b-sm">
+            <p className="text-lg leading-relaxed">Counterpoint allows you to link several channels together so that one channel becomes the master, and the remaining (linked) channels the follower. </p>
+            <p>This means that when a master channel changes its output, any linked channels will also change their output to match the master channel's output.</p>
+            <p>This feature allows you to more easily create large sounding monophonic leads/basslines, as well as create <ManualLink external href="https://en.wikipedia.org/wiki/Dyad_(music)">dyad progressions</ManualLink> between two channels (or triad progressions between three channels, etc.).</p>
+          </div>
+          
+          <hr className="border-t border-dotted border-onyx/20 my-6" />
           <p>To link a channel, hold <Label>{`FUNC`}</Label> + <Label>SELECT PAD</Label> for the channels you wish to link and then press the <Label>CLEAR</Label> button.</p>
           <p>The master channel is determined by the channel which was touched first.</p>
           <p>To unlink a channel, hold <Label>FUNC</Label> + <Label>SELECT PAD</Label> for the channels you wish to unlink and then press the <Label>CLEAR</Label> button.</p>
-          <p>When a channel is linked, you have the ability to adjust the octave offset of any of the slave channels. This is done by interacting with the slave channel&apos;s octave pads.</p>
-          <p>Additionally, you can also adjust the scale degree offset of any slave channels by interacting with the slave channel&apos;s degree pads. This means that a slave channel doesn&apos;t have to be in unison with the master channel. For example, you could have the slave channel output exactly a minor third above whatever the master channel is outputting.</p>
+
           <Note><p>Note: the <Label>SLEW</Label> setting for a channel will always be independent of the linked channel, but any <Label>pitch bend</Label> CV will be syncronized between the linked channels.</p></Note>
+
+          <SectionSubheading title="Dyadic intervals" />
+
+          <p>
+            For each linked channel you can apply a dyadic offset to the master channel by interacting with the follower channel&apos;s degree pads. 
+            This means that a follower channel doesn&apos;t have to be in unison with the master channel. For example, you could have the follower channel 
+            output exactly a minor third above whatever the master channel is outputting.
+          </p>
+          <p>The following table shows the relationship between the physical pad and the associated dyadic interval.</p>
+
+          <table className="w-full mb-4 border-collapse">
+            <thead>
+              <tr className="border-b-2 border-black"><th className="text-left w-1/3">Physical pad</th>
+              <th className="text-left w-1/3">Interval</th>
+              <th className="text-left w-1/3">Semitones</th></tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-dotted border-black pt-4"><td>1 (bottom)</td><td>Unison</td><td>0</td></tr>
+              <tr className="border-b border-dotted border-black pt-4"><td>2</td><td>Minor 3rd</td><td>3</td></tr>
+              <tr className="border-b border-dotted border-black pt-4"><td>3</td><td>Major 3rd</td><td>4</td></tr>
+              <tr className="border-b border-dotted border-black pt-4"><td>4</td><td>Tritone (♯4/♭5)</td><td>6</td></tr>
+              <tr className="border-b border-dotted border-black pt-4"><td>5</td><td>Perfect 5th</td><td>7</td></tr>
+              <tr className="border-b border-dotted border-black pt-4"><td>6</td><td>Minor 6th</td><td>8</td></tr>
+              <tr className="border-b border-dotted border-black pt-4"><td>7</td><td>Major 6th</td><td>9</td></tr>
+              <tr className="border-b border-dotted border-black pt-4"><td>8 (top)</td><td>Octave</td><td>12</td></tr>
+            </tbody>
+          </table>
+
+          <SectionSubheading title="Octave offsets" />
+          
+          <p>When a channel is linked, you have the ability to adjust the octave offset of any of the follower channels. This is done by interacting with the follower channel&apos;s octave pads while holding the <Label>FUNC</Label> pad.</p>
+          
+          <table className="w-full mb-4 border-collapse">
+            <thead>
+              <tr className="border-b-2 border-black"><th className="text-left w-1/3">Octave pad</th>
+              <th className="text-left w-2/3">Octave offset</th></tr>
+            </thead>
+            <tbody>
+              <tr className="border-b border-dotted border-black pt-4"><td>1</td><td>+0 octaves</td></tr>
+              <tr className="border-b border-dotted border-black pt-4"><td>2</td><td>+1 octave</td></tr>
+              <tr className="border-b border-dotted border-black pt-4"><td>3</td><td>+2 octaves</td></tr>
+              <tr className="border-b border-dotted border-black pt-4"><td>4</td><td>+3 octaves</td></tr>
+            </tbody>
+          </table>
         </Section>
 
         <Section>
@@ -471,13 +520,13 @@ export default function CounterpointManualPage() {
         <Section>
           <SectionHeading title="🔧 VCO Calibration" />
           <p>Counterpoint controlls up to 4 oscillators using the 1VO protocol. This is great when your VCOs are in tune / properly calibrated, however, maintaining the calibration of 4 oscillators (to be perfectly in tune with each other) can be an absolute pain.</p>
-          <p>To remedy this, Counterpoint provides a built-in method for auto-calibrating your VCOs &quot;digitally&quot;. Using the <Label>BEND CV</Label> input, Counterpoint detects the frequency of the VCO at a variety of voltages provided by the <Label>1VO</Label> output. Counterpoint then uses this data to calculate the frequency of the VCO at any given voltage using <ManualLink external href="https://en.wikipedia.org/wiki/Interpolation">exponential interpolation</ManualLink>.</p>
+          <p>To remedy this, Counterpoint provides a built-in method for auto-calibrating your VCOs &quot;digitally&quot;. Using the <Label>CLOCK</Label> input jack, Counterpoint detects the frequency of the VCO at a variety of voltages provided by the <Label>1VO</Label> output. Counterpoint then uses this data to calculate the frequency of the VCO at any given voltage using <ManualLink external href="https://en.wikipedia.org/wiki/Interpolation">exponential interpolation</ManualLink>.</p>
           <p>Follow the steps below to calibrate your VCOs.</p>
           <SectionSubheading title="Step 1: Prepare your VCO" />
           <p>In order to calibrate your VCO, you will need to first patch and prepare the VCO within a certain set of parameters.</p>
           <p><b>Step 1:</b> Make sure your VCO has been turned on for at least 10 minutes (commonly known as letting it &quot;warm up&quot;).</p>
           <p><b>Step 2:</b> Patch the <Label>1VO</Label> output of the channel you wish to calibrate to the 1VO input of your VCO.</p>
-          <p><b>Step 3:</b> Patch the output of the VCO into the <Label>BEND CV</Label> input of <b>the same channel</b>.</p>
+          <p><b>Step 3:</b> Patch the output of the VCO into the <Label>CLOCK</Label> input jack Counterpoint.</p>
           <p><b>Step 4:</b> Using your VCOs frequency knob, set the frequency to its lowest possible note (aim for C1, and don&apos;t exceed C2). This means any octave switches should be at their lowest setting. The VCO should be oscillating at a frequency between 16.35Hz and 65.41Hz.</p>
           <br />
           <p>The VCO is now ready to be calibrated. Hold the <Label>SELECT PAD</Label> associated with the channel you wish to calibrate and then press <Label>ALT</Label> + <Label>RESET</Label>.</p>
