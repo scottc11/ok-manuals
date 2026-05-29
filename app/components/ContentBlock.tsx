@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { Document } from "@contentful/rich-text-types";
 import RichTextRenderer from "./RichTextRenderer";
 import YouTubeVideo from "./YouTubeVideo";
+import { mergeContentfulStyles } from "../../lib/contentful-styles";
 
 interface ContentBlockProps {
   entry: any;
@@ -39,17 +40,40 @@ function BlockRenderer({ block }: { block: any }) {
       const rawUrl: string = asset?.fields?.file?.url || "";
       const imageUrl = rawUrl.startsWith("//") ? `https:${rawUrl}` : rawUrl;
       const imageAlt: string = asset?.fields?.title || fields.label || "Image";
+      const maxWidth: string = fields.maxWidth || "100%";
+      const fixedHeight: string | undefined = fields.height || undefined;
+      const objectPosition: string = fields.objectPosition || "center";
+      if (!imageUrl) return null;
+
+      if (fixedHeight) {
+        return (
+          <div
+            className="relative overflow-hidden rounded-lg"
+            style={{ maxWidth, height: fixedHeight, ...mergeContentfulStyles(fields.styles) }}
+          >
+            <Image
+              src={imageUrl}
+              alt={imageAlt}
+              fill
+              style={{ objectFit: "cover", objectPosition}}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+          </div>
+        );
+      }
+
       const intrinsicWidth: number = asset?.fields?.file?.details?.image?.width || 800;
       const intrinsicHeight: number = asset?.fields?.file?.details?.image?.height || 600;
-      if (!imageUrl) return null;
       return (
-        <Image
-          src={imageUrl}
-          alt={imageAlt}
-          width={intrinsicWidth}
-          height={intrinsicHeight}
-          className="w-full h-auto rounded-lg"
-        />
+        <div style={{ maxWidth, ...mergeContentfulStyles(fields.styles) }}>
+          <Image
+            src={imageUrl}
+            alt={imageAlt}
+            width={intrinsicWidth}
+            height={intrinsicHeight}
+            className="w-full h-auto rounded-lg"
+          />
+        </div>
       );
     }
 
