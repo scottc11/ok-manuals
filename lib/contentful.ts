@@ -9,6 +9,7 @@ export async function getProduct(slug: string, selectFields?: string[]) {
   const params: Record<string, any> = {
     content_type: 'product',
     'fields.slug': slug,
+    include: 4,
   };
 
   if (selectFields && selectFields.length > 0) {

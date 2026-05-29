@@ -4,6 +4,8 @@ import { getProduct } from "../../../lib/contentful";
 import { notFound } from "next/navigation";
 import ProductDetail from "../../components/ProductDetail";
 import YouTubeVideo from "../../components/YouTubeVideo";
+import ContentSection from "../../components/ContentSection";
+import ContentBlockContainer from "../../components/ContentBlockContainer";
 import { FaBook } from "react-icons/fa";
 
 interface PageProps {
@@ -68,63 +70,76 @@ export default async function ProductViewPage({ params }: PageProps) {
   const manualUrl = product.manualUrl
     ? String(product.manualUrl)
     : null;
+  const sections = product.sections as any[] | undefined;
 
   return (
-    <div className="container mx-auto py-8">
-      <ProductDetail product={product} imageUrls={imageUrls} />
+    <>
+      <ContentSection>
+        <ProductDetail product={product} imageUrls={imageUrls} />
+      </ContentSection>
+
+      {sections && sections.length > 0 && sections.map((section: any, index: number) => (
+        <ContentBlockContainer entry={section} key={index} />
+      ))}
 
       {manualUrl && (
-        <div className="flex flex-col gap-4 my-8 p-8 border-2 border-gray-800 rounded-sm hover:border-lime transition-colors duration-300 bg-gray-950 [background-image:radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:10px_10px] [background-position:0_0]">
-          <Link href={manualUrl} className="block">
-            <div className="flex items-center flex-col justify-center gap-4 hover:text-lime transition-colors duration-300">
-              <span className="text-4xl font-bungee font-bold">Manual</span>
-              <FaBook
-                className="hover:text-lime transition-colors duration-300"
-                size={172}
-              />
-            </div>
-          </Link>
-        </div>
+        <ContentSection>
+          <div className="flex flex-col gap-4 p-8 border-2 border-gray-800 rounded-sm hover:border-lime transition-colors duration-300 bg-gray-950 [background-image:radial-gradient(rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:10px_10px] [background-position:0_0]">
+            <Link href={manualUrl} className="block">
+              <div className="flex items-center flex-col justify-center gap-4 hover:text-lime transition-colors duration-300">
+                <span className="text-4xl font-bungee font-bold">Manual</span>
+                <FaBook
+                  className="hover:text-lime transition-colors duration-300"
+                  size={172}
+                />
+              </div>
+            </Link>
+          </div>
+        </ContentSection>
       )}
 
       {specifications && specifications.length > 0 && (
-        <div className="border-2 border-gray-800 bg-gray-950 p-8 rounded-sm">
-          <div className="font-bungee bg-onyx/10 -mx-2 px-2 mt-12 mb-2 rounded-sm">
-            <h3 className="text-xl py-2">Specifications</h3>
-          </div>
-          <table className="w-full my-4 border-collapse">
-            <thead>
-              <tr className="border-b-2 border-offwhite/20">
-                <th className="text-left w-32">Label</th>
-                <th className="text-left">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {specifications.map((spec) => (
-                <tr
-                  key={spec.label}
-                  className="border-b-2 border-offwhite/20 border-dotted"
-                >
-                  <td className="font-bold pr-4">{spec.label}</td>
-                  <td>{spec.value}</td>
+        <ContentSection>
+          <div className="border-2 border-gray-800 bg-gray-950 p-8 rounded-sm">
+            <div className="font-bungee bg-onyx/10 -mx-2 px-2 mt-12 mb-2 rounded-sm">
+              <h3 className="text-xl py-2">Specifications</h3>
+            </div>
+            <table className="w-full my-4 border-collapse">
+              <thead>
+                <tr className="border-b-2 border-offwhite/20">
+                  <th className="text-left w-32">Label</th>
+                  <th className="text-left">Description</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {specifications.map((spec) => (
+                  <tr
+                    key={spec.label}
+                    className="border-b-2 border-offwhite/20 border-dotted"
+                  >
+                    <td className="font-bold pr-4">{spec.label}</td>
+                    <td>{spec.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </ContentSection>
       )}
 
       {videos && videos.length > 0 && (
-        <div className="flex flex-col gap-8 mt-8">
-          {videos.map((video) => (
-            <YouTubeVideo
-              key={video.fields.videoId}
-              videoId={video.fields.videoId}
-              title={video.fields.title}
-            />
-          ))}
-        </div>
+        <ContentSection>
+          <div className="flex flex-col gap-8">
+            {videos.map((video) => (
+              <YouTubeVideo
+                key={video.fields.videoId}
+                videoId={video.fields.videoId}
+                title={video.fields.title}
+              />
+            ))}
+          </div>
+        </ContentSection>
       )}
-    </div>
+    </>
   );
 }
