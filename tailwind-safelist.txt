@@ -1,0 +1,36 @@
+<!--
+  Classes listed here are used dynamically from Contentful and must be
+  present so Tailwind's JIT compiler generates them. Add any Tailwind
+  class you reference from a Contentful className or highlights field.
+-->
+
+<!-- gradient text -->
+text-transparent bg-clip-text
+bg-gradient-to-r bg-gradient-to-l bg-gradient-to-t bg-gradient-to-b
+from-purple-400 to-amber-300
+from-blue-400 to-green-300
+from-pink-500 to-yellow-500
+from-cyan-400 to-blue-500
+
+<!-- heading sizes -->
+text-xl text-2xl text-3xl text-4xl text-5xl text-6xl text-7xl text-8xl
+sm:text-3xl sm:text-4xl sm:text-5xl sm:text-6xl
+md:text-4xl md:text-5xl md:text-6xl md:text-7xl
+lg:text-2xl lg:text-3xl lg:text-4xl lg:text-5xl lg:text-6xl lg:text-7xl lg:text-8xl
+
+<!-- font/tracking/leading -->
+font-bold font-semibold font-extrabold font-light
+underline
+tracking-tight tracking-wide tracking-wider
+leading-tight leading-snug leading-relaxed leading-loose
+
+<!-- text colors -->
+text-white text-gray-300 text-gray-400
+text-lime text-lavender text-lava text-azure
+
+<!-- alignment -->
+text-left text-center text-right
+
+<!-- spacing -->
+mb-2 mb-4 mb-6 mb-8 mb-10 mb-12
+mt-2 mt-4 mt-6 mt-8

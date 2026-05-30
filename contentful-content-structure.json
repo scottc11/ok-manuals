@@ -2,7 +2,7 @@
     "sys": {
         "type": "Array"
     },
-    "total": 14,
+    "total": 15,
     "skip": 0,
     "limit": 100,
     "items": [
@@ -15,10 +15,10 @@
                         "id": "3852y1mxtp1y"
                     }
                 },
-                "id": "image",
+                "id": "contentBlock",
                 "type": "ContentType",
-                "createdAt": "2026-05-28T15:27:41.066Z",
-                "updatedAt": "2026-05-28T15:30:31.256Z",
+                "createdAt": "2026-05-28T13:16:29.500Z",
+                "updatedAt": "2026-05-29T14:06:46.904Z",
                 "environment": {
                     "sys": {
                         "id": "master",
@@ -26,7 +26,150 @@
                         "linkType": "Environment"
                     }
                 },
-                "revision": 2
+                "revision": 8
+            },
+            "displayField": "id",
+            "name": "Content Block",
+            "description": "Block of content (ie. Image, text, buttons, etc.)",
+            "fields": [
+                {
+                    "id": "id",
+                    "name": "ID",
+                    "type": "Symbol",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false
+                },
+                {
+                    "id": "verticalAlign",
+                    "name": "Vertical Align",
+                    "type": "Symbol",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false
+                },
+                {
+                    "id": "blocks",
+                    "name": "Blocks",
+                    "type": "Array",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false,
+                    "items": {
+                        "type": "Link",
+                        "validations": [
+                            {
+                                "linkContentType": [
+                                    "button",
+                                    "youTubeVideo",
+                                    "richText",
+                                    "image",
+                                    "heading"
+                                ]
+                            }
+                        ],
+                        "linkType": "Entry"
+                    }
+                }
+            ]
+        },
+        {
+            "sys": {
+                "space": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "Space",
+                        "id": "3852y1mxtp1y"
+                    }
+                },
+                "id": "heading",
+                "type": "ContentType",
+                "createdAt": "2026-05-29T14:05:02.482Z",
+                "updatedAt": "2026-05-29T14:05:02.482Z",
+                "environment": {
+                    "sys": {
+                        "id": "master",
+                        "type": "Link",
+                        "linkType": "Environment"
+                    }
+                },
+                "revision": 1
+            },
+            "displayField": "text",
+            "name": "Heading",
+            "description": "Content block heading",
+            "fields": [
+                {
+                    "id": "text",
+                    "name": "Text",
+                    "type": "Symbol",
+                    "localized": false,
+                    "required": true,
+                    "disabled": false,
+                    "omitted": false
+                },
+                {
+                    "id": "level",
+                    "name": "Level",
+                    "type": "Symbol",
+                    "localized": false,
+                    "required": true,
+                    "disabled": false,
+                    "omitted": false
+                },
+                {
+                    "id": "alignment",
+                    "name": "Alignment",
+                    "type": "Symbol",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false
+                },
+                {
+                    "id": "className",
+                    "name": "className",
+                    "type": "Symbol",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false
+                },
+                {
+                    "id": "highlights",
+                    "name": "Highlights",
+                    "type": "Object",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false
+                }
+            ]
+        },
+        {
+            "sys": {
+                "space": {
+                    "sys": {
+                        "type": "Link",
+                        "linkType": "Space",
+                        "id": "3852y1mxtp1y"
+                    }
+                },
+                "id": "image",
+                "type": "ContentType",
+                "createdAt": "2026-05-28T15:27:41.066Z",
+                "updatedAt": "2026-05-29T13:41:38.244Z",
+                "environment": {
+                    "sys": {
+                        "id": "master",
+                        "type": "Link",
+                        "linkType": "Environment"
+                    }
+                },
+                "revision": 5
             },
             "displayField": "label",
             "name": "Image",
@@ -50,6 +193,62 @@
                     "disabled": false,
                     "omitted": false,
                     "linkType": "Asset"
+                },
+                {
+                    "id": "maxWidth",
+                    "name": "Max Width",
+                    "type": "Symbol",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false
+                },
+                {
+                    "id": "height",
+                    "name": "Height",
+                    "type": "Symbol",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false
+                },
+                {
+                    "id": "objectPosition",
+                    "name": "Object Position",
+                    "type": "Symbol",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false
+                },
+                {
+                    "id": "styles",
+                    "name": "Styles",
+                    "type": "Array",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false,
+                    "items": {
+                        "type": "Link",
+                        "validations": [
+                            {
+                                "linkContentType": [
+                                    "style"
+                                ]
+                            }
+                        ],
+                        "linkType": "Entry"
+                    }
+                },
+                {
+                    "id": "fillContainer",
+                    "name": "Fill Container",
+                    "type": "Boolean",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false
                 }
             ]
         },
@@ -62,10 +261,10 @@
                         "id": "3852y1mxtp1y"
                     }
                 },
-                "id": "contentBlock",
+                "id": "contentBlockContainer",
                 "type": "ContentType",
-                "createdAt": "2026-05-28T13:16:29.500Z",
-                "updatedAt": "2026-05-28T15:28:02.211Z",
+                "createdAt": "2026-05-28T13:43:14.244Z",
+                "updatedAt": "2026-05-29T13:28:20.653Z",
                 "environment": {
                     "sys": {
                         "id": "master",
@@ -73,11 +272,11 @@
                         "linkType": "Environment"
                     }
                 },
-                "revision": 4
+                "revision": 9
             },
             "displayField": "id",
-            "name": "Content Block",
-            "description": "Block of content (ie. Image, text, buttons, etc.)",
+            "name": "Content Block Container",
+            "description": "Container for one or more Content Blocks",
             "fields": [
                 {
                     "id": "id",
@@ -85,6 +284,24 @@
                     "type": "Symbol",
                     "localized": false,
                     "required": false,
+                    "disabled": false,
+                    "omitted": false
+                },
+                {
+                    "id": "columns",
+                    "name": "Columns",
+                    "type": "Integer",
+                    "localized": false,
+                    "required": true,
+                    "disabled": false,
+                    "omitted": false
+                },
+                {
+                    "id": "gap",
+                    "name": "Gap",
+                    "type": "Symbol",
+                    "localized": false,
+                    "required": true,
                     "disabled": false,
                     "omitted": false
                 },
@@ -101,10 +318,27 @@
                         "validations": [
                             {
                                 "linkContentType": [
-                                    "button",
-                                    "youTubeVideo",
-                                    "richText",
-                                    "image"
+                                    "contentBlock"
+                                ]
+                            }
+                        ],
+                        "linkType": "Entry"
+                    }
+                },
+                {
+                    "id": "styles",
+                    "name": "Styles",
+                    "type": "Array",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false,
+                    "items": {
+                        "type": "Link",
+                        "validations": [
+                            {
+                                "linkContentType": [
+                                    "style"
                                 ]
                             }
                         ],
@@ -406,101 +640,6 @@
                     "required": false,
                     "disabled": false,
                     "omitted": false
-                }
-            ]
-        },
-        {
-            "sys": {
-                "space": {
-                    "sys": {
-                        "type": "Link",
-                        "linkType": "Space",
-                        "id": "3852y1mxtp1y"
-                    }
-                },
-                "id": "contentBlockContainer",
-                "type": "ContentType",
-                "createdAt": "2026-05-28T13:43:14.244Z",
-                "updatedAt": "2026-05-28T13:53:09.476Z",
-                "environment": {
-                    "sys": {
-                        "id": "master",
-                        "type": "Link",
-                        "linkType": "Environment"
-                    }
-                },
-                "revision": 8
-            },
-            "displayField": "id",
-            "name": "Content Block Container",
-            "description": "Container for one or more Content Blocks",
-            "fields": [
-                {
-                    "id": "id",
-                    "name": "ID",
-                    "type": "Symbol",
-                    "localized": false,
-                    "required": false,
-                    "disabled": false,
-                    "omitted": false
-                },
-                {
-                    "id": "columns",
-                    "name": "Columns",
-                    "type": "Integer",
-                    "localized": false,
-                    "required": true,
-                    "disabled": false,
-                    "omitted": false
-                },
-                {
-                    "id": "gap",
-                    "name": "Gap",
-                    "type": "Symbol",
-                    "localized": false,
-                    "required": true,
-                    "disabled": false,
-                    "omitted": false
-                },
-                {
-                    "id": "blocks",
-                    "name": "Blocks",
-                    "type": "Array",
-                    "localized": false,
-                    "required": false,
-                    "disabled": false,
-                    "omitted": false,
-                    "items": {
-                        "type": "Link",
-                        "validations": [
-                            {
-                                "linkContentType": [
-                                    "contentBlock"
-                                ]
-                            }
-                        ],
-                        "linkType": "Entry"
-                    }
-                },
-                {
-                    "id": "styles",
-                    "name": "Styles",
-                    "type": "Array",
-                    "localized": false,
-                    "required": false,
-                    "disabled": false,
-                    "omitted": false,
-                    "items": {
-                        "type": "Link",
-                        "validations": [
-                            {
-                                "linkContentType": [
-                                    "style"
-                                ]
-                            }
-                        ],
-                        "linkType": "Entry"
-                    }
                 }
             ]
         },

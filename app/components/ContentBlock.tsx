@@ -43,7 +43,25 @@ function BlockRenderer({ block }: { block: any }) {
       const maxWidth: string = fields.maxWidth || "100%";
       const fixedHeight: string | undefined = fields.height || undefined;
       const objectPosition: string = fields.objectPosition || "center";
+      const fillContainer: boolean = fields.fillContainer === true;
       if (!imageUrl) return null;
+
+      if (fillContainer) {
+        return (
+          <div
+            className="relative overflow-hidden h-full"
+            style={mergeContentfulStyles(fields.styles)}
+          >
+            <Image
+              src={imageUrl}
+              alt={imageAlt}
+              fill
+              style={{ objectFit: "cover", objectPosition }}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            />
+          </div>
+        );
+      }
 
       if (fixedHeight) {
         return (
@@ -55,7 +73,7 @@ function BlockRenderer({ block }: { block: any }) {
               src={imageUrl}
               alt={imageAlt}
               fill
-              style={{ objectFit: "cover", objectPosition}}
+              style={{ objectFit: "cover", objectPosition }}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
@@ -77,6 +95,81 @@ function BlockRenderer({ block }: { block: any }) {
       );
     }
 
+    case "heading": {
+      const text: string = fields.text || "";
+      const level: string = fields.level || "h2";
+      const alignment: string = fields.alignment || "left";
+      const headingClassName: string = fields.className || "";
+      const size: string = fields.size || "";
+      const bold: boolean = fields.bold === true;
+      const underline: boolean = fields.underline === true;
+      const highlights: Array<{ match: string; className: string }> =
+        Array.isArray(fields.highlights) ? fields.highlights : [];
+
+      const SIZE_MAP: Record<string, string> = {
+        sm: "text-xl lg:text-2xl",
+        md: "text-2xl lg:text-3xl",
+        lg: "text-3xl lg:text-4xl",
+        xl: "text-4xl lg:text-5xl",
+        "2xl": "text-5xl lg:text-6xl",
+      };
+
+      const Tag = (["h1", "h2", "h3", "h4", "h5", "h6"].includes(level) ? level : "h2") as
+        "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+
+      const alignmentClass =
+        alignment === "center" ? "text-center" :
+        alignment === "right" ? "text-right" : "text-left";
+
+      const sizeClass = SIZE_MAP[size] || "";
+      const boldClass = bold ? "font-bold" : "";
+      const underlineClass = underline ? "underline" : "";
+
+      let content: React.ReactNode;
+      if (highlights.length > 0) {
+        const parts: React.ReactNode[] = [];
+        let remaining = text;
+        let keyIndex = 0;
+
+        while (remaining.length > 0) {
+          let earliestIndex = remaining.length;
+          let earliestHighlight: { match: string; className: string } | null = null;
+
+          for (const hl of highlights) {
+            const idx = remaining.indexOf(hl.match);
+            if (idx !== -1 && idx < earliestIndex) {
+              earliestIndex = idx;
+              earliestHighlight = hl;
+            }
+          }
+
+          if (!earliestHighlight) {
+            parts.push(remaining);
+            break;
+          }
+
+          if (earliestIndex > 0) {
+            parts.push(remaining.slice(0, earliestIndex));
+          }
+          parts.push(
+            <span key={keyIndex++} className={earliestHighlight.className}>
+              {earliestHighlight.match}
+            </span>
+          );
+          remaining = remaining.slice(earliestIndex + earliestHighlight.match.length);
+        }
+        content = parts;
+      } else {
+        content = text;
+      }
+
+      return (
+        <Tag className={`${alignmentClass} ${sizeClass} ${boldClass} ${underlineClass} ${headingClassName}`.trim()}>
+          {content}
+        </Tag>
+      );
+    }
+
     case "button":
       return (
         <button
@@ -93,9 +186,9 @@ function BlockRenderer({ block }: { block: any }) {
 }
 
 const ALIGN_MAP: Record<string, string> = {
-  top: "self-start",
-  center: "self-center",
-  bottom: "self-end",
+  top: "justify-start",
+  center: "justify-center",
+  bottom: "justify-end",
 };
 
 export default function ContentBlock({ entry }: ContentBlockProps) {
@@ -107,7 +200,7 @@ export default function ContentBlock({ entry }: ContentBlockProps) {
   if (!blocks.length) return null;
 
   return (
-    <div className={`flex flex-col gap-6 ${alignClass}`}>
+    <div className={`flex flex-col gap-6 h-full ${alignClass}`}>
       {blocks.map((block: any, index: number) => (
         <BlockRenderer key={block?.sys?.id || index} block={block} />
       ))}
