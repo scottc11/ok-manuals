@@ -23,6 +23,13 @@ export async function getProduct(slug: string, selectFields?: string[]) {
 export async function getProducts() {
   const entries = await contentfulClient.getEntries({
     content_type: 'product',
+    select: [
+      'fields.slug',
+      'fields.name',
+      'fields.thumbnail',
+      'fields.shortDescription',
+      'fields.subtitle',
+    ],
   });
   return entries.items;
 }

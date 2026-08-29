@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getProduct } from "../../../lib/contentful";
+import { getProduct, getProducts } from "../../../lib/contentful";
 import { notFound } from "next/navigation";
 import ProductDetail from "../../components/ProductDetail";
 import YouTubeVideo from "../../components/YouTubeVideo";
@@ -13,7 +13,8 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  return [{ slug: "counterpoint" }, { slug: "degree" }];
+  const products = await getProducts();
+  return products.map((product) => ({ slug: product.fields.slug }));
 }
 
 export async function generateMetadata({

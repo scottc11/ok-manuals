@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: "/", label: "Home", exact: true },
   { href: "/modules/counterpoint", label: "Counterpoint" },
   { href: "/modules/degree", label: "DEGREE" },
+  { href: "/modules/system-clock", label: "System Clock" },
   { href: "/news", label: "News" },
   { href: "/about", label: "About" },
 ] as const;
