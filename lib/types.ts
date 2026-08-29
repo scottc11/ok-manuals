@@ -13,4 +13,18 @@ export interface MessageBannerEntry {
   id: string;
   message: string;
   dismissible?: boolean;
-};
+}
+
+export interface PageFields {
+  title: string;
+  slug: string;
+  sections?: unknown[];
+  seoTitle?: string;
+  seoDescription?: string;
+  ogImage?: {
+    fields?: {
+      file?: { url?: string };
+      title?: string;
+    };
+  };
+}

@@ -1,8 +1,21 @@
 import type { MetadataRoute } from "next";
+import { getPages, getProducts } from "../lib/contentful";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://ok200.vercel.app";
+
+  const [cmsPages, products] = await Promise.all([getPages(), getProducts()]);
+
+  const productEntries = products
+    .map((product) => product.fields.slug)
+    .filter((slug): slug is string => typeof slug === "string" && slug.length > 0)
+    .map((slug) => ({
+      url: `${baseUrl}/modules/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
+    }));
 
   return [
     {
@@ -11,18 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1.0,
     },
-    {
-      url: `${baseUrl}/modules/counterpoint`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/modules/degree`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
+    ...productEntries,
     {
       url: `${baseUrl}/about`,
       lastModified: new Date(),
@@ -47,5 +49,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.5,
     },
+    ...cmsPages.map((page) => ({
+      url: `${baseUrl}/${page.slug}`,
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: 0.6,
+    })),
   ];
 }

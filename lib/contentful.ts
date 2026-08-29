@@ -1,5 +1,17 @@
 import { createClient } from 'contentful';
-import type { NavItem, MessageBannerEntry } from './types';
+import type { NavItem, MessageBannerEntry, PageFields } from './types';
+
+/** Static App Router folders that take precedence over `app/[slug]`. */
+const RESERVED_PAGE_SLUGS = new Set([
+  'about',
+  'api',
+  'cart',
+  'manuals',
+  'modules',
+  'news',
+  'success',
+  'unsubscribe',
+]);
 
 export const contentfulClient = createClient({
   space: process.env.CONTENTFUL_SPACE_ID!,
@@ -97,6 +109,44 @@ export async function getBlogPostDateSegments(): Promise<string[]> {
     )
     .filter((s): s is string => s != null);
   return [...new Set(segments)];
+}
+
+export async function getPage(slug: string): Promise<PageFields | null> {
+  if (!slug || RESERVED_PAGE_SLUGS.has(slug)) return null;
+
+  try {
+    const entries = await contentfulClient.getEntries({
+      content_type: 'page',
+      'fields.slug': slug,
+      include: 4,
+      limit: 1,
+    });
+    return (entries.items[0]?.fields as unknown as PageFields) ?? null;
+  } catch (error) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('getPage: unable to fetch page', error);
+    }
+    return null;
+  }
+}
+
+export async function getPages(): Promise<Array<{ slug: string }>> {
+  try {
+    const entries = await contentfulClient.getEntries({
+      content_type: 'page',
+      select: ['fields.slug'],
+    });
+    return entries.items
+      .map((item) => (item.fields as Record<string, unknown>).slug)
+      .filter((slug): slug is string => typeof slug === 'string' && slug.length > 0)
+      .filter((slug) => !RESERVED_PAGE_SLUGS.has(slug))
+      .map((slug) => ({ slug }));
+  } catch (error) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('getPages: unable to fetch pages', error);
+    }
+    return [];
+  }
 }
 
 export async function getMessageBanner(): Promise<MessageBannerEntry | null> {

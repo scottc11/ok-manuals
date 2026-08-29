@@ -33,6 +33,7 @@ app/news/page.tsx                 →  /news
 app/news/[date]/page.tsx          →  /news/2026-03-15, …
 app/manuals/counterpoint/page.tsx →  /manuals/counterpoint
 app/manuals/degree/page.tsx       →  /manuals/degree
+app/[slug]/page.tsx               →  /support, /press, … (Contentful `page` entries)
 ```
 
 `app/layout.tsx` wraps **every** page. It loads the site header, footer, optional message banner, and navigation, then renders the matched `page.tsx` as `{children}`. You do not put the header on each page individually.
@@ -59,9 +60,12 @@ These routes exist in `app/`, but **what they display** comes from Contentful at
 
 | Path | Contentful type | How the URL is chosen |
 |---|---|---|
+| `/[slug]` | `page` | Page `slug` field (e.g. `support` → `/support`) |
 | `/modules/[slug]` | `product` | Product `slug` field (e.g. `counterpoint`) |
 | `/news` | `blogPost` | Index of published posts |
 | `/news/[date]` | `blogPost` | Post `date` as `YYYY-MM-DD` (one post per day) |
+
+`app/[slug]/page.tsx` is the catch-all for generic CMS pages. Static folders (`about`, `cart`, `modules`, `news`, …) always win, so a Contentful entry with slug `about` will never replace the coded About page. Link to a CMS page from `siteNavigation` with `href: "/your-slug"`.
 
 `lib/contentful.ts` is the only place that talks to the Contentful API. Product pages pull nested content blocks (rich text, images, headings, YouTube) and render them through `ContentBlockContainer` / `ContentBlock`.
 
