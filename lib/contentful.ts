@@ -1,9 +1,20 @@
 import { createClient } from 'contentful';
+import type { NavItem, MessageBannerEntry } from './types';
 
 export const contentfulClient = createClient({
   space: process.env.CONTENTFUL_SPACE_ID!,
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
 });
+
+export async function getSiteNavigation(): Promise<NavItem[]> {
+  const entries = await contentfulClient.getEntries({
+    content_type: 'siteNavigation',
+    select: ['fields.navigation'],
+    limit: 1,
+  });
+  const nav = (entries.items[0]?.fields as Record<string, any>)?.navigation;
+  return Array.isArray(nav) ? (nav as NavItem[]) : [];
+}
 
 export async function getProduct(slug: string, selectFields?: string[]) {
   const params: Record<string, any> = {
@@ -86,12 +97,6 @@ export async function getBlogPostDateSegments(): Promise<string[]> {
     )
     .filter((s): s is string => s != null);
   return [...new Set(segments)];
-}
-
-export interface MessageBannerEntry {
-  id: string;
-  message: string;
-  dismissible?: boolean;
 }
 
 export async function getMessageBanner(): Promise<MessageBannerEntry | null> {

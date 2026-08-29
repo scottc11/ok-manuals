@@ -4,27 +4,29 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { IoCartOutline } from "react-icons/io5";
+import { IoCartOutline, IoChevronDown } from "react-icons/io5";
 import { useCart } from "./CartProvider";
+import type { NavItem } from "../../lib/types";
 
-const NAV_LINKS = [
-  { href: "/", label: "Home", exact: true },
-  { href: "/modules/counterpoint", label: "Counterpoint" },
-  { href: "/modules/degree", label: "DEGREE" },
-  { href: "/modules/system-clock", label: "System Clock" },
-  { href: "/news", label: "News" },
-  { href: "/about", label: "About" },
-] as const;
+interface HeaderProps {
+  links: NavItem[];
+}
 
-export default function Header() {
+export default function Header({ links }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { getItemCount } = useCart();
   const pathname = usePathname();
 
-  const isActive = (href: string, exact?: boolean) =>
-    exact ? pathname === href : pathname.startsWith(href);
+  const isActive = (href: string | undefined, exact?: boolean) => {
+    if (!href) return false;
+    return exact ? pathname === href : pathname.startsWith(href);
+  };
+
+  const isChildActive = (item: NavItem) =>
+    item.children?.some((child) => isActive(child.href, child.exact)) ?? false;
 
   const highlight = (active: boolean) =>
     active ? "text-lime" : "text-white hover:text-lime";
@@ -40,10 +42,16 @@ export default function Header() {
       ) {
         setIsMenuOpen(false);
       }
+      setOpenDropdown(null);
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMenuOpen]);
+
+  const closeAll = () => {
+    setIsMenuOpen(false);
+    setOpenDropdown(null);
+  };
 
   return (
     <div id="header" className="border-b border-b-gray-600">
@@ -110,20 +118,39 @@ export default function Header() {
               before:content-[''] before:absolute before:inset-0 before:rounded-2xl
               before:bg-gradient-to-b before:from-gray-700/20 before:to-gray-900/20 before:pointer-events-none`}
           >
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`relative z-10 ${highlight(isActive(link.href, "exact" in link ? link.exact : undefined))}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links.map((item) =>
+              item.children && item.children.length > 0 ? (
+                <NavDropdown
+                  key={item.label}
+                  item={item}
+                  isOpen={openDropdown === item.label}
+                  onToggle={() =>
+                    setOpenDropdown(
+                      openDropdown === item.label ? null : item.label,
+                    )
+                  }
+                  onNavigate={closeAll}
+                  isActive={isActive}
+                  isParentActive={
+                    isActive(item.href, item.exact) || isChildActive(item)
+                  }
+                  highlight={highlight}
+                />
+              ) : item.href ? (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`relative z-10 ${highlight(isActive(item.href, item.exact))}`}
+                  onClick={closeAll}
+                >
+                  {item.label}
+                </Link>
+              ) : null,
+            )}
             <Link
               href="/cart"
               className={`relative z-10 ${highlight(isActive("/cart", true))}`}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={closeAll}
               style={{ position: "relative" }}
             >
               <IoCartOutline className="text-lime" size={30} />
@@ -135,6 +162,92 @@ export default function Header() {
             </Link>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function NavDropdown({
+  item,
+  isOpen,
+  onToggle,
+  onNavigate,
+  isActive,
+  isParentActive,
+  highlight,
+}: {
+  item: NavItem;
+  isOpen: boolean;
+  onToggle: () => void;
+  onNavigate: () => void;
+  isActive: (href: string | undefined, exact?: boolean) => boolean;
+  isParentActive: boolean;
+  highlight: (active: boolean) => string;
+}) {
+  return (
+    <div className="relative z-10">
+      {/* Desktop: hover to reveal, click label to navigate */}
+      <div className="hidden md:block group/dropdown">
+        <button
+          type="button"
+          className={`flex items-center gap-1 ${highlight(isParentActive)}`}
+          onClick={(e) => {
+            if (item.href) {
+              onNavigate();
+              window.location.href = item.href;
+            } else {
+              e.preventDefault();
+              onToggle();
+            }
+          }}
+        >
+          {item.label}
+          <IoChevronDown size={14} className="opacity-50" />
+        </button>
+
+        <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 hidden group-hover/dropdown:block">
+          <div className="bg-gray-800/95 backdrop-blur-md border border-gray-300/50 rounded-xl py-2 min-w-[180px] shadow-lg">
+            {item.children!.map((child) => (
+              <Link
+                key={child.href}
+                href={child.href}
+                className={`block px-4 py-2 text-sm whitespace-nowrap ${highlight(isActive(child.href, child.exact))} hover:bg-white/10 transition-colors`}
+                onClick={onNavigate}
+              >
+                {child.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile: tap to expand/collapse */}
+      <div className="md:hidden flex flex-col items-center">
+        <button
+          type="button"
+          className={`flex items-center gap-1 ${highlight(isParentActive)}`}
+          onClick={onToggle}
+        >
+          {item.label}
+          <IoChevronDown
+            size={14}
+            className={`opacity-50 transition-transform ${isOpen ? "rotate-180" : ""}`}
+          />
+        </button>
+        {isOpen && (
+          <div className="flex flex-col items-center gap-3 mt-3">
+            {item.children!.map((child) => (
+              <Link
+                key={child.href}
+                href={child.href}
+                className={`text-sm ${highlight(isActive(child.href, child.exact))}`}
+                onClick={onNavigate}
+              >
+                {child.label}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

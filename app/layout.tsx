@@ -6,7 +6,7 @@ import { CartProvider } from "./components/CartProvider";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import MessageBanner from "./components/MessageBanner";
-import { getMessageBanner } from "../lib/contentful";
+import { getMessageBanner, getSiteNavigation } from "../lib/contentful";
 
 const quicksand = Quicksand({
   subsets: ["latin"],
@@ -59,7 +59,10 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const banner = await getMessageBanner();
+  const [banner, navLinks] = await Promise.all([
+    getMessageBanner(),
+    getSiteNavigation(),
+  ]);
 
   return (
     <html
@@ -75,7 +78,7 @@ export default async function RootLayout({
               dismissible={banner.dismissible}
             />
           )}
-          <Header />
+          <Header links={navLinks} />
           <main className="min-h-screen">{children}</main>
           <Footer />
         </CartProvider>
