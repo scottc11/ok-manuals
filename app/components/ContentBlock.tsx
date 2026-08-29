@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import type { Document } from "@contentful/rich-text-types";
 import RichTextRenderer from "./RichTextRenderer";

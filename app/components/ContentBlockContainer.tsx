@@ -1,6 +1,7 @@
 "use client";
 
 import ContentBlock from "./ContentBlock";
+import ContentfulWrapper from "./ContentfulWrapper";
 import { mergeContentfulStyles } from "../../lib/contentful-styles";
 
 interface ContentBlockContainerProps {
@@ -32,7 +33,13 @@ export default function ContentBlockContainer({ entry }: ContentBlockContainerPr
       <div className="container">
         <div className={`grid ${gridClass}`} style={{ gap: gapRem }}>
           {blocks.map((block: any, index: number) => (
-            <ContentBlock key={index} entry={block} />
+            <ContentfulWrapper
+              key={block?.sys?.id || index}
+              entry={block}
+              className="h-full"
+            >
+              <ContentBlock entry={block} />
+            </ContentfulWrapper>
           ))}
         </div>
       </div>
