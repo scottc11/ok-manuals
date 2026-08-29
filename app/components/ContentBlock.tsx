@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { Document } from "@contentful/rich-text-types";
 import RichTextRenderer from "./RichTextRenderer";
 import YouTubeVideo from "./YouTubeVideo";
@@ -168,15 +169,20 @@ function BlockRenderer({ block }: { block: any }) {
       );
     }
 
-    case "button":
+    case "button": {
+      const href: string = fields.link?.fields?.href || "";
+      const fullWidth: boolean = fields.fullWidth === true;
       return (
-        <button
-          type="button"
-          className="inline-block px-8 py-3 text-lg border-2 border-white text-white hover:bg-white hover:text-black rounded transition-colors duration-200"
+        <Link
+          href={href}
+          className={`inline-block px-8 py-3 text-lg border-2 border-white text-white hover:bg-white hover:text-black rounded transition-colors duration-200 ${
+            fullWidth ? "w-full text-center" : "w-fit self-start"
+          }`}
         >
           {fields.label || "Button"}
-        </button>
+        </Link>
       );
+    }
 
     default:
       return null;
