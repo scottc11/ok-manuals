@@ -13,6 +13,13 @@ function getContentTypeId(entry: any): string {
   return entry?.sys?.contentType?.sys?.id || "";
 }
 
+function toCssSize(value: unknown): string | undefined {
+  if (value == null || value === "") return undefined;
+  const str = String(value).trim();
+  if (!str) return undefined;
+  return /^\d+(\.\d+)?$/.test(str) ? `${str}px` : str;
+}
+
 function BlockRenderer({ block }: { block: any }) {
   const contentType = getContentTypeId(block);
   const fields = block?.fields ?? {};
@@ -40,22 +47,31 @@ function BlockRenderer({ block }: { block: any }) {
       const imageUrl = rawUrl.startsWith("//") ? `https:${rawUrl}` : rawUrl;
       const imageAlt: string = asset?.fields?.title || fields.label || "Image";
       const maxWidth: string = fields.maxWidth || "100%";
+      const maxHeight: string | undefined = toCssSize(fields.maxHeight);
       const fixedHeight: string | undefined = fields.height || undefined;
       const objectPosition: string = fields.objectPosition || "center";
       const fillContainer: boolean = fields.fillContainer === true;
       if (!imageUrl) return null;
 
+      const imageStyles = mergeContentfulStyles(fields.styles);
+      const containerStyles = mergeContentfulStyles(fields.containerStyles);
+      const intrinsicWidth: number = asset?.fields?.file?.details?.image?.width || 800;
+      const intrinsicHeight: number = asset?.fields?.file?.details?.image?.height || 600;
+
       if (fillContainer) {
         return (
           <div
-            className="relative overflow-hidden h-full"
-            style={mergeContentfulStyles(fields.styles)}
+            className="relative overflow-hidden w-full aspect-[var(--fill-aspect)] md:aspect-auto md:h-full"
+            style={{
+              "--fill-aspect": `${intrinsicWidth} / ${intrinsicHeight}`,
+              ...containerStyles,
+            } as React.CSSProperties}
           >
             <Image
               src={imageUrl}
               alt={imageAlt}
               fill
-              style={{ objectFit: "cover", objectPosition }}
+              style={{ objectFit: "cover", objectPosition, ...imageStyles }}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
@@ -66,29 +82,34 @@ function BlockRenderer({ block }: { block: any }) {
         return (
           <div
             className="relative overflow-hidden rounded-lg"
-            style={{ maxWidth, height: fixedHeight, ...mergeContentfulStyles(fields.styles) }}
+            style={{ maxWidth, height: fixedHeight, ...containerStyles }}
           >
             <Image
               src={imageUrl}
               alt={imageAlt}
               fill
-              style={{ objectFit: "cover", objectPosition }}
+              style={{ objectFit: "cover", objectPosition, ...imageStyles }}
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
         );
       }
-
-      const intrinsicWidth: number = asset?.fields?.file?.details?.image?.width || 800;
-      const intrinsicHeight: number = asset?.fields?.file?.details?.image?.height || 600;
       return (
-        <div style={{ maxWidth, ...mergeContentfulStyles(fields.styles) }}>
+        <div
+          className={maxHeight ? "flex justify-center" : undefined}
+          style={{ maxWidth, ...containerStyles }}
+        >
           <Image
             src={imageUrl}
             alt={imageAlt}
             width={intrinsicWidth}
             height={intrinsicHeight}
-            className="w-full h-auto rounded-lg"
+            className={
+              maxHeight
+                ? "max-w-full h-auto w-auto object-contain"
+                : "w-full h-auto"
+            }
+            style={{ maxHeight, ...imageStyles }}
           />
         </div>
       );

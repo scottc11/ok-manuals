@@ -204,6 +204,15 @@
                     "omitted": false
                 },
                 {
+                    "id": "maxHeight",
+                    "name": "Max Height",
+                    "type": "Symbol",
+                    "localized": false,
+                    "required": false,
+                    "disabled": false,
+                    "omitted": false
+                },
+                {
                     "id": "height",
                     "name": "Height",
                     "type": "Symbol",
