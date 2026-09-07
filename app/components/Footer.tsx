@@ -10,9 +10,9 @@ export default function Footer() {
             <Image
               src="/images/logo-white.svg"
               alt="ok200-logo"
-              width={120}
-              height={48}
-              className="max-h-12 w-auto"
+              width={322}
+              height={170}
+              className="max-h-12 h-auto w-auto"
             />
           </div>
 
