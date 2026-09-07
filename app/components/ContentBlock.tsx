@@ -195,16 +195,22 @@ const ALIGN_MAP: Record<string, string> = {
   bottom: "justify-end",
 };
 
+const HORIZONTAL_ALIGN_MAP: Record<string, string> = {
+  left: "items-start",
+  center: "items-center",
+  right: "items-end",
+};
+
 export default function ContentBlock({ entry }: ContentBlockProps) {
   const fields = entry?.fields ?? {};
   const blocks: any[] = fields.blocks ?? [];
   const verticalAlign: string = fields.verticalAlign || "top";
   const alignClass = ALIGN_MAP[verticalAlign] || "";
-
+  const horizontalAlignClass = HORIZONTAL_ALIGN_MAP[fields.horizontalAlign] || "";
   if (!blocks.length) return null;
 
   return (
-    <div className={`flex flex-col gap-6 h-full ${alignClass}`}>
+    <div className={`flex flex-col gap-6 h-full ${alignClass} ${horizontalAlignClass}`}>
       {blocks.map((block: any, index: number) => (
         <BlockRenderer key={block?.sys?.id || index} block={block} />
       ))}
