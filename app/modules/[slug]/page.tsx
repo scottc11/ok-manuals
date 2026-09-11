@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import ProductDetail from "../../components/ProductDetail";
 import YouTubeVideo from "../../components/YouTubeVideo";
 import ContentSection from "../../components/ContentSection";
-import ContentBlockContainer from "../../components/ContentBlockContainer";
+import SectionRenderer from "../../components/SectionRenderer";
 import { FaBook } from "react-icons/fa";
 
 interface PageProps {
@@ -80,7 +80,7 @@ export default async function ProductViewPage({ params }: PageProps) {
       </ContentSection>
 
       {sections && sections.length > 0 && sections.map((section: any, index: number) => (
-        <ContentBlockContainer entry={section} key={index} />
+        <SectionRenderer entry={section} key={section?.sys?.id ?? index} />
       ))}
 
       {manualUrl && (

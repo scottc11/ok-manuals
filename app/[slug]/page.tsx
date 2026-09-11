@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPage, getPages } from "../../lib/contentful";
-import ContentBlockContainer from "../components/ContentBlockContainer";
+import SectionRenderer from "../components/SectionRenderer";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -48,10 +48,7 @@ export default async function CmsPage({ params }: PageProps) {
   return (
     <>
       {sections?.map((section, index) => (
-        <ContentBlockContainer
-          entry={section}
-          key={section?.sys?.id ?? index}
-        />
+        <SectionRenderer entry={section} key={section?.sys?.id ?? index} />
       ))}
     </>
   );
