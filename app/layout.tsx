@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bungee, Quicksand, Inconsolata, Unica_One } from "next/font/google";
+import { Bungee, Quicksand, Inconsolata, Unica_One, Quantico } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { CartProvider } from "./components/CartProvider";
@@ -30,6 +30,12 @@ const unicaOne = Unica_One({
   subsets: ["latin"],
   variable: "--font-unica",
   weight: "400",
+});
+
+const quantico = Quantico({
+  subsets: ["latin"],
+  variable: "--font-quantico",
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -67,7 +73,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${quicksand.variable} ${inconsolata.variable} ${bungee.variable} ${unicaOne.variable}`}
+      className={`${quicksand.variable} ${inconsolata.variable} ${bungee.variable} ${unicaOne.variable} ${quantico.variable}`}
     >
       <body className="bg-onyx text-white min-h-screen">
         <CartProvider>

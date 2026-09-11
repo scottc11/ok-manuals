@@ -39,6 +39,7 @@ module.exports = {
                 mono: ['Inconsolata'],
                 unica: ['"Unica One"'],
                 bungee: ['Bungee'],
+                quantico: ['var(--font-quantico)', 'sans-serif'],
                 sans: ['Helvetica'], // default ( Preflight sets the font family on the html element to match your configured sans font )
             },
             fontSize: {

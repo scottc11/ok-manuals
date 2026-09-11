@@ -20,6 +20,7 @@ lg:text-2xl lg:text-3xl lg:text-4xl lg:text-5xl lg:text-6xl lg:text-7xl lg:text-
 
 <!-- font/tracking/leading -->
 font-bold font-semibold font-extrabold font-light
+font-quantico
 underline
 tracking-tight tracking-wide tracking-wider
 leading-tight leading-snug leading-relaxed leading-loose
