@@ -6,10 +6,12 @@ import type { Options } from "@contentful/rich-text-html-renderer";
 import { BLOCKS, INLINES, type Document } from "@contentful/rich-text-types";
 import { createRoot, type Root } from "react-dom/client";
 import YouTubeVideo from "./YouTubeVideo";
+import { mergeContentfulStyles, mergeStyleTailwindClasses } from "../../lib/contentful-styles";
+import type { CSSStyle } from "../../lib/types";
 
 interface RichTextRendererProps {
   document: Document | null | undefined;
-  className?: string;
+  styles?: CSSStyle[];
 }
 
 function extractYouTubeId(url: string): string | null {
@@ -93,7 +95,7 @@ const richTextOptions: Options = {
 
 export default function RichTextRenderer({
   document,
-  className,
+  styles,
 }: RichTextRendererProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mountedRootsRef = useRef<Root[]>([]);
@@ -144,7 +146,7 @@ export default function RichTextRenderer({
     "[&_ul]:list-outside [&_ul]:list-disc [&_ul]:pl-6",
     "[&_ol]:list-outside [&_ol]:list-decimal [&_ol]:pl-6",
     "[&_li>p]:pt-0 [&_li>p]:pb-0 [&_li>p]:my-0",
-    className || "",
+    mergeStyleTailwindClasses(styles),
   ]
     .join(" ")
     .trim()
@@ -155,6 +157,7 @@ export default function RichTextRenderer({
       ref={containerRef}
       className={wrapperClasses}
       dangerouslySetInnerHTML={{ __html: contentHtml }}
+      style={mergeContentfulStyles(styles)}
     />
   );
 }

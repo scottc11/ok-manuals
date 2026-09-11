@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import type { CSSStyle } from "./types";
 
 /**
  * Merges an array of Contentful "style" entries into a single React
@@ -20,4 +21,10 @@ export function mergeContentfulStyles(
     }
     return merged;
   }, {});
+}
+
+export function mergeStyleTailwindClasses(styleEntries: CSSStyle[] | undefined | null): string {
+  if (!styleEntries?.length) return "";
+
+  return styleEntries.map((entry) => entry?.fields?.tailwindClasses).join(" ");
 }

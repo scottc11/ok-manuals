@@ -28,3 +28,11 @@ export interface PageFields {
     };
   };
 }
+
+export interface CSSStyle {
+  fields: {
+    description?: string;
+    tailwindClasses?: string;
+    css?: Record<string, string>;
+  };
+}

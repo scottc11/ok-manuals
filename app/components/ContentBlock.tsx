@@ -4,6 +4,7 @@ import type { Document } from "@contentful/rich-text-types";
 import RichTextRenderer from "./RichTextRenderer";
 import YouTubeVideo from "./YouTubeVideo";
 import { mergeContentfulStyles } from "../../lib/contentful-styles";
+import type { CSSStyle } from "../../lib/types";
 
 interface ContentBlockProps {
   entry: any;
@@ -29,7 +30,7 @@ function BlockRenderer({ block }: { block: any }) {
       return (
         <RichTextRenderer
           document={fields.content as Document}
-          className="text-gray-300"
+          styles={fields.styles as CSSStyle[]}
         />
       );
 
