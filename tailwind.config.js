@@ -54,7 +54,7 @@ module.exports = {
                 },
             },
             animation: {
-                marquee: 'marquee 20s linear infinite',
+                marquee: 'marquee 50s linear infinite',
             },
         },
     },
