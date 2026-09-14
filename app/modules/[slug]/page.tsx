@@ -100,32 +100,44 @@ export default async function ProductViewPage({ params }: PageProps) {
       )}
 
       {specifications && specifications.length > 0 && (
-        <ContentSection>
-          <div className="border-2 border-gray-800 bg-gray-950 p-8 rounded-sm">
-            <div className="font-bungee bg-onyx/10 -mx-2 px-2 mt-12 mb-2 rounded-sm">
-              <h3 className="text-xl py-2">Specifications</h3>
+        <section className="border-t border-white/5 py-12 px-6 md:py-24 md:px-12">
+          <div className="max-w-7xl mx-auto grid gap-10 lg:grid-cols-2 lg:gap-20 items-start">
+            <div>
+              <p className="text-[10px] tracking-[0.3em] uppercase text-gold mb-4 flex items-center gap-3">
+                <span className="inline-block w-8 h-px bg-gold" />
+                Technical Specs
+              </p>
+              <h2 className="font-quantico text-[clamp(2rem,4vw,3rem)] leading-tight text-offwhite mb-4">
+                For those who want to know.
+              </h2>
+              {product.shortDescription && (
+                <p className="text-offwhite/30 text-sm leading-relaxed max-w-sm">
+                  {String(product.shortDescription)}
+                </p>
+              )}
             </div>
-            <table className="w-full my-4 border-collapse">
-              <thead>
-                <tr className="border-b-2 border-offwhite/20">
-                  <th className="text-left w-32">Label</th>
-                  <th className="text-left">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {specifications.map((spec) => (
-                  <tr
-                    key={spec.label}
-                    className="border-b-2 border-offwhite/20 border-dotted"
-                  >
-                    <td className="font-bold pr-4">{spec.label}</td>
-                    <td>{spec.value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+
+            <div className="border border-white/5">
+              {specifications.map((spec, i) => (
+                <div
+                  key={spec.label}
+                  className={`flex items-start justify-between px-6 py-4 ${
+                    i < specifications.length - 1
+                      ? "border-b border-white/5"
+                      : ""
+                  } hover:bg-white/5 transition-colors`}
+                >
+                  <span className="text-[11px] tracking-[0.12em] uppercase text-offwhite/25">
+                    {spec.label}
+                  </span>
+                  <span className="text-[13px] text-offwhite text-right max-w-[60%] font-quantico font-bold">
+                    {spec.value}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
-        </ContentSection>
+        </section>
       )}
 
       {videos && videos.length > 0 && (
