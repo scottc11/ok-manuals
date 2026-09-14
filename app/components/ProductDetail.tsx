@@ -66,12 +66,18 @@ export default function ProductDetail({
         </div>
 
         <div className="lg:w-1/2">
-          <h1 className="text-4xl font-bungee font-bold text-white mb-4">
+
+          <p className="text-[10px] tracking-[0.3em] uppercase text-gold mb-4 flex items-center gap-3">
+            <span className="inline-block w-8 h-px bg-gold" />
+            OK200 Instruments
+          </p>
+
+          <h1 className="text-4xl font-quantico font-bold text-white mb-4">
             {String(product.name ?? "")}
           </h1>
 
           {product.subtitle && (
-            <h2 className="text-gray-300 text-2xl font-mono font-bold mb-6 leading-relaxed">
+            <h2 className="text-gray-400 text-2xl font-quantico font-bold mb-6 leading-relaxed">
               {String(product.subtitle)}
             </h2>
           )}
@@ -101,7 +107,7 @@ export default function ProductDetail({
           )}
 
           {product.shortDescription && (
-            <p className="text-white text-lg mb-6 font-mono leading-relaxed">
+            <p className="text-gray-200 text-lg mb-6 leading-relaxed">
               {String(product.shortDescription)}
             </p>
           )}
