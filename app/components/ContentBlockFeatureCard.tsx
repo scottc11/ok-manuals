@@ -2,9 +2,18 @@
 
 import type { IconType } from "react-icons";
 import { FaUsb, FaWaveSquare } from "react-icons/fa";
+import { IconArpeggiator } from "./icons/IconArpeggiator";
+import { IconControl } from "./icons/IconControl";
 import { IconDIN } from "./icons/IconDIN";
+import { IconLive } from "./icons/IconLive";
 import { IconMIDI } from "./icons/IconMIDI";
+import { IconNote } from "./icons/IconNote";
+import { IconRecord } from "./icons/IconRecord";
+import { IconScales } from "./icons/IconScales";
+import { IconSequencing } from "./icons/IconSequencing";
 import { IconTRS } from "./icons/IconTRS";
+import { IconTuner } from "./icons/IconTuner";
+import { IconTuningFork } from "./icons/IconTuningFork";
 import { PiWaveSquare } from "react-icons/pi";
 import { CiGrid32 } from "react-icons/ci";
 import {
@@ -39,6 +48,15 @@ const ICON_MAP: Record<string, IconType> = {
   midi: IconMIDI,
   squareWave: PiWaveSquare,
   grid: CiGrid32,
+  record: IconRecord,
+  control: IconControl,
+  arpeggiator: IconArpeggiator,
+  tuningFork: IconTuningFork,
+  tuner: IconTuner,
+  live: IconLive,
+  sequencing: IconSequencing,
+  note: IconNote,
+  scales: IconScales,
 };
 
 interface ContentBlockFeatureCardProps {
